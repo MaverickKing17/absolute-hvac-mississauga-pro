@@ -431,7 +431,7 @@ const Services: React.FC = () => {
         </div>
       </section>
 
-      {/* AC Section - UPDATED WITH RELATABLE ASSET */}
+      {/* AC Section - UPDATED WITH RELATABLE ASSET MATCHING SCREENSHOT LAYOUT */}
       <section className="py-24 bg-slate-50 border-y border-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row-reverse items-center gap-16">
           <div className="flex-1 space-y-8">
@@ -458,9 +458,10 @@ const Services: React.FC = () => {
           <div className="flex-1 relative">
             <div className="absolute -inset-4 bg-trust-blue/5 rounded-[3rem] -z-10"></div>
             <div className="rounded-[2.5rem] overflow-hidden shadow-2xl border-4 border-white group bg-slate-100">
+              {/* Updated with highly relatable, modern AC unit photo to replace unrelated placeholder */}
               <img 
-                src="https://images.unsplash.com/photo-1563453392-747200888997?auto=format&fit=crop&q=80&w=1000&h=800" 
-                alt="Professional Central Air Conditioning Condenser Unit" 
+                src="https://images.unsplash.com/photo-1560706834-5390919f5a7d?auto=format&fit=crop&q=80&w=1000&h=800" 
+                alt="High-Efficiency Residential Air Conditioning Condenser Unit" 
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" 
               />
             </div>
