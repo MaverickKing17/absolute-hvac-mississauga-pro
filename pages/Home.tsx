@@ -3,159 +3,128 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import AIReviewCarousel from '../components/AIReviewCarousel';
 
-const Home: React.FC = () => {
+const BrandCarousel = () => {
+  const brands = [
+    { name: "Trane", url: "https://v5.air-conditioner-repair-mississauga.ca/wp-content/uploads/2024/04/trane-logo.webp" },
+    { name: "Lennox", url: "https://v5.air-conditioner-repair-mississauga.ca/wp-content/uploads/2024/04/lennox-logo.webp" },
+    { name: "Carrier", url: "https://v5.air-conditioner-repair-mississauga.ca/wp-content/uploads/2024/04/carrier-logo.webp" },
+    { name: "Rheem", url: "https://v5.air-conditioner-repair-mississauga.ca/wp-content/uploads/2024/04/rheem-logo.webp" },
+    { name: "Ruud", url: "https://v5.air-conditioner-repair-mississauga.ca/wp-content/uploads/2024/04/ruud-logo.webp" },
+    { name: "Bryant", url: "https://v5.air-conditioner-repair-mississauga.ca/wp-content/uploads/2024/04/bryant-logo.webp" },
+    { name: "Goodman", url: "https://v5.air-conditioner-repair-mississauga.ca/wp-content/uploads/2024/04/goodman-logo.webp" },
+    { name: "Navien", url: "https://v5.air-conditioner-repair-mississauga.ca/wp-content/uploads/2024/04/navien-logo.webp" },
+    { name: "IFLOW", url: "https://v5.air-conditioner-repair-mississauga.ca/wp-content/uploads/2024/04/iflow-logo.webp" }
+  ];
+
   return (
-    <div className="flex flex-col">
-      {/* Hero Section - Optimized for Crystal Clarity & Visual Appeal */}
-      <section className="relative bg-white overflow-hidden min-h-[700px] flex items-center">
-        {/* Background Image Layer */}
+    <div className="w-full bg-white py-12 border-y border-slate-100 overflow-hidden relative group">
+      <div className="flex animate-[shimmer_30s_linear_infinite] whitespace-nowrap gap-16 items-center">
+        {[...brands, ...brands].map((brand, i) => (
+          <img 
+            key={i} 
+            src={brand.url} 
+            alt={brand.name} 
+            className="h-12 md:h-16 w-auto grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all duration-500 filter contrast-125"
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
+
+const Home: React.FC = () => {
+  const expertHelpServices = [
+    { title: "Furnace", desc: "Precision gas & electric heating diagnostics.", icon: "🔥" },
+    { title: "Air Conditioner", desc: "High-SEER2 cooling system optimization.", icon: "❄️" },
+    { title: "Air Quality", desc: "Advanced HEPA & UV purification nodes.", icon: "🌬️" },
+    { title: "Tankless Water", desc: "Continuous flow thermal engineering.", icon: "🚿" },
+    { title: "Boiler", desc: "Hydronic loop recovery & efficiency.", icon: "♨️" },
+    { title: "Humidifier", desc: "Active moisture control protocols.", icon: "💧" },
+    { title: "Thermostat", desc: "Smart logic interface calibration.", icon: "📱" },
+    { title: "UV Light", desc: "Molecular sterilization modules.", icon: "✨" },
+    { title: "Air Handlers", desc: "Mass-flow air distribution tuning.", icon: "🌀" },
+    { title: "Heat Pump", desc: "Hybrid dual-fuel extraction units.", icon: "⚡" },
+    { title: "Water Filter", desc: "Total dissolved solids filtration.", icon: "🚰" },
+    { title: "Softener", desc: "Ion-exchange mineral reduction.", icon: "💎" }
+  ];
+
+  return (
+    <div className="flex flex-col bg-white overflow-hidden">
+      {/* Hero Section */}
+      <section className="relative bg-white overflow-hidden min-h-[700px] md:min-h-[850px] flex items-center">
         <div className="absolute inset-0">
           <img 
             src="https://i.ibb.co/LhqfYfRQ/wan2-5-t2i-preview-b-Replace-the-current.png" 
-            alt="Absolute Heating and Cooling Professional HVAC Engineering" 
-            className="w-full h-full object-cover object-center"
+            alt="Absolute HVAC Engineering" 
+            className="w-full h-full object-cover object-center scale-105"
           />
-          {/* Refined Gradient Overlay for Brightness & Readability */}
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-950/70 via-slate-900/30 to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-950/80 via-slate-900/40 to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
         </div>
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32 flex flex-col items-start text-left">
-          {/* Promotion Badge */}
-          <div className="inline-block bg-white/10 backdrop-blur-md border border-white/20 text-white px-4 py-1.5 rounded-full text-[10px] md:text-xs font-black uppercase tracking-[0.2em] mb-6 shadow-xl">
-            Limited Time Ontario Rebates
+        <div className="relative max-w-7xl mx-auto px-6 py-24 md:py-32 flex flex-col items-start text-left w-full">
+          <div className="inline-flex items-center gap-3 bg-white/10 backdrop-blur-xl border border-white/20 text-white px-5 py-2.5 rounded-full text-[10px] md:text-xs font-black uppercase tracking-[0.3em] mb-10 shadow-2xl">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-green-400"></span>
+            </span>
+            Available Ontario Rebates Active
           </div>
 
-          {/* Headline with Enhanced Depth */}
-          <h1 className="text-4xl md:text-7xl font-extrabold text-white leading-[1.1] max-w-4xl mb-6 uppercase tracking-tighter drop-shadow-2xl">
-            Get Up To <span className="text-emergency-orange">$7,100 Back</span> <br className="hidden md:block"/>
-            On New Heat Pumps
+          <h1 className="text-5xl md:text-9xl font-black text-white leading-[0.85] max-w-5xl mb-10 uppercase tracking-tighter drop-shadow-2xl">
+            BREATHE <span className="text-emergency-orange italic">PRECISION.</span><br/>
+            <span className="text-4xl md:text-6xl block mt-4">ENGINEERING COMFORT.</span>
           </h1>
 
-          {/* Subtext with High Contrast */}
-          <p className="text-lg md:text-xl text-slate-100 max-w-2xl mb-12 leading-relaxed font-medium drop-shadow-lg">
-            AI-Optimized HVAC Installation & Repairs in Mississauga. Trust the data-driven experts with a 4.9-star reputation and 15+ years of excellence.
+          <p className="text-xl md:text-2xl text-slate-200 max-w-2xl mb-14 leading-relaxed font-medium drop-shadow-lg">
+            Absolute Heating & Cooling: Mississauga's 4.9-Star HVAC authority. Advanced thermal solutions and Enbridge HER+ rebate extraction.
           </p>
 
-          {/* High-Conversion Buttons */}
-          <div className="flex flex-col sm:flex-row gap-5 w-full sm:w-auto">
+          <div className="flex flex-wrap gap-6 w-full sm:w-auto">
             <Link 
               to="/rebates" 
-              className="emergency-orange text-white px-12 py-6 rounded-xl font-black text-center text-lg hover:scale-[1.03] active:scale-[0.98] transition-all shadow-[0_20px_50px_rgba(234,88,12,0.4)] uppercase tracking-tighter"
+              className="emergency-orange text-white px-14 py-7 rounded-[2.5rem] font-black text-center text-2xl hover:scale-[1.05] transition-all shadow-[0_25px_60px_rgba(234,88,12,0.5)] uppercase tracking-tighter"
             >
-              Check Rebate Eligibility
+              Get $7,100 Rebate
             </Link>
             <Link 
               to="/contact" 
-              className="bg-white text-trust-blue px-12 py-6 rounded-xl font-black text-center text-lg hover:bg-slate-50 hover:scale-[1.03] active:scale-[0.98] transition-all shadow-2xl uppercase tracking-tighter border border-slate-100"
+              className="bg-white/10 backdrop-blur-2xl border border-white/20 text-white px-14 py-7 rounded-[2.5rem] font-black text-center text-2xl hover:bg-white hover:text-trust-blue transition-all shadow-2xl uppercase tracking-tighter"
             >
-              Request Free Estimate
+              Request Quote
             </Link>
           </div>
-          
-          {/* Trust Assets Layer - Bottom of Hero */}
-          <div className="mt-16 flex flex-wrap items-center gap-8">
-            {/* Rating Badge */}
-            <div className="flex flex-col">
-              <div className="flex text-yellow-400 text-2xl mb-1 drop-shadow-md">
-                ★★★★★
-              </div>
-              <div className="flex items-baseline gap-2">
-                <p className="text-white font-black text-2xl leading-none drop-shadow-md">4.9/5 Rating</p>
-                <div className="flex items-center gap-1.5 bg-green-500/30 backdrop-blur-md px-2.5 py-1 rounded-full border border-green-500/40">
-                   <div className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></div>
-                   <span className="text-[9px] text-green-100 font-black uppercase tracking-widest">Live Sync</span>
-                </div>
-              </div>
-              <p className="text-slate-300 text-[10px] font-bold uppercase mt-2 tracking-wider drop-shadow-sm">Extracted from 500+ Local Sources</p>
-            </div>
-            
-            <div className="hidden md:block h-16 w-px bg-white/20"></div>
-            
-            {/* Compliance Badge */}
-            <div className="bg-white/10 backdrop-blur-xl p-5 rounded-2xl border border-white/20 relative overflow-hidden group shadow-2xl">
-              <div className="absolute top-0 left-0 w-full h-0.5 bg-blue-400 ai-scan-line"></div>
-              <div className="flex items-center gap-4">
-                <div className="bg-blue-500/40 p-2.5 rounded-xl border border-white/20 shadow-inner">
-                  <svg className="w-7 h-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                  </svg>
-                </div>
-                <div>
-                  <p className="text-[10px] uppercase text-blue-200 font-black tracking-[0.2em] leading-none mb-1">TSSA Certified</p>
-                  <p className="text-white text-base font-black uppercase italic tracking-tight">Full Compliance Audit</p>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </section>
 
-      {/* Neural Sentiment Review Section */}
-      <section className="py-24 bg-white overflow-hidden relative">
-        <div className="absolute top-0 right-0 w-1/3 h-full bg-slate-50/50 -skew-x-12 translate-x-1/2"></div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-4">
-            <div className="max-w-xl text-left">
-              <div className="flex items-center gap-2 mb-4">
-                <div className="w-10 h-[2px] bg-emergency-orange"></div>
-                <span className="text-emergency-orange text-xs font-black uppercase tracking-[0.3em]">Neural Insight Analysis</span>
-              </div>
-              <h2 className="text-3xl md:text-5xl font-extrabold text-trust-blue mb-4 uppercase tracking-tighter leading-none">
-                Customer Sentiment <br/><span className="text-slate-400">Database Extraction</span>
-              </h2>
-              <p className="text-slate-500 text-sm font-bold uppercase tracking-widest bg-slate-100 inline-block px-3 py-1 rounded">
-                Verified from 500+ Mississauga Homeowner Reviews
-              </p>
-            </div>
-            <div className="flex flex-col items-end">
-              <div className="text-3xl font-black text-trust-blue bg-blue-50 px-6 py-3 rounded-2xl border-2 border-blue-100 shadow-sm flex items-center gap-3">
-                <span className="text-xs font-bold text-slate-400 uppercase tracking-widest leading-none">ML Aggregate Score:</span>
-                9.8/10
-              </div>
-              <p className="text-[10px] text-slate-400 font-bold mt-2 uppercase">Reliability Index: High Confidence</p>
-            </div>
-          </div>
-          
-          <AIReviewCarousel />
+      {/* Trust & Brands Section */}
+      <section className="py-12 bg-white">
+        <div className="max-w-7xl mx-auto px-6 text-center">
+          <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.5em] mb-8">Authorized Tier-1 Brand Deployment</p>
+          <BrandCarousel />
         </div>
       </section>
 
-      {/* Feature Cards */}
-      <section className="py-20 bg-slate-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              { 
-                title: "24/7 Response", 
-                desc: "Furnace or AC failure? Our dispatch system uses smart routing to reach Mississauga residents in record time.", 
-                link: "/services", 
-                color: "border-trust-blue",
-                icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-              },
-              { 
-                title: "Grant Experts", 
-                desc: "We specialize in data-matching homeowners with the maximum available heat pump rebates up to $7,100.", 
-                link: "/rebates", 
-                color: "border-emergency-orange",
-                icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-              },
-              { 
-                title: "Precision Tests", 
-                desc: "TSSA Certified technicians using the latest digital testing equipment to ensure zero-fault performance.", 
-                link: "/about", 
-                color: "border-trust-blue",
-                icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
-              }
-            ].map((card, i) => (
-              <div key={i} className={`bg-white p-8 rounded-xl shadow-lg hover:-translate-y-2 transition-all duration-300 border-b-4 ${card.color}`}>
-                <div className="text-trust-blue mb-6">
-                  <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">{card.icon}</svg>
-                </div>
-                <h3 className="text-xl font-bold mb-3 uppercase tracking-tighter">{card.title}</h3>
-                <p className="text-slate-600 mb-6 font-medium leading-relaxed">{card.desc}</p>
-                <Link to={card.link} className="text-trust-blue font-bold hover:text-emergency-orange transition flex items-center gap-2">
-                  Learn More 
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" strokeWidth="2"/></svg>
+      {/* Expert Help Grid - Superior Version of "Get Expert Help" */}
+      <section className="py-24 md:py-32 bg-slate-50 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-1/2 h-full bg-trust-blue/[0.02] -skew-x-12 translate-x-1/2"></div>
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
+          <div className="text-center mb-20">
+            <span className="text-emergency-orange font-black uppercase tracking-[0.4em] text-xs mb-4 block">Mechanical Domain Expertise</span>
+            <h2 className="text-4xl md:text-8xl font-black text-trust-blue uppercase tracking-tighter leading-none mb-8">
+              Expert <span className="text-slate-400 italic">Protocols.</span>
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8">
+            {expertHelpServices.map((service, i) => (
+              <div key={i} className="group bg-white p-8 md:p-10 rounded-[2.5rem] border border-slate-100 shadow-sm hover:shadow-[0_40px_80px_-20px_rgba(30,58,138,0.15)] hover:-translate-y-2 transition-all duration-500 relative overflow-hidden">
+                <div className="absolute top-0 left-0 w-full h-[3px] bg-emergency-orange scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+                <div className="text-4xl mb-6 transform transition-transform group-hover:scale-125 group-hover:rotate-12 duration-500">{service.icon}</div>
+                <h3 className="text-xl md:text-2xl font-black text-trust-blue mb-3 uppercase tracking-tighter group-hover:text-emergency-orange transition-colors">{service.title}</h3>
+                <p className="text-slate-500 text-sm font-medium leading-relaxed mb-8 opacity-0 group-hover:opacity-100 transition-opacity translate-y-2 group-hover:translate-y-0 duration-500">{service.desc}</p>
+                <Link to="/services" className="text-[10px] font-black text-slate-400 uppercase tracking-widest group-hover:text-trust-blue flex items-center gap-2 transition-colors">
+                  Initialize Audit <svg className="w-3 h-3 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" strokeWidth="3"/></svg>
                 </Link>
               </div>
             ))}
@@ -163,17 +132,93 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* Final CTA */}
-      <section className="py-20 trust-blue">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-5xl font-black text-white mb-8 uppercase tracking-tighter leading-none">Upgrade Your Home Efficiency</h2>
-          <p className="text-blue-100 text-lg mb-10 font-medium leading-relaxed">Get a free, AI-supported assessment of your HVAC load requirements and discover your precise savings with a new high-efficiency heat pump.</p>
-          <div className="flex flex-col sm:flex-row justify-center gap-6">
-            <a href="tel:6477465959" className="emergency-orange text-white px-8 py-4 rounded-lg font-black text-xl hover:scale-105 transition shadow-2xl inline-flex items-center gap-2 justify-center">
-              Call (647) 746-5959
+      {/* Why Choose Us - Enhanced Performance Icons */}
+      <section className="py-24 md:py-32 bg-white">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="flex flex-col lg:flex-row items-center gap-20">
+            <div className="lg:w-1/2 space-y-10">
+              <div className="space-y-4">
+                <span className="text-emergency-orange font-black uppercase tracking-[0.4em] text-xs block">Operational Advantage</span>
+                <h2 className="text-4xl md:text-8xl font-black text-trust-blue uppercase tracking-tighter leading-none">Why <br/><span className="text-slate-400">Absolute?</span></h2>
+              </div>
+              <p className="text-slate-600 text-xl leading-relaxed font-medium">
+                In an industry flooded with general contractors, Absolute Engineering stands apart through technological precision and licensed accountability.
+              </p>
+              
+              <div className="space-y-8">
+                {[
+                  { title: "Upfront Transparent Pricing", desc: "Digital quotes with zero-variance guarantee. We eliminate 'hidden fee' logic.", icon: <path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/> },
+                  { title: "Anytime Emergency Response", desc: "24/7 priority routing for Mississauga residents. Response times < 90 minutes.", icon: <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/> },
+                  { title: "Licensed Technical Engineers", desc: "TSSA & HRAI certified field agents. Every install is a masterpiece of precision.", icon: <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/> }
+                ].map((item, i) => (
+                  <div key={i} className="flex gap-8 group">
+                    <div className="w-16 h-16 shrink-0 bg-slate-50 text-trust-blue rounded-[1.5rem] flex items-center justify-center group-hover:bg-trust-blue group-hover:text-white transition-all duration-500 shadow-sm group-hover:shadow-xl">
+                      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">{item.icon}</svg>
+                    </div>
+                    <div>
+                      <h4 className="text-2xl font-black text-trust-blue uppercase tracking-tighter mb-2">{item.title}</h4>
+                      <p className="text-slate-500 font-medium leading-relaxed">{item.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            
+            <div className="lg:w-1/2 relative group">
+              <div className="rounded-[4rem] overflow-hidden shadow-[0_50px_100px_rgba(0,0,0,0.15)] relative bg-slate-900 border-[12px] border-white aspect-[4/5]">
+                <img 
+                  src="https://images.unsplash.com/photo-1517646287270-a5a9ca602e5c?auto=format&fit=crop&q=80&w=1200" 
+                  className="w-full h-full object-cover grayscale brightness-90 group-hover:grayscale-0 group-hover:brightness-100 transition-all duration-[2000ms] group-hover:scale-105" 
+                  alt="Engineering Excellence" 
+                />
+                <div className="absolute bottom-10 left-10 right-10 p-8 bg-white/10 backdrop-blur-2xl rounded-[2.5rem] border border-white/20">
+                   <p className="text-[10px] font-black text-blue-300 uppercase tracking-[0.3em] mb-4">Core Competency Audit</p>
+                   <div className="flex items-center justify-between text-white font-black text-3xl uppercase tracking-tighter">
+                      <span>Serving Since 2010</span>
+                      <span className="text-emergency-orange">16+ YRS</span>
+                   </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Serving Industry 16+ Years & Review Extraction */}
+      <section className="py-24 md:py-32 bg-slate-950 text-white relative overflow-hidden">
+        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10 pointer-events-none"></div>
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
+          <div className="flex flex-col md:flex-row items-end justify-between mb-24 gap-8">
+            <div className="text-left">
+              <span className="text-blue-400 font-black uppercase tracking-[0.5em] text-[10px] mb-6 block">Industry Dominance Index</span>
+              <h2 className="text-4xl md:text-8xl font-black text-white uppercase tracking-tighter leading-none">Serving for <br/><span className="text-slate-500">16+ Cycles.</span></h2>
+            </div>
+            <div className="h-px flex-1 bg-white/10 mb-8 hidden md:block"></div>
+            <div className="bg-white/5 backdrop-blur-xl p-8 rounded-[2.5rem] border border-white/10 flex items-center gap-6">
+               <div className="text-right">
+                  <p className="text-[10px] font-black text-blue-400 uppercase tracking-widest mb-1">Google Score</p>
+                  <p className="text-4xl font-black text-white leading-none">4.9/5</p>
+               </div>
+               <div className="h-12 w-px bg-white/10"></div>
+               <div className="flex text-yellow-400 text-3xl">★★★★★</div>
+            </div>
+          </div>
+          
+          <AIReviewCarousel />
+        </div>
+      </section>
+
+      {/* Final Call to Action */}
+      <section className="py-32 bg-slate-900 text-white relative">
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-900/40 to-orange-900/40 opacity-50"></div>
+        <div className="max-w-5xl mx-auto px-6 text-center relative z-10">
+          <h2 className="text-5xl md:text-9xl font-black mb-12 uppercase tracking-tighter leading-[0.85]">READY TO <br/><span className="text-emergency-orange italic">OPTIMIZE?</span></h2>
+          <div className="flex flex-col sm:flex-row justify-center gap-8">
+            <a href="tel:6477465959" className="emergency-orange text-white px-16 py-8 rounded-[2.5rem] font-black text-3xl hover:scale-[1.05] transition-all shadow-[0_30px_80px_rgba(234,88,12,0.6)] flex items-center gap-6 justify-center uppercase tracking-tighter">
+              Call Direct: (647) 746-5959
             </a>
-            <Link to="/contact" className="bg-white text-trust-blue px-8 py-4 rounded-lg font-black text-xl hover:bg-slate-100 transition shadow-xl inline-block uppercase tracking-tighter">
-              Book Smart Audit
+            <Link to="/contact" className="bg-white text-trust-blue px-16 py-8 rounded-[2.5rem] font-black text-3xl hover:bg-slate-100 transition shadow-2xl uppercase tracking-tighter text-center">
+              Request SmartAudit™
             </Link>
           </div>
         </div>
