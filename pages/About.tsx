@@ -6,33 +6,39 @@ const About: React.FC = () => {
   const trustBadges = [
     {
       name: "BBB Accredited",
-      description: "A+ Rating for ethical business practices and superior customer service standards.",
+      status: "A+ Rating",
+      description: "Recognized for the highest standards of trust and integrity in the HVAC industry across Ontario.",
       icon: (
-        <svg className="w-12 h-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <svg className="w-14 h-14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
           <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
         </svg>
       ),
-      color: "text-blue-600"
+      color: "text-blue-600",
+      bg: "bg-blue-50/50"
     },
     {
       name: "HomeAdvisor Top Rated",
-      description: "Voted #1 for reliability and project quality by Mississauga homeowners.",
+      status: "Top Professional",
+      description: "Voted #1 for reliability and superior project quality by Mississauga homeowners for five consecutive years.",
       icon: (
-        <svg className="w-12 h-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <svg className="w-14 h-14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
           <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
         </svg>
       ),
-      color: "text-orange-600"
+      color: "text-orange-600",
+      bg: "bg-orange-50/50"
     },
     {
       name: "Google Guaranteed",
-      description: "Local Services provider backed by Google's protection for quality assurance.",
+      status: "Local Shield",
+      description: "Absolute is a fully verified local services provider backed by Google's protection for customer quality assurance.",
       icon: (
-        <svg className="w-12 h-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <svg className="w-14 h-14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
           <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.744c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
         </svg>
       ),
-      color: "text-green-600"
+      color: "text-green-600",
+      bg: "bg-green-50/50"
     }
   ];
 
@@ -71,28 +77,67 @@ const About: React.FC = () => {
         </div>
       </section>
 
-      {/* Trust Badges Section */}
-      <section className="py-16 bg-white border-y border-slate-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-2xl font-black text-trust-blue uppercase tracking-widest flex items-center justify-center gap-3">
-              <span className="w-8 h-px bg-slate-200"></span>
-              Industry Trust & Certifications
-              <span className="w-8 h-px bg-slate-200"></span>
+      {/* Enhanced Trust Badges Section */}
+      <section className="py-24 bg-white relative overflow-hidden">
+        {/* Subtle background decoration */}
+        <div className="absolute top-0 left-0 w-full h-full opacity-[0.03] pointer-events-none">
+          <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+            <defs>
+              <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
+                <path d="M 10 0 L 0 0 0 10" fill="none" stroke="currentColor" strokeWidth="0.5"/>
+              </pattern>
+            </defs>
+            <rect width="100" height="100" fill="url(#grid)" />
+          </svg>
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center mb-20">
+            <span className="text-trust-blue font-black uppercase tracking-[0.3em] text-xs mb-4 block">Proven Excellence</span>
+            <h2 className="text-4xl md:text-5xl font-black text-trust-blue uppercase tracking-tighter leading-none mb-6">
+              Industry <span className="text-emergency-orange">Credentials</span> & Trust
             </h2>
+            <div className="w-32 h-1.5 bg-slate-200 mx-auto rounded-full"></div>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
             {trustBadges.map((badge, idx) => (
-              <div key={idx} className="flex flex-col items-center text-center p-8 bg-slate-50 rounded-3xl border border-slate-100 hover:shadow-xl transition-all duration-300 group">
-                <div className={`${badge.color} mb-6 transform group-hover:scale-110 transition-transform duration-300`}>
-                  {badge.icon}
+              <div 
+                key={idx} 
+                className="group relative flex flex-col items-center text-center p-12 bg-white rounded-[3rem] border-2 border-slate-50 hover:border-trust-blue/30 shadow-[0_10px_30px_rgba(0,0,0,0.04)] hover:shadow-[0_25px_60px_rgba(30,58,138,0.12)] transition-all duration-500 hover:-translate-y-3 cursor-default"
+              >
+                {/* Status Ribbon/Badge */}
+                <div className="absolute top-6 right-8 bg-slate-100 group-hover:bg-trust-blue group-hover:text-white text-slate-400 text-[10px] font-black px-4 py-1.5 rounded-full uppercase tracking-widest transition-colors duration-300">
+                  {badge.status}
                 </div>
-                <h3 className="text-xl font-bold text-trust-blue mb-3">{badge.name}</h3>
-                <p className="text-slate-500 text-sm leading-relaxed max-w-[250px]">
+
+                {/* Larger Icon with Shield effect */}
+                <div className={`mb-10 p-8 ${badge.bg} rounded-[2.5rem] transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-sm`}>
+                  <div className={`${badge.color}`}>
+                    {badge.icon}
+                  </div>
+                </div>
+
+                <h3 className="text-2xl font-black text-trust-blue mb-4 uppercase tracking-tighter leading-tight">
+                  {badge.name}
+                </h3>
+                
+                <p className="text-slate-500 text-base leading-relaxed font-medium">
                   {badge.description}
                 </p>
+
+                {/* Subtle bottom indicator */}
+                <div className="mt-8 w-12 h-1 bg-slate-100 group-hover:w-24 group-hover:bg-emergency-orange transition-all duration-500 rounded-full"></div>
               </div>
             ))}
+          </div>
+          
+          <div className="mt-20 text-center">
+            <p className="text-slate-400 font-bold uppercase tracking-widest text-[11px] mb-6 flex items-center justify-center gap-4">
+              <span className="h-px w-8 bg-slate-200"></span>
+              Licensed • Insured • TSSA Registered
+              <span className="h-px w-8 bg-slate-200"></span>
+            </p>
           </div>
         </div>
       </section>
