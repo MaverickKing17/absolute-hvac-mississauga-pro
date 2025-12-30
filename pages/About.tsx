@@ -47,32 +47,37 @@ const About: React.FC = () => {
       <section className="bg-slate-100 py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center gap-16">
           <div className="flex-1">
-            <h1 className="text-4xl md:text-5xl font-extrabold text-trust-blue mb-6 uppercase tracking-tighter">Absolute Heating & Cooling Inc</h1>
+            <h1 className="text-4xl md:text-5xl font-extrabold text-trust-blue mb-6 uppercase tracking-tighter leading-none">Absolute Heating & Cooling Inc</h1>
             <div className="w-24 h-2 bg-emergency-orange mb-8"></div>
-            <p className="text-slate-700 text-lg leading-relaxed mb-6">
+            <p className="text-slate-700 text-lg leading-relaxed mb-6 font-medium">
               Founded in Mississauga, we have built our reputation on two things: technical excellence and honest pricing. We aren't just a big corporation; we are local professionals who live and work in the community.
             </p>
-            <p className="text-slate-700 text-lg leading-relaxed mb-8">
-              Based out of our flagship location at the <span className="font-bold text-trust-blue">Mississauga Flea Market (3092 Mavis Rd)</span>, we've served thousands of GTA families with reliable HVAC solutions that last.
+            <p className="text-slate-700 text-lg leading-relaxed mb-8 font-medium">
+              Based out of our flagship location at the <span className="font-bold text-trust-blue underline decoration-emergency-orange/30">Mississauga Flea Market (3092 Mavis Rd)</span>, we've served thousands of GTA families with reliable HVAC solutions that last.
             </p>
             <div className="flex flex-wrap gap-8">
               <div className="text-center">
                 <p className="text-3xl font-extrabold text-emergency-orange">15+</p>
-                <p className="text-sm text-slate-500 font-bold uppercase">Years Exp</p>
+                <p className="text-[10px] text-slate-500 font-black uppercase tracking-widest">Years Exp</p>
               </div>
               <div className="text-center">
                 <p className="text-3xl font-extrabold text-emergency-orange">4.9</p>
-                <p className="text-sm text-slate-500 font-bold uppercase">Star Rating</p>
+                <p className="text-[10px] text-slate-500 font-black uppercase tracking-widest">Star Rating</p>
               </div>
               <div className="text-center">
                 <p className="text-3xl font-extrabold text-emergency-orange">100%</p>
-                <p className="text-sm text-slate-500 font-bold uppercase">TSSA Certified</p>
+                <p className="text-[10px] text-slate-500 font-black uppercase tracking-widest">TSSA Certified</p>
               </div>
             </div>
           </div>
-          <div className="flex-1 relative">
-            <img src="https://picsum.photos/id/10/800/1000" alt="Our Team" className="rounded-2xl shadow-2xl relative z-10 border-4 border-white" />
-            <div className="absolute -bottom-6 -right-6 w-full h-full trust-blue rounded-2xl -z-0 opacity-10"></div>
+          <div className="flex-1 relative group">
+            <div className="absolute -inset-4 bg-gradient-to-tr from-trust-blue/20 to-emergency-orange/20 rounded-[3rem] blur-2xl group-hover:opacity-100 transition-opacity opacity-0"></div>
+            <img 
+              src="https://images.unsplash.com/photo-1621905251918-48416bd8575a?auto=format&fit=crop&q=80&w=800&h=1000" 
+              alt="Professional Absolute HVAC Technician at work in Mississauga" 
+              className="rounded-[2.5rem] shadow-2xl relative z-10 border-4 border-white grayscale-[20%] group-hover:grayscale-0 transition-all duration-700" 
+            />
+            <div className="absolute -bottom-6 -right-6 w-full h-full trust-blue rounded-[2.5rem] -z-0 opacity-10"></div>
           </div>
         </div>
       </section>
@@ -185,7 +190,7 @@ const About: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-extrabold text-trust-blue mb-4 uppercase tracking-tighter">Visit Our Mississauga Headquarters</h2>
-            <p className="text-slate-600 max-w-2xl mx-auto">We are conveniently located in the heart of Mississauga at the Flea Market on Mavis Road.</p>
+            <p className="text-slate-600 max-w-2xl mx-auto font-medium">We are conveniently located in the heart of Mississauga at the Flea Market on Mavis Road.</p>
           </div>
           
           <div className="bg-slate-50 rounded-[2.5rem] overflow-hidden shadow-2xl flex flex-col md:flex-row border border-slate-100">
@@ -196,14 +201,14 @@ const About: React.FC = () => {
                     <svg className="w-10 h-10 text-trust-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                   </div>
                   <p className="font-black text-2xl uppercase tracking-tighter mb-2">3092 Mavis Rd, Mississauga</p>
-                  <p className="text-slate-500 font-medium">Inside Mississauga Flea Market - Aisles 3 & 4</p>
+                  <p className="text-slate-500 font-bold uppercase tracking-widest text-xs italic">Inside Mississauga Flea Market - Aisles 3 & 4</p>
                 </div>
               </div>
             </div>
             <div className="md:w-1/2 p-12 flex flex-col justify-center space-y-8">
               <div>
                 <h3 className="text-xl font-black text-trust-blue mb-4 uppercase tracking-wider border-b-2 border-emergency-orange inline-block">Operation Hours</h3>
-                <div className="space-y-2 mt-4 font-medium text-slate-600">
+                <div className="space-y-2 mt-4 font-bold text-slate-600">
                   <p className="flex justify-between"><span>Mon - Fri:</span> <span>8:00 AM - 6:00 PM</span></p>
                   <p className="flex justify-between"><span>Sat - Sun:</span> <span>9:00 AM - 5:00 PM</span></p>
                   <p className="text-emergency-orange font-black mt-4 flex items-center gap-2">
@@ -215,12 +220,12 @@ const About: React.FC = () => {
               <div>
                 <h3 className="text-xl font-black text-trust-blue mb-4 uppercase tracking-wider border-b-2 border-emergency-orange inline-block">Certification</h3>
                 <div className="flex flex-wrap gap-4 items-center mt-4">
-                  <div className="px-4 py-2 bg-slate-100 rounded-lg text-[11px] font-black uppercase tracking-widest text-slate-600 border border-slate-200">TSSA Registered</div>
-                  <div className="px-4 py-2 bg-slate-100 rounded-lg text-[11px] font-black uppercase tracking-widest text-slate-600 border border-slate-200">HRAI Member</div>
-                  <div className="px-4 py-2 bg-slate-100 rounded-lg text-[11px] font-black uppercase tracking-widest text-slate-600 border border-slate-200">Licensed Gas Fitter</div>
+                  <div className="px-4 py-2 bg-white rounded-lg text-[10px] font-black uppercase tracking-widest text-slate-600 border border-slate-200 shadow-sm">TSSA Registered</div>
+                  <div className="px-4 py-2 bg-white rounded-lg text-[10px] font-black uppercase tracking-widest text-slate-600 border border-slate-200 shadow-sm">HRAI Member</div>
+                  <div className="px-4 py-2 bg-white rounded-lg text-[10px] font-black uppercase tracking-widest text-slate-600 border border-slate-200 shadow-sm">Licensed Gas Fitter</div>
                 </div>
               </div>
-              <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" className="trust-blue text-white px-8 py-4 rounded-xl text-center font-black text-lg hover:scale-[1.02] transition-transform shadow-xl">Get Directions Now</a>
+              <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" className="trust-blue text-white px-8 py-5 rounded-2xl text-center font-black text-xl hover:scale-[1.02] transition-transform shadow-xl uppercase tracking-tighter">Get Directions Now</a>
             </div>
           </div>
         </div>

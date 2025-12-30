@@ -28,6 +28,70 @@ const ServiceFAQItem: React.FC<{ question: string; answer: string }> = ({ questi
   );
 };
 
+const VideoCard: React.FC<{ video: { title: string; description: string; embedId: string; category: string } }> = ({ video }) => {
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  return (
+    <div className="bg-white rounded-2xl overflow-hidden shadow-md border border-slate-200 hover:shadow-2xl transition-all duration-300 flex flex-col h-full group">
+      <div className="aspect-video bg-slate-900 relative overflow-hidden">
+        {!isPlaying ? (
+          <button 
+            onClick={() => setIsPlaying(true)}
+            className="absolute inset-0 w-full h-full flex items-center justify-center group/btn"
+          >
+            <img 
+              src={`https://img.youtube.com/vi/${video.embedId}/maxresdefault.jpg`} 
+              alt={video.title}
+              className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent"></div>
+            
+            {/* Custom Play Button */}
+            <div className="relative z-10 w-16 h-16 flex items-center justify-center">
+              <div className="absolute inset-0 bg-white rounded-full scale-100 group-hover/btn:scale-125 transition-transform duration-500 opacity-20"></div>
+              <div className="w-12 h-12 trust-blue rounded-full flex items-center justify-center text-white shadow-xl transform group-hover/btn:scale-110 transition-transform duration-300">
+                <svg className="w-6 h-6 ml-1" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M4.516 7.548c0-.923.951-1.476 1.745-1.002l6.502 3.88c.794.474.794 1.528 0 2.002l-6.502 3.88c-.794.474-1.745-.079-1.745-1.002V7.548z" />
+                </svg>
+              </div>
+            </div>
+            
+            <div className="absolute bottom-4 left-4 text-left">
+               <p className="text-[10px] font-black text-white uppercase tracking-widest bg-emergency-orange/80 px-2 py-0.5 rounded backdrop-blur-sm">Click to Play</p>
+            </div>
+          </button>
+        ) : (
+          <iframe 
+            className="absolute inset-0 w-full h-full"
+            src={`https://www.youtube.com/embed/${video.embedId}?autoplay=1`}
+            title={video.title}
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          ></iframe>
+        )}
+      </div>
+      <div className="p-5 flex-1 flex flex-col">
+        <div className="flex items-center gap-2 mb-3">
+          <div className="w-1.5 h-1.5 rounded-full bg-emergency-orange animate-pulse"></div>
+          <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{video.category}</span>
+        </div>
+        <h3 className="text-lg font-bold text-trust-blue mb-2 leading-tight">{video.title}</h3>
+        <p className="text-slate-500 text-xs leading-relaxed mb-4 flex-grow">
+          {video.description}
+        </p>
+        <button 
+          onClick={() => setIsPlaying(true)}
+          className="text-trust-blue text-xs font-black uppercase tracking-wider flex items-center gap-2 hover:text-emergency-orange transition-colors"
+        >
+          {isPlaying ? 'Playing Now' : 'Watch Full Guide'}
+          <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        </button>
+      </div>
+    </div>
+  );
+};
+
 const Services: React.FC = () => {
   const troubleshootingVideos = [
     {
@@ -94,23 +158,27 @@ const Services: React.FC = () => {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center gap-12">
           <div className="flex-1 space-y-6">
-            <h2 className="text-3xl font-extrabold text-trust-blue">Furnace Repair & Installation</h2>
+            <h2 className="text-3xl font-extrabold text-trust-blue uppercase tracking-tighter">Furnace Repair & Installation</h2>
             <div className="w-20 h-1.5 bg-emergency-orange"></div>
-            <p className="text-slate-600 leading-relaxed text-lg">
+            <p className="text-slate-600 leading-relaxed text-lg font-medium">
               Don't get left in the cold. Our licensed technicians handle everything from minor repairs to full high-efficiency gas furnace installations. We service all major brands including Lennox, Carrier, and York.
             </p>
             <ul className="space-y-3">
               {['24/7 Emergency Heating Repair', 'Expert Diagnosis & Tuning', 'High-Efficiency Upgrades', 'Annual Maintenance Plans'].map((item) => (
-                <li key={item} className="flex items-center gap-3 text-slate-700 font-medium">
+                <li key={item} className="flex items-center gap-3 text-slate-700 font-bold">
                   <svg className="w-5 h-5 text-emergency-orange" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/></svg>
                   {item}
                 </li>
               ))}
             </ul>
-            <Link to="/contact" className="inline-block emergency-orange text-white px-8 py-3 rounded font-bold hover:opacity-90 transition">Get Furnace Estimate</Link>
+            <Link to="/contact" className="inline-block emergency-orange text-white px-8 py-4 rounded-xl font-black text-lg hover:scale-105 transition shadow-lg uppercase tracking-tighter">Get Furnace Estimate</Link>
           </div>
-          <div className="flex-1 rounded-2xl overflow-hidden shadow-2xl">
-            <img src="https://picsum.photos/id/191/800/600" alt="Furnace Service" className="w-full h-full object-cover" />
+          <div className="flex-1 rounded-3xl overflow-hidden shadow-2xl border-4 border-white group">
+            <img 
+              src="https://images.unsplash.com/photo-1581094288338-2314dddb79a7?auto=format&fit=crop&q=80&w=800&h=600" 
+              alt="High Efficiency Gas Furnace Service" 
+              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
+            />
           </div>
         </div>
       </section>
@@ -119,23 +187,27 @@ const Services: React.FC = () => {
       <section className="py-20 bg-slate-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row-reverse items-center gap-12">
           <div className="flex-1 space-y-6">
-            <h2 className="text-3xl font-extrabold text-trust-blue">AC Install & Maintenance</h2>
+            <h2 className="text-3xl font-extrabold text-trust-blue uppercase tracking-tighter">AC Install & Maintenance</h2>
             <div className="w-20 h-1.5 bg-emergency-orange"></div>
-            <p className="text-slate-600 leading-relaxed text-lg">
+            <p className="text-slate-600 leading-relaxed text-lg font-medium">
               Stay cool during the humid GTA summers. We provide quiet, efficient, and reliable central air conditioning and ductless mini-split systems that keep your home comfortable while lowering energy costs.
             </p>
             <ul className="space-y-3">
               {['Central AC Installation', 'Ductless Mini-Split Systems', 'Refrigerant Leak Detection', 'Condenser Cleaning'].map((item) => (
-                <li key={item} className="flex items-center gap-3 text-slate-700 font-medium">
+                <li key={item} className="flex items-center gap-3 text-slate-700 font-bold">
                   <svg className="w-5 h-5 text-emergency-orange" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/></svg>
                   {item}
                 </li>
               ))}
             </ul>
-            <Link to="/contact" className="inline-block emergency-orange text-white px-8 py-3 rounded font-bold hover:opacity-90 transition">Get AC Quote</Link>
+            <Link to="/contact" className="inline-block emergency-orange text-white px-8 py-4 rounded-xl font-black text-lg hover:scale-105 transition shadow-lg uppercase tracking-tighter">Get AC Quote</Link>
           </div>
-          <div className="flex-1 rounded-2xl overflow-hidden shadow-2xl">
-            <img src="https://picsum.photos/id/163/800/600" alt="AC Installation" className="w-full h-full object-cover" />
+          <div className="flex-1 rounded-3xl overflow-hidden shadow-2xl border-4 border-white group">
+            <img 
+              src="https://images.unsplash.com/photo-1621905252507-b354bcadcabc?auto=format&fit=crop&q=80&w=800&h=600" 
+              alt="Professional Central Air Conditioning Installation" 
+              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
+            />
           </div>
         </div>
       </section>
@@ -152,21 +224,21 @@ const Services: React.FC = () => {
                   Estimate Your <span className="text-savings-green">Instant Savings</span>
                 </h2>
                 <div className="w-24 h-1.5 bg-emergency-orange mb-8"></div>
-                <p className="text-slate-600 text-lg leading-relaxed">
+                <p className="text-slate-600 text-lg leading-relaxed font-medium">
                   Switching to a high-efficiency Heat Pump can unlock up to <strong>$7,100 in government rebates</strong>. Use our smart estimator to see how much you could qualify for based on your home size and current energy source.
                 </p>
               </div>
               
               <div className="space-y-4">
-                <div className="flex items-start gap-4 p-4 bg-blue-50 rounded-2xl border border-blue-100">
+                <div className="flex items-start gap-4 p-5 bg-blue-50 rounded-2xl border border-blue-100 shadow-inner">
                   <div className="bg-trust-blue text-white p-2 rounded-lg shrink-0">
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                   </div>
-                  <p className="text-sm text-trust-blue font-medium">Rebates are limited and processed on a first-come, first-served basis. Secure your eligibility today.</p>
+                  <p className="text-sm text-trust-blue font-bold italic leading-relaxed">Rebates are limited and processed on a first-come, first-served basis. Secure your eligibility today with an Absolute SmartAudit.</p>
                 </div>
-                <Link to="/rebates" className="inline-flex items-center gap-2 text-trust-blue font-bold hover:text-emergency-orange transition-colors">
+                <Link to="/rebates" className="inline-flex items-center gap-2 text-trust-blue font-black uppercase tracking-widest text-sm hover:text-emergency-orange transition-colors">
                   View Full Rebate Guide
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"/></svg>
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M9 5l7 7-7 7"/></svg>
                 </Link>
               </div>
             </div>
@@ -178,57 +250,32 @@ const Services: React.FC = () => {
         </div>
       </section>
 
-      {/* Embedded Video Learning Center Section */}
+      {/* Responsive Video Learning Center Section */}
       <section className="py-24 bg-slate-100 border-y border-slate-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <span className="text-emergency-orange font-black uppercase tracking-[0.2em] text-sm mb-4 block">Expert Education Series</span>
             <h2 className="text-3xl md:text-5xl font-extrabold text-trust-blue mb-4 uppercase tracking-tighter">HVAC Video Learning Center</h2>
-            <p className="text-slate-600 max-w-2xl mx-auto text-lg">
+            <p className="text-slate-600 max-w-2xl mx-auto text-lg font-medium">
               Identifying common issues early can save you thousands. Watch our technicians explain the warning signs and DIY maintenance basics.
             </p>
             <div className="w-24 h-1.5 bg-emergency-orange mx-auto mt-8"></div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {troubleshootingVideos.map((video, idx) => (
-              <div key={idx} className="bg-white rounded-2xl overflow-hidden shadow-md border border-slate-200 hover:shadow-2xl transition-all duration-300 flex flex-col h-full">
-                <div className="aspect-video bg-slate-200 relative">
-                  <iframe 
-                    className="absolute inset-0 w-full h-full"
-                    src={`https://www.youtube.com/embed/${video.embedId}`}
-                    title={video.title}
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  ></iframe>
-                </div>
-                <div className="p-5 flex-1 flex flex-col">
-                  <div className="flex items-center gap-2 mb-3">
-                    <span className="w-2 h-2 rounded-full bg-emergency-orange animate-pulse"></span>
-                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{video.category}</span>
-                  </div>
-                  <h3 className="text-lg font-bold text-trust-blue mb-2 leading-tight">{video.title}</h3>
-                  <p className="text-slate-500 text-xs leading-relaxed mb-4 flex-grow">
-                    {video.description}
-                  </p>
-                  <button className="text-trust-blue text-xs font-black uppercase tracking-wider flex items-center gap-2 hover:text-emergency-orange transition-colors">
-                    Watch Full Guide
-                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-                  </button>
-                </div>
-              </div>
+              <VideoCard key={idx} video={video} />
             ))}
           </div>
           
           <div className="mt-16 bg-white p-8 rounded-[2rem] shadow-sm border border-slate-200 flex flex-col md:flex-row items-center justify-between gap-8">
             <div className="text-center md:text-left">
-              <h4 className="text-xl font-bold text-trust-blue mb-1">Still not sure what's wrong?</h4>
-              <p className="text-slate-500 text-sm">Our 24/7 dispatchers are ready to send a technician to your door today.</p>
+              <h4 className="text-xl font-bold text-trust-blue mb-1 uppercase tracking-tighter">Still not sure what's wrong?</h4>
+              <p className="text-slate-500 font-medium">Our 24/7 dispatchers are ready to send a technician to your door in Mississauga today.</p>
             </div>
             <div className="flex gap-4">
-              <a href="tel:6477465959" className="emergency-orange text-white px-6 py-3 rounded-xl font-bold hover:scale-105 transition shadow-lg">Call Now</a>
-              <Link to="/contact" className="border-2 border-trust-blue text-trust-blue px-6 py-3 rounded-xl font-bold hover:bg-slate-50 transition">Book Online</Link>
+              <a href="tel:6477465959" className="emergency-orange text-white px-8 py-4 rounded-xl font-black text-lg hover:scale-105 transition shadow-lg uppercase tracking-tighter">Call Now</a>
+              <Link to="/contact" className="border-2 border-trust-blue text-trust-blue px-8 py-4 rounded-xl font-black text-lg hover:bg-slate-50 transition uppercase tracking-tighter">Book Online</Link>
             </div>
           </div>
         </div>
@@ -239,32 +286,32 @@ const Services: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-extrabold mb-4 uppercase tracking-tighter">Our Industry-Leading Warranty</h2>
-            <p className="text-slate-400 max-w-2xl mx-auto">We don't just fix it; we stand behind it. Absolute Heating & Cooling provides complete peace of mind with every visit.</p>
+            <p className="text-slate-400 max-w-2xl mx-auto text-lg">We don't just fix it; we stand behind it. Absolute Heating & Cooling provides complete peace of mind with every visit.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-white/5 border border-white/10 p-8 rounded-2xl backdrop-blur-sm">
-              <div className="w-14 h-14 bg-emergency-orange/20 rounded-xl flex items-center justify-center mb-6 text-emergency-orange">
+            <div className="bg-white/5 border border-white/10 p-8 rounded-2xl backdrop-blur-sm group hover:bg-white/10 transition-colors">
+              <div className="w-14 h-14 bg-emergency-orange/20 rounded-xl flex items-center justify-center mb-6 text-emergency-orange transform group-hover:rotate-12 transition-transform">
                 <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
               </div>
-              <h3 className="text-xl font-bold mb-3">10-Year Parts Warranty</h3>
-              <p className="text-slate-400 leading-relaxed">Most of our new high-efficiency installations come with a full 10-year manufacturer parts warranty, ensuring long-term protection for your investment.</p>
+              <h3 className="text-xl font-bold mb-3 uppercase tracking-tighter">10-Year Parts Warranty</h3>
+              <p className="text-slate-400 leading-relaxed font-medium">Most of our new high-efficiency installations come with a full 10-year manufacturer parts warranty, ensuring long-term protection for your investment.</p>
             </div>
 
-            <div className="bg-white/5 border border-white/10 p-8 rounded-2xl backdrop-blur-sm">
-              <div className="w-14 h-14 bg-emergency-orange/20 rounded-xl flex items-center justify-center mb-6 text-emergency-orange">
+            <div className="bg-white/5 border border-white/10 p-8 rounded-2xl backdrop-blur-sm group hover:bg-white/10 transition-colors">
+              <div className="w-14 h-14 bg-emergency-orange/20 rounded-xl flex items-center justify-center mb-6 text-emergency-orange transform group-hover:rotate-12 transition-transform">
                 <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
               </div>
-              <h3 className="text-xl font-bold mb-3">1-Year Labor Guarantee</h3>
-              <p className="text-slate-400 leading-relaxed">We provide a 1-year labor warranty on all new installations. If anything isn't working perfectly due to our workmanship, we'll fix it at no cost to you.</p>
+              <h3 className="text-xl font-bold mb-3 uppercase tracking-tighter">1-Year Labor Guarantee</h3>
+              <p className="text-slate-400 leading-relaxed font-medium">We provide a 1-year labor warranty on all new installations. If anything isn't working perfectly due to our workmanship, we'll fix it at no cost to you.</p>
             </div>
 
-            <div className="bg-white/5 border border-white/10 p-8 rounded-2xl backdrop-blur-sm">
-              <div className="w-14 h-14 bg-emergency-orange/20 rounded-xl flex items-center justify-center mb-6 text-emergency-orange">
+            <div className="bg-white/5 border border-white/10 p-8 rounded-2xl backdrop-blur-sm group hover:bg-white/10 transition-colors">
+              <div className="w-14 h-14 bg-emergency-orange/20 rounded-xl flex items-center justify-center mb-6 text-emergency-orange transform group-hover:rotate-12 transition-transform">
                 <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
               </div>
-              <h3 className="text-xl font-bold mb-3">90-Day Repair Warranty</h3>
-              <p className="text-slate-400 leading-relaxed">Every repair we perform is backed by our 90-day parts and labor guarantee. You can trust that our diagnosis and fix will hold up when it matters most.</p>
+              <h3 className="text-xl font-bold mb-3 uppercase tracking-tighter">90-Day Repair Warranty</h3>
+              <p className="text-slate-400 leading-relaxed font-medium">Every repair we perform is backed by our 90-day parts and labor guarantee. You can trust that our diagnosis and fix will hold up when it matters most.</p>
             </div>
           </div>
         </div>
@@ -275,11 +322,11 @@ const Services: React.FC = () => {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-extrabold text-trust-blue mb-4 uppercase tracking-tighter">Service & Maintenance FAQ</h2>
-            <p className="text-slate-600 font-medium">Expert answers to common questions about keeping your home comfortable year-round.</p>
+            <p className="text-slate-600 font-bold uppercase tracking-widest text-xs">Expert answers to keep your home comfortable year-round.</p>
             <div className="w-20 h-1 bg-emergency-orange mx-auto mt-6"></div>
           </div>
 
-          <div className="bg-slate-50 rounded-3xl p-8 md:p-12 border border-slate-100 shadow-inner">
+          <div className="bg-slate-50 rounded-[3rem] p-8 md:p-12 border border-slate-100 shadow-inner">
             {serviceFAQs.map((faq, index) => (
               <ServiceFAQItem 
                 key={index} 
@@ -294,12 +341,12 @@ const Services: React.FC = () => {
       {/* CTA Section */}
       <section className="py-20 bg-slate-50">
         <div className="max-w-4xl mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-extrabold text-trust-blue mb-8 uppercase tracking-tighter">Ready for a Reliable HVAC Solution?</h2>
+          <h2 className="text-3xl md:text-4xl font-black text-trust-blue mb-8 uppercase tracking-tighter">Ready for a Reliable HVAC Solution?</h2>
           <div className="flex flex-col sm:flex-row justify-center gap-6">
             <a href="tel:6477465959" className="emergency-orange text-white px-10 py-5 rounded-2xl font-black text-xl hover:scale-105 transition shadow-xl inline-flex items-center gap-2 justify-center">
               Call (647) 746-5959
             </a>
-            <Link to="/contact" className="bg-white text-trust-blue border-2 border-trust-blue px-10 py-5 rounded-2xl font-black text-xl hover:bg-slate-100 transition shadow-lg inline-block">
+            <Link to="/contact" className="bg-white text-trust-blue border-4 border-trust-blue px-10 py-5 rounded-2xl font-black text-xl hover:bg-slate-100 transition shadow-lg inline-block uppercase tracking-tighter">
               Book Your Service
             </Link>
           </div>
