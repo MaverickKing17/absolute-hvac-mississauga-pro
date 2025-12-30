@@ -3,7 +3,8 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import AIReviewCarousel from '../components/AIReviewCarousel';
 
-const BrandLogo = ({ brand }: { brand: { name: string, url: string } }) => {
+// Fix: Explicitly type BrandLogo as React.FC to handle React-specific props like 'key'
+const BrandLogo: React.FC<{ brand: { name: string, url: string } }> = ({ brand }) => {
   const [error, setError] = useState(false);
 
   if (error) {

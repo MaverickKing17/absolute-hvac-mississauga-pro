@@ -14,7 +14,6 @@ const AIScanOverlay = () => (
   </div>
 );
 
-// Added explicit prop types to resolve TypeScript error in mapping
 const ServiceFAQItem: React.FC<{ question: string; answer: string; index: number }> = ({ question, answer, index }) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
@@ -40,74 +39,85 @@ const ServiceFAQItem: React.FC<{ question: string; answer: string; index: number
   );
 };
 
-// Added explicit prop types to resolve TypeScript error in mapping
-const VideoCard: React.FC<{ 
-  video: { 
+const ProtocolCard: React.FC<{ 
+  protocol: { 
     title: string; 
     description: string; 
-    embedId: string; 
-    category: string; 
-    duration: string; 
+    imageUrl: string; 
+    tag: string; 
+    stats: string[];
   } 
-}> = ({ video }) => {
-  const [isPlaying, setIsPlaying] = useState(false);
-
+}> = ({ protocol }) => {
   return (
-    <div className="bg-white rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-[0_40px_100px_rgba(30,58,138,0.2)] hover:-translate-y-2 transition-all duration-700 flex flex-col h-full group border border-slate-100 relative ring-offset-8 hover:ring-4 ring-trust-blue/5">
-      <div className="aspect-video bg-slate-900 overflow-hidden relative">
-        {!isPlaying ? (
-          <div className="w-full h-full cursor-pointer" onClick={() => setIsPlaying(true)}>
-            <img 
-              src={`https://img.youtube.com/vi/${video.embedId}/maxresdefault.jpg`} 
-              alt={video.title}
-              className="w-full h-full object-cover transition-transform duration-[1500ms] group-hover:scale-110 saturate-[0.7] brightness-75 group-hover:brightness-100 group-hover:saturate-100"
-            />
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-20 h-20 emergency-orange text-white rounded-full flex items-center justify-center shadow-[0_15px_50px_rgba(234,88,12,0.6)] transform transition-all duration-500 group-hover:scale-125 border-4 border-white/20">
-                <svg className="w-8 h-8 ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M7 6v12l10-6z" /></svg>
-              </div>
+    <div className="bg-white rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-[0_40px_100px_rgba(30,58,138,0.2)] hover:-translate-y-2 transition-all duration-700 flex flex-col h-full group border border-slate-100 relative">
+      <div className="aspect-[4/5] bg-slate-900 overflow-hidden relative">
+        <img 
+          src={protocol.imageUrl} 
+          alt={protocol.title}
+          className="w-full h-full object-cover transition-transform duration-[1500ms] group-hover:scale-110 saturate-[0.6] brightness-75 group-hover:brightness-100 group-hover:saturate-100"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-60"></div>
+        <div className="absolute top-5 left-5 z-20">
+          <span className="bg-emergency-orange text-white text-[10px] font-black px-4 py-1.5 rounded-xl tracking-widest uppercase shadow-xl">{protocol.tag}</span>
+        </div>
+        
+        {/* Technical HUD Overlay */}
+        <div className="absolute bottom-6 left-6 right-6 z-20 space-y-2 opacity-0 group-hover:opacity-100 transition-all duration-700 translate-y-4 group-hover:translate-y-0">
+          {protocol.stats.map((stat, i) => (
+            <div key={i} className="flex items-center justify-between bg-white/10 backdrop-blur-md border border-white/20 px-4 py-2 rounded-xl">
+              <span className="text-[8px] font-mono text-blue-200 uppercase tracking-widest">{stat.split(':')[0]}</span>
+              <span className="text-[10px] font-black text-white tabular-nums">{stat.split(':')[1]}</span>
             </div>
-            <div className="absolute top-5 left-5 z-20">
-              <span className="bg-white/10 backdrop-blur-xl border border-white/20 text-white text-[10px] font-black px-3 py-1.5 rounded-xl tracking-widest uppercase">{video.duration}</span>
-            </div>
-            <AIScanOverlay />
-          </div>
-        ) : (
-          <iframe 
-            className="w-full h-full"
-            src={`https://www.youtube.com/embed/${video.embedId}?autoplay=1&modestbranding=1&rel=0`}
-            title={video.title}
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          ></iframe>
-        )}
+          ))}
+        </div>
+        
+        <AIScanOverlay />
       </div>
       
       <div className="p-8 md:p-10 flex-1 flex flex-col">
-        <div className="flex items-center gap-2 mb-3">
-          <div className="w-1.5 h-1.5 rounded-full bg-emergency-orange animate-pulse"></div>
-          <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] block">{video.category} Learning Module</span>
-        </div>
-        <h3 className="text-2xl font-black text-trust-blue mb-4 leading-none uppercase tracking-tighter group-hover:text-emergency-orange transition-colors">{video.title}</h3>
-        <p className="text-slate-500 text-sm leading-relaxed mb-8 flex-grow font-medium">{video.description}</p>
-        <button onClick={() => setIsPlaying(!isPlaying)} className="group/btn text-trust-blue font-black uppercase tracking-widest text-[11px] flex items-center gap-3 hover:text-emergency-orange transition-all">
-           <div className={`w-8 h-8 rounded-xl flex items-center justify-center transition-all ${isPlaying ? 'bg-emergency-orange text-white' : 'bg-slate-100 group-hover/btn:bg-trust-blue group-hover/btn:text-white'}`}>
+        <h3 className="text-2xl font-black text-trust-blue mb-4 leading-none uppercase tracking-tighter group-hover:text-emergency-orange transition-colors">{protocol.title}</h3>
+        <p className="text-slate-500 text-sm leading-relaxed mb-8 flex-grow font-medium">{protocol.description}</p>
+        <Link to="/contact" className="group/btn text-trust-blue font-black uppercase tracking-widest text-[11px] flex items-center gap-3 hover:text-emergency-orange transition-all">
+           <div className="w-8 h-8 rounded-xl bg-slate-100 flex items-center justify-center transition-all group-hover/btn:bg-trust-blue group-hover/btn:text-white">
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
            </div>
-           <span>{isPlaying ? 'Terminate Stream' : 'Initialize Protocol'}</span>
-        </button>
+           <span>Initialize Protocol</span>
+        </Link>
       </div>
     </div>
   );
 };
 
 const Services = () => {
-  const troubleshootingVideos = [
-    { title: "Furnace Lockout Codes", description: "Learn to read diagnostic blink codes on your furnace control board to identify common ignition failures.", embedId: "_fP_H9V0R48", category: "Heating", duration: "4:15" },
-    { title: "AC Efficiency Mapping", description: "Visualizing the thermal envelope and how airflow restriction impacts your SEER2 rating in summer.", embedId: "P1p67W5iH-Y", category: "Cooling", duration: "6:20" },
-    { title: "Smart Filter Dynamics", description: "Testing high-MERV vs static pressure. Why the wrong filter choice leads to blower motor fatigue.", embedId: "f04L7-c8L-U", category: "Maintenance", duration: "3:05" },
-    { title: "Hybrid Pumping Logic", description: "A technical breakdown of how Cold Climate Air Source Heat Pumps function alongside gas backups.", embedId: "zV9m-8r3_7Y", category: "Heat Pumps", duration: "5:45" }
+  const engineeringProtocols = [
+    { 
+      title: "Thermal Mapping", 
+      description: "Infrared diagnostic scan of the property envelope to identify microscopic thermal bridging and insulation failures.", 
+      imageUrl: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80&w=800", 
+      tag: "Audit V4.1",
+      stats: ["TEMP_DELTA: +14.2C", "LEAK_PROB: 89%", "SENS_ARRAY: ACTIVE"]
+    },
+    { 
+      title: "Combustion Analysis", 
+      description: "Precision calibration of gas valves and induction motors to ensure carbon monoxide production is at factory-zero.", 
+      imageUrl: "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&q=80&w=800", 
+      tag: "Safety Tier-1",
+      stats: ["CO_LEVEL: 0.00PPM", "VALVE_PSI: 3.5", "O2_LEVEL: 11.2%"]
+    },
+    { 
+      title: "Pressure Balancing", 
+      description: "Static pressure mapping of the ductwork system to eliminate hotspots and blower motor fatigue through mass-flow tuning.", 
+      imageUrl: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&q=80&w=800", 
+      tag: "Flow Opt",
+      stats: ["STATIC_P: 0.5WC", "CFM_TARGET: 1200", "NODE_COUNT: 14"]
+    },
+    { 
+      title: "Refrigerant Logic", 
+      description: "Subcooling and superheat optimization using digital manifolds to maximize SEER2 performance and compressor longevity.", 
+      imageUrl: "https://images.unsplash.com/photo-1581094288338-2314dddb7bc3?auto=format&fit=crop&q=80&w=800", 
+      tag: "Phase Opt",
+      stats: ["SUBCOOL: 10.0F", "SUPERHEAT: 12.0F", "REFRIG_LOG: R410A"]
+    }
   ];
 
   const serviceFAQs = [
@@ -266,21 +276,39 @@ const Services = () => {
         <RebateCalculator />
       </section>
 
-      {/* Video Intelligence Hub */}
-      <section className="py-32 bg-slate-950 border-y border-white/10 relative">
+      {/* Engineering Precision Lab - Replaced Video Hub */}
+      <section className="py-32 bg-slate-950 border-y border-white/10 relative overflow-hidden">
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10 pointer-events-none"></div>
+        <div className="absolute top-0 right-0 w-1/2 h-full bg-trust-blue/5 blur-[120px] rounded-full translate-x-1/2"></div>
+        
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="flex flex-col md:flex-row items-end justify-between mb-24 gap-8">
             <div className="text-left">
-              <span className="text-blue-400 font-black uppercase tracking-[0.5em] text-[10px] mb-6 block">Diagnostic Intelligence</span>
-              <h2 className="text-4xl md:text-8xl font-black text-white uppercase tracking-tighter leading-none">Diagnostic <br/><span className="text-slate-500">Learning Center.</span></h2>
+              <span className="text-blue-400 font-black uppercase tracking-[0.5em] text-[10px] mb-6 block">Absolute Engineering Protocol</span>
+              <h2 className="text-4xl md:text-8xl font-black text-white uppercase tracking-tighter leading-none">Precision <br/><span className="text-slate-500">Service Lab.</span></h2>
             </div>
             <div className="h-px flex-1 bg-white/10 mb-8 hidden md:block"></div>
+            <div className="hidden lg:block">
+              <Link to="/contact" className="bg-white/10 backdrop-blur-xl border border-white/20 text-white px-10 py-5 rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-white hover:text-trust-blue transition-all">
+                Request Diagnostic Node
+              </Link>
+            </div>
           </div>
+          
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
-            {troubleshootingVideos.map((video, idx) => (
-              <VideoCard key={idx} video={video} />
+            {engineeringProtocols.map((protocol, idx) => (
+              <ProtocolCard key={idx} protocol={protocol} />
             ))}
+          </div>
+          
+          <div className="mt-24 p-12 bg-white/5 rounded-[3rem] border border-white/10 flex flex-col md:flex-row items-center justify-between gap-10">
+             <div className="space-y-4">
+                <h4 className="text-3xl font-black text-white uppercase tracking-tighter">Zero-Fault Guarantee</h4>
+                <p className="text-slate-400 font-medium max-w-xl">Every Absolute service node is logged and verified against manufacturer efficiency curves. We don't just fix units; we restore them to peak mechanical equilibrium.</p>
+             </div>
+             <a href="tel:6477465959" className="emergency-orange text-white px-12 py-7 rounded-[2rem] font-black text-2xl hover:scale-[1.05] transition-all shadow-[0_20px_50px_rgba(234,88,12,0.4)] uppercase tracking-tighter shrink-0">
+                Call Field Dispatch
+             </a>
           </div>
         </div>
       </section>
