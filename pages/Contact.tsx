@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 
 const Contact: React.FC = () => {
   const [submitted, setSubmitted] = useState(false);
+  const [serviceNeeded, setServiceNeeded] = useState('Furnace Repair');
+  const [otherService, setOtherService] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -47,14 +49,33 @@ const Contact: React.FC = () => {
                   </div>
                   <div>
                     <label className="block text-sm font-bold text-slate-700 mb-2">Service Needed</label>
-                    <select className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:border-trust-blue focus:ring-1 focus:ring-trust-blue outline-none transition">
-                      <option>Furnace Repair</option>
-                      <option>Heat Pump Quote (Ontario Rebate)</option>
-                      <option>AC Installation</option>
-                      <option>Water Heater Service</option>
-                      <option>Other</option>
+                    <select 
+                      value={serviceNeeded}
+                      onChange={(e) => setServiceNeeded(e.target.value)}
+                      className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:border-trust-blue focus:ring-1 focus:ring-trust-blue outline-none transition"
+                    >
+                      <option value="Furnace Repair">Furnace Repair</option>
+                      <option value="Heat Pump Quote (Ontario Rebate)">Heat Pump Quote (Ontario Rebate)</option>
+                      <option value="AC Installation">AC Installation</option>
+                      <option value="Water Heater Service">Water Heater Service</option>
+                      <option value="Other - Please Specify">Other - Please Specify</option>
                     </select>
                   </div>
+
+                  {serviceNeeded === 'Other - Please Specify' && (
+                    <div className="animate-in fade-in slide-in-from-top-2 duration-300">
+                      <label className="block text-sm font-bold text-slate-700 mb-2">Please Specify Service</label>
+                      <input 
+                        required 
+                        type="text" 
+                        value={otherService}
+                        onChange={(e) => setOtherService(e.target.value)}
+                        className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:border-trust-blue focus:ring-1 focus:ring-trust-blue outline-none transition" 
+                        placeholder="E.g. Duct Cleaning, Humidifier Repair..." 
+                      />
+                    </div>
+                  )}
+
                   <div>
                     <label className="block text-sm font-bold text-slate-700 mb-2">Message (Optional)</label>
                     <textarea className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:border-trust-blue focus:ring-1 focus:ring-trust-blue outline-none transition h-32" placeholder="Tell us more about your issue..."></textarea>
