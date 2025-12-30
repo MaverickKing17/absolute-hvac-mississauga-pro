@@ -44,7 +44,7 @@ const About: React.FC = () => {
 
   return (
     <div className="flex flex-col">
-      <section className="bg-slate-100 py-20">
+      <section className="bg-slate-100 py-20 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center gap-16">
           <div className="flex-1">
             <h1 className="text-4xl md:text-5xl font-extrabold text-trust-blue mb-6 uppercase tracking-tighter leading-none">Absolute Heating & Cooling Inc</h1>
@@ -71,12 +71,35 @@ const About: React.FC = () => {
             </div>
           </div>
           <div className="flex-1 relative group">
+            {/* Local Context Overlay */}
+            <div className="absolute top-8 left-8 z-20">
+               <div className="bg-white/90 backdrop-blur-md px-4 py-2 rounded-xl shadow-xl border border-slate-100 flex items-center gap-3">
+                  <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                  <span className="text-[10px] font-black text-trust-blue uppercase tracking-widest leading-none">Active in Mississauga</span>
+               </div>
+            </div>
+
             <div className="absolute -inset-4 bg-gradient-to-tr from-trust-blue/20 to-emergency-orange/20 rounded-[3rem] blur-2xl group-hover:opacity-100 transition-opacity opacity-0"></div>
-            <img 
-              src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80&w=800&h=1000" 
-              alt="Professional Absolute HVAC Technician at work in Mississauga" 
-              className="rounded-[2.5rem] shadow-2xl relative z-10 border-4 border-white grayscale-[20%] group-hover:grayscale-0 transition-all duration-700" 
-            />
+            
+            <div className="rounded-[2.5rem] shadow-2xl relative z-10 border-[6px] border-white overflow-hidden group/img">
+              {/* Updated to a much more relatable HVAC technical photo with high brightness */}
+              <img 
+                src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&q=80&w=1000&h=1200" 
+                alt="Absolute HVAC Professional Technician performing a precision diagnostic" 
+                className="w-full h-full object-cover transition-all duration-700 group-hover/img:scale-110" 
+              />
+              {/* Glass UI Element on Image */}
+              <div className="absolute bottom-6 left-6 right-6 bg-slate-900/40 backdrop-blur-xl p-6 rounded-2xl border border-white/20">
+                 <div className="flex justify-between items-center text-white">
+                    <div>
+                       <p className="text-[9px] font-black uppercase tracking-widest opacity-80 mb-1">Current Node</p>
+                       <p className="text-sm font-black uppercase tracking-tighter">Mavis Rd Flagship Unit</p>
+                    </div>
+                    <div className="bg-emergency-orange px-3 py-1 rounded-lg text-[9px] font-black uppercase tracking-widest">Live Audit</div>
+                 </div>
+              </div>
+            </div>
+            
             <div className="absolute -bottom-6 -right-6 w-full h-full trust-blue rounded-[2.5rem] -z-0 opacity-10"></div>
           </div>
         </div>
