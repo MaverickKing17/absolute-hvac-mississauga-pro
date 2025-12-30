@@ -22,25 +22,28 @@ const AIChatWidget: React.FC = () => {
       {!isOpen ? (
         <button 
           onClick={() => setIsOpen(true)}
-          className="relative group flex items-center justify-center"
+          className="relative group flex items-center justify-center p-2"
           aria-label="Open AI Chat Assistant"
         >
-          {/* Pulsing ring effect for visibility */}
-          <div className="absolute inset-0 bg-blue-600 rounded-full animate-ping opacity-25 group-hover:opacity-40 transition-opacity"></div>
+          {/* High-intensity pulsing rings for maximum visibility */}
+          <div className="absolute inset-0 bg-emergency-orange rounded-full animate-ping opacity-60"></div>
+          <div className="absolute inset-0 bg-white rounded-full animate-pulse opacity-20 scale-125"></div>
           
-          <div className="trust-blue text-white w-16 h-16 rounded-full shadow-[0_10px_40px_rgba(30,58,138,0.5)] flex items-center justify-center hover:scale-110 active:scale-95 transition-all duration-300 relative z-10 border-2 border-white/20">
-            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+          <div className="emergency-orange text-white w-20 h-20 rounded-full shadow-[0_15px_60px_rgba(234,88,12,0.6)] flex flex-col items-center justify-center hover:scale-110 active:scale-95 transition-all duration-300 relative z-10 border-4 border-white">
+            <svg className="w-8 h-8 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
             </svg>
+            <span className="text-[10px] font-black uppercase tracking-tighter leading-none">Ask AI</span>
             
-            {/* AI Badge */}
-            <div className="absolute -top-1 -right-1 bg-emergency-orange text-[10px] font-black px-1.5 py-0.5 rounded-full border-2 border-white shadow-sm">
-              AI
+            {/* High-contrast Live Badge */}
+            <div className="absolute -top-2 -right-2 bg-trust-blue text-white text-[10px] font-black px-2.5 py-1 rounded-full border-2 border-white shadow-lg flex items-center gap-1">
+              <span className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></span>
+              LIVE
             </div>
           </div>
         </button>
       ) : (
-        <div className="bg-white w-[350px] md:w-[400px] h-[550px] rounded-[2rem] shadow-[0_20px_60px_rgba(0,0,0,0.15)] border border-slate-200 flex flex-col overflow-hidden animate-in zoom-in-95 slide-in-from-bottom-10 fade-in duration-300">
+        <div className="bg-white w-[350px] md:w-[400px] h-[550px] rounded-[2rem] shadow-[0_20px_60px_rgba(0,0,0,0.25)] border border-slate-200 flex flex-col overflow-hidden animate-in zoom-in-95 slide-in-from-bottom-10 fade-in duration-300">
           {/* Premium Glassmorphism Header */}
           <div className="trust-blue p-5 text-white relative overflow-hidden">
             <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 -mr-12 -mt-12 rounded-full blur-2xl"></div>
