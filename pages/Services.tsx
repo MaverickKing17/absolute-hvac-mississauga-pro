@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import RebateCalculator from '../components/RebateCalculator';
 
@@ -28,6 +28,149 @@ const ServiceFAQItem: React.FC<{ question: string; answer: string }> = ({ questi
   );
 };
 
+const SmartServiceAdvisor: React.FC = () => {
+  const [isScanning, setIsScanning] = useState(false);
+  const [showResult, setShowResult] = useState(false);
+  const [dwellTime, setDwellTime] = useState(0);
+
+  // Simulate dwell time tracking
+  useEffect(() => {
+    const timer = setInterval(() => setDwellTime(prev => prev + 1), 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const runAnalysis = () => {
+    setIsScanning(true);
+    setTimeout(() => {
+      setIsScanning(false);
+      setShowResult(true);
+    }, 2500);
+  };
+
+  return (
+    <section className="py-24 bg-slate-900 relative overflow-hidden">
+      <div className="absolute inset-0 opacity-10">
+        <svg className="w-full h-full" viewBox="0 0 100 100">
+          <pattern id="hex-pattern" width="10" height="10" patternUnits="userSpaceOnUse">
+            <path d="M5 0 L10 2.5 L10 7.5 L5 10 L0 7.5 L0 2.5 Z" fill="none" stroke="white" strokeWidth="0.1"/>
+          </pattern>
+          <rect width="100" height="100" fill="url(#hex-pattern)" />
+        </svg>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div>
+            <div className="inline-flex items-center gap-2 bg-blue-500/10 border border-blue-500/20 px-3 py-1 rounded-full mb-6">
+              <span className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></span>
+              <span className="text-[10px] text-blue-300 font-black uppercase tracking-widest">Neural Interaction Engine</span>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-black text-white mb-6 uppercase tracking-tighter leading-none">
+              AI Smart <span className="text-emergency-orange">Service Advisor</span>
+            </h2>
+            <p className="text-blue-100 text-lg mb-8 font-medium leading-relaxed">
+              Our SmartCare™ algorithms have analyzed your {dwellTime}s session on this page. Based on your interest in high-efficiency upgrades, we can generate a precision-mapped maintenance plan for your home.
+            </p>
+            
+            <div className="space-y-4 mb-10">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 bg-white/5 rounded-xl flex items-center justify-center border border-white/10">
+                  <svg className="w-6 h-6 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                  </svg>
+                </div>
+                <div>
+                  <p className="text-white font-bold uppercase text-xs tracking-widest">Dwell Signal Strength</p>
+                  <div className="w-48 h-1.5 bg-white/10 rounded-full mt-1 overflow-hidden">
+                    <div className="h-full bg-blue-500 animate-[shimmer_2s_infinite]" style={{ width: `${Math.min(dwellTime * 5, 100)}%` }}></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <button 
+              onClick={runAnalysis}
+              disabled={isScanning}
+              className="group relative overflow-hidden bg-white text-trust-blue px-10 py-5 rounded-2xl font-black text-lg hover:scale-[1.03] transition shadow-2xl uppercase tracking-tighter flex items-center gap-3"
+            >
+              {isScanning ? 'Processing Vectors...' : 'Run Diagnostic Analysis'}
+              {!isScanning && (
+                <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+              )}
+            </button>
+          </div>
+
+          <div className="relative">
+            {isScanning && (
+              <div className="absolute inset-0 flex items-center justify-center z-20">
+                <div className="flex flex-col items-center">
+                  <div className="w-20 h-20 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mb-4"></div>
+                  <p className="text-blue-300 font-black text-xs uppercase tracking-widest animate-pulse">Mapping Interaction Graph...</p>
+                </div>
+              </div>
+            )}
+            
+            <div className={`bg-white/5 backdrop-blur-xl border border-white/10 rounded-[3rem] p-8 md:p-12 transition-all duration-700 ${isScanning ? 'opacity-30 blur-sm scale-95' : 'opacity-100 blur-0 scale-100'}`}>
+              {!showResult ? (
+                <div className="text-center space-y-6">
+                  <div className="w-24 h-24 mx-auto bg-white/5 rounded-full flex items-center justify-center border-4 border-white/5">
+                    <svg className="w-12 h-12 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                  </div>
+                  <h3 className="text-xl font-bold text-slate-400 uppercase tracking-tighter italic">Advisor Waiting for Signal Data</h3>
+                  <p className="text-slate-500 text-sm">Our AI will match your browsing profile with the optimal Mississauga maintenance package.</p>
+                </div>
+              ) : (
+                <div className="animate-in fade-in zoom-in-95 duration-700">
+                  <div className="flex justify-between items-start mb-8">
+                    <div>
+                      <h3 className="text-2xl font-black text-white uppercase tracking-tighter leading-none mb-1">Recommended Plan</h3>
+                      <p className="text-[10px] text-blue-400 font-black uppercase tracking-widest">Matched: CCASHP Optimizers</p>
+                    </div>
+                    <div className="bg-emergency-orange text-white px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-widest shadow-lg">
+                      94% Match
+                    </div>
+                  </div>
+
+                  <div className="space-y-6">
+                    <div className="bg-white/5 p-6 rounded-2xl border border-white/10">
+                      <p className="text-white font-black uppercase tracking-tighter mb-4 text-sm">Smart Hybrid Maintenance</p>
+                      <ul className="space-y-3">
+                        {['Rebate Compliance Audit', 'Heat Pump Defrost Check', 'Dual-Fuel Transition Calibration'].map(item => (
+                          <li key={item} className="flex items-center gap-3 text-xs text-blue-200">
+                            <svg className="w-4 h-4 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                              <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" />
+                            </svg>
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    
+                    <div className="flex gap-4">
+                      <Link to="/contact" className="flex-1 bg-emergency-orange text-white py-4 rounded-xl font-black text-center text-sm uppercase tracking-tighter hover:bg-orange-600 transition shadow-xl">
+                        Accept Recommendation
+                      </Link>
+                      <button onClick={() => setShowResult(false)} className="px-6 border border-white/20 text-white rounded-xl hover:bg-white/5 transition">
+                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
 const VideoCard: React.FC<{ video: { title: string; description: string; embedId: string; category: string; duration: string; level: string } }> = ({ video }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -45,7 +188,6 @@ const VideoCard: React.FC<{ video: { title: string; description: string; embedId
             onClick={handlePlay}
             className="absolute inset-0 w-full h-full flex items-center justify-center group/btn overflow-hidden"
           >
-            {/* Using hqdefault.jpg for better cross-video availability compared to maxresdefault */}
             <img 
               src={`https://img.youtube.com/vi/${video.embedId}/hqdefault.jpg`} 
               alt={video.title}
@@ -53,11 +195,9 @@ const VideoCard: React.FC<{ video: { title: string; description: string; embedId
               loading="lazy"
             />
             
-            {/* Overlay Gradients */}
             <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-60"></div>
             <div className="absolute inset-0 bg-trust-blue/10 group-hover:bg-transparent transition-colors"></div>
             
-            {/* Premium Play Button UI */}
             <div className="relative z-10">
               <div className="absolute inset-0 bg-white rounded-full blur-xl scale-125 opacity-0 group-hover/btn:opacity-20 transition-opacity"></div>
               <div className="w-16 h-16 md:w-20 md:h-20 flex items-center justify-center relative">
@@ -71,7 +211,6 @@ const VideoCard: React.FC<{ video: { title: string; description: string; embedId
               </div>
             </div>
 
-            {/* Floating Metadata */}
             <div className="absolute top-4 left-4 flex gap-2">
                <span className="bg-trust-blue/80 backdrop-blur-md text-white text-[9px] font-black uppercase px-2 py-1 rounded-md tracking-widest">{video.duration}</span>
                <span className="bg-emergency-orange/80 backdrop-blur-md text-white text-[9px] font-black uppercase px-2 py-1 rounded-md tracking-widest">{video.level}</span>
@@ -204,7 +343,7 @@ const Services: React.FC = () => {
         </div>
       </section>
 
-      {/* Furnace Section */}
+      {/* Furnace Section - FIXED ASSET STABILITY */}
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center gap-16">
           <div className="flex-1 space-y-8">
@@ -230,10 +369,10 @@ const Services: React.FC = () => {
           </div>
           <div className="flex-1 relative">
             <div className="absolute -inset-4 bg-slate-900/5 rounded-[3rem] -z-10"></div>
-            <div className="rounded-[2.5rem] overflow-hidden shadow-2xl border-4 border-white group">
+            <div className="rounded-[2.5rem] overflow-hidden shadow-2xl border-4 border-white group bg-slate-100">
               <img 
-                src="https://images.unsplash.com/photo-1581094288338-2314dddb79a7?auto=format&fit=crop&q=80&w=1000&h=800" 
-                alt="High Efficiency Gas Furnace Service" 
+                src="https://images.unsplash.com/photo-1581094288338-2314dddb7ec3?auto=format&fit=crop&q=80&w=1000&h=800" 
+                alt="Professional Furnace Maintenance Service" 
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" 
               />
             </div>
@@ -241,7 +380,7 @@ const Services: React.FC = () => {
         </div>
       </section>
 
-      {/* AC Section - Fixed Broken Image */}
+      {/* AC Section */}
       <section className="py-24 bg-slate-50 border-y border-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row-reverse items-center gap-16">
           <div className="flex-1 space-y-8">
@@ -267,7 +406,7 @@ const Services: React.FC = () => {
           </div>
           <div className="flex-1 relative">
             <div className="absolute -inset-4 bg-trust-blue/5 rounded-[3rem] -z-10"></div>
-            <div className="rounded-[2.5rem] overflow-hidden shadow-2xl border-4 border-white group">
+            <div className="rounded-[2.5rem] overflow-hidden shadow-2xl border-4 border-white group bg-slate-100">
               <img 
                 src="https://images.unsplash.com/photo-1585338107529-13afc5f02586?auto=format&fit=crop&q=80&w=1000&h=800" 
                 alt="Professional Central Air Conditioning Installation" 
@@ -277,6 +416,9 @@ const Services: React.FC = () => {
           </div>
         </div>
       </section>
+
+      {/* AI Smart Advisor Integration */}
+      <SmartServiceAdvisor />
 
       {/* Enhanced Video Learning Center */}
       <section className="py-24 bg-white relative">
