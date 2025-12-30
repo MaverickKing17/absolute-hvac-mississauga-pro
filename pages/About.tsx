@@ -8,6 +8,7 @@ const About: React.FC = () => {
       name: "BBB Accredited",
       status: "A+ Rating",
       description: "Recognized for the highest standards of trust and integrity in the HVAC industry across Ontario.",
+      aria: "BBB Accredited with an A plus Rating - Ontario's highest standard for trust and integrity.",
       icon: (
         <svg className="w-14 h-14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
           <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
@@ -20,6 +21,7 @@ const About: React.FC = () => {
       name: "HomeAdvisor Top Rated",
       status: "Top Professional",
       description: "Voted #1 for reliability and superior project quality by Mississauga homeowners for five consecutive years.",
+      aria: "HomeAdvisor Top Rated - Voted number 1 for reliability and superior quality in Mississauga.",
       icon: (
         <svg className="w-14 h-14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
           <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
@@ -32,6 +34,7 @@ const About: React.FC = () => {
       name: "Google Guaranteed",
       status: "Local Shield",
       description: "Absolute is a fully verified local services provider backed by Google's protection for customer quality assurance.",
+      aria: "Google Guaranteed - Verified local services provider backed by Google's performance shield.",
       icon: (
         <svg className="w-14 h-14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
           <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.744c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
@@ -71,24 +74,19 @@ const About: React.FC = () => {
             </div>
           </div>
           <div className="flex-1 relative group">
-            {/* Local Context Overlay */}
             <div className="absolute top-8 left-8 z-20">
                <div className="bg-white/90 backdrop-blur-md px-4 py-2 rounded-xl shadow-xl border border-slate-100 flex items-center gap-3">
                   <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
                   <span className="text-[10px] font-black text-trust-blue uppercase tracking-widest leading-none">Active in Mississauga</span>
                </div>
             </div>
-
             <div className="absolute -inset-4 bg-gradient-to-tr from-trust-blue/20 to-emergency-orange/20 rounded-[3rem] blur-2xl group-hover:opacity-100 transition-opacity opacity-0"></div>
-            
             <div className="rounded-[2.5rem] shadow-2xl relative z-10 border-[6px] border-white overflow-hidden group/img">
-              {/* Updated to a much more relatable HVAC technical photo with high brightness */}
               <img 
                 src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&q=80&w=1000&h=1200" 
                 alt="Absolute HVAC Professional Technician performing a precision diagnostic" 
                 className="w-full h-full object-cover transition-all duration-700 group-hover/img:scale-110" 
               />
-              {/* Glass UI Element on Image */}
               <div className="absolute bottom-6 left-6 right-6 bg-slate-900/40 backdrop-blur-xl p-6 rounded-2xl border border-white/20">
                  <div className="flex justify-between items-center text-white">
                     <div>
@@ -99,15 +97,12 @@ const About: React.FC = () => {
                  </div>
               </div>
             </div>
-            
             <div className="absolute -bottom-6 -right-6 w-full h-full trust-blue rounded-[2.5rem] -z-0 opacity-10"></div>
           </div>
         </div>
       </section>
 
-      {/* Enhanced Trust Badges Section */}
       <section className="py-24 bg-white relative overflow-hidden">
-        {/* Subtle background decoration */}
         <div className="absolute top-0 left-0 w-full h-full opacity-[0.03] pointer-events-none">
           <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
             <defs>
@@ -118,7 +113,6 @@ const About: React.FC = () => {
             <rect width="100" height="100" fill="url(#grid)" />
           </svg>
         </div>
-
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-20">
             <span className="text-trust-blue font-black uppercase tracking-[0.3em] text-xs mb-4 block">Proven Excellence</span>
@@ -127,39 +121,29 @@ const About: React.FC = () => {
             </h2>
             <div className="w-32 h-1.5 bg-slate-200 mx-auto rounded-full"></div>
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10" role="list">
             {trustBadges.map((badge, idx) => (
               <div 
                 key={idx} 
-                className="group relative flex flex-col items-center text-center p-12 bg-white rounded-[3rem] border-2 border-slate-50 hover:border-trust-blue/30 shadow-[0_10px_30px_rgba(0,0,0,0.04)] hover:shadow-[0_25px_60px_rgba(30,58,138,0.12)] transition-all duration-500 hover:-translate-y-3 cursor-default"
+                role="listitem"
+                aria-label={badge.aria}
+                tabIndex={0}
+                className="group relative flex flex-col items-center text-center p-12 bg-white rounded-[3rem] border-2 border-slate-50 hover:border-trust-blue/30 shadow-[0_10px_30px_rgba(0,0,0,0.04)] hover:shadow-[0_25px_60px_rgba(30,58,138,0.12)] transition-all duration-500 hover:-translate-y-3 focus:ring-4 focus:ring-trust-blue/20 outline-none"
               >
-                {/* Status Ribbon/Badge */}
                 <div className="absolute top-6 right-8 bg-slate-100 group-hover:bg-trust-blue group-hover:text-white text-slate-400 text-[10px] font-black px-4 py-1.5 rounded-full uppercase tracking-widest transition-colors duration-300">
                   {badge.status}
                 </div>
-
-                {/* Larger Icon with Shield effect */}
-                <div className={`mb-10 p-8 ${badge.bg} rounded-[2.5rem] transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-sm`}>
+                <div className={`mb-10 p-8 ${badge.bg} rounded-[2.5rem] transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-sm`} aria-hidden="true">
                   <div className={`${badge.color}`}>
                     {badge.icon}
                   </div>
                 </div>
-
-                <h3 className="text-2xl font-black text-trust-blue mb-4 uppercase tracking-tighter leading-tight">
-                  {badge.name}
-                </h3>
-                
-                <p className="text-slate-500 text-base leading-relaxed font-medium">
-                  {badge.description}
-                </p>
-
-                {/* Subtle bottom indicator */}
+                <h3 className="text-2xl font-black text-trust-blue mb-4 uppercase tracking-tighter leading-tight">{badge.name}</h3>
+                <p className="text-slate-500 text-base leading-relaxed font-medium">{badge.description}</p>
                 <div className="mt-8 w-12 h-1 bg-slate-100 group-hover:w-24 group-hover:bg-emergency-orange transition-all duration-500 rounded-full"></div>
               </div>
             ))}
           </div>
-          
           <div className="mt-20 text-center">
             <p className="text-slate-400 font-bold uppercase tracking-widest text-[11px] mb-6 flex items-center justify-center gap-4">
               <span className="h-px w-8 bg-slate-200"></span>
@@ -170,7 +154,6 @@ const About: React.FC = () => {
         </div>
       </section>
 
-      {/* Customer Testimonials Carousel Section */}
       <section className="py-24 bg-slate-50 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row items-end justify-between mb-16 gap-6">
@@ -189,10 +172,7 @@ const About: React.FC = () => {
               <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">4.9/5 Based on 500+ Google Reviews</p>
             </div>
           </div>
-          
           <TestimonialCarousel />
-
-          {/* AI Transparency Disclaimer */}
           <div className="mt-12 flex justify-center">
             <div className="bg-slate-100/80 border border-slate-200 px-8 py-4 rounded-2xl flex flex-col md:flex-row items-center gap-4 max-w-4xl shadow-inner group">
               <div className="bg-white p-2 rounded-lg shadow-sm border border-slate-100 text-trust-blue transform group-hover:rotate-12 transition-transform duration-500">
@@ -208,14 +188,12 @@ const About: React.FC = () => {
         </div>
       </section>
 
-      {/* Location Section */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-extrabold text-trust-blue mb-4 uppercase tracking-tighter">Visit Our Mississauga Headquarters</h2>
             <p className="text-slate-600 max-w-2xl mx-auto font-medium">We are conveniently located in the heart of Mississauga at the Flea Market on Mavis Road.</p>
           </div>
-          
           <div className="bg-slate-50 rounded-[2.5rem] overflow-hidden shadow-2xl flex flex-col md:flex-row border border-slate-100">
             <div className="md:w-1/2 h-[450px] bg-slate-300">
               <div className="w-full h-full flex items-center justify-center bg-blue-50 text-trust-blue text-center p-8">
