@@ -1,0 +1,7 @@
+{
+  "name": "Absolute Heating and Cooling Inc",
+  "description": "Professional HVAC services in Mississauga featuring furnace repair, AC installation, and Ontario heat pump rebates up to $7,100.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
