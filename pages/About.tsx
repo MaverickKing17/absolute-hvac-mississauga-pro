@@ -163,6 +163,20 @@ const About: React.FC = () => {
           </div>
           
           <TestimonialCarousel />
+
+          {/* AI Transparency Disclaimer */}
+          <div className="mt-12 flex justify-center">
+            <div className="bg-slate-100/80 border border-slate-200 px-8 py-4 rounded-2xl flex flex-col md:flex-row items-center gap-4 max-w-4xl shadow-inner group">
+              <div className="bg-white p-2 rounded-lg shadow-sm border border-slate-100 text-trust-blue transform group-hover:rotate-12 transition-transform duration-500">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <p className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.1em] text-center md:text-left leading-relaxed">
+                <span className="text-trust-blue font-black">AI Transparency Note:</span> All customer feedback is processed through proprietary Absolute SmartCare™ machine learning models to identify service trends and sentiment. Data is strictly <span className="text-emergency-orange">anonymized</span> and used exclusively for internal service optimization and technical training.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
