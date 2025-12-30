@@ -28,64 +28,96 @@ const ServiceFAQItem: React.FC<{ question: string; answer: string }> = ({ questi
   );
 };
 
-const VideoCard: React.FC<{ video: { title: string; description: string; embedId: string; category: string } }> = ({ video }) => {
+const VideoCard: React.FC<{ video: { title: string; description: string; embedId: string; category: string; duration: string; level: string } }> = ({ video }) => {
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handlePlay = () => {
+    setIsLoading(true);
+    setIsPlaying(true);
+  };
 
   return (
-    <div className="bg-white rounded-2xl overflow-hidden shadow-md border border-slate-200 hover:shadow-2xl transition-all duration-300 flex flex-col h-full group">
+    <div className="bg-white rounded-[2rem] overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 flex flex-col h-full group border border-slate-100">
       <div className="aspect-video bg-slate-900 relative overflow-hidden">
         {!isPlaying ? (
           <button 
-            onClick={() => setIsPlaying(true)}
-            className="absolute inset-0 w-full h-full flex items-center justify-center group/btn"
+            onClick={handlePlay}
+            className="absolute inset-0 w-full h-full flex items-center justify-center group/btn overflow-hidden"
           >
+            {/* High-Quality Thumbnail with subtle zoom on hover */}
             <img 
               src={`https://img.youtube.com/vi/${video.embedId}/maxresdefault.jpg`} 
               alt={video.title}
-              className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500"
+              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-80"
+              loading="lazy"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent"></div>
             
-            {/* Custom Play Button */}
-            <div className="relative z-10 w-16 h-16 flex items-center justify-center">
-              <div className="absolute inset-0 bg-white rounded-full scale-100 group-hover/btn:scale-125 transition-transform duration-500 opacity-20"></div>
-              <div className="w-12 h-12 trust-blue rounded-full flex items-center justify-center text-white shadow-xl transform group-hover/btn:scale-110 transition-transform duration-300">
-                <svg className="w-6 h-6 ml-1" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M4.516 7.548c0-.923.951-1.476 1.745-1.002l6.502 3.88c.794.474.794 1.528 0 2.002l-6.502 3.88c-.794.474-1.745-.079-1.745-1.002V7.548z" />
-                </svg>
+            {/* Overlay Gradients */}
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-60"></div>
+            <div className="absolute inset-0 bg-trust-blue/10 group-hover:bg-transparent transition-colors"></div>
+            
+            {/* Premium Play Button UI */}
+            <div className="relative z-10">
+              <div className="absolute inset-0 bg-white rounded-full blur-xl scale-125 opacity-0 group-hover/btn:opacity-20 transition-opacity"></div>
+              <div className="w-16 h-16 md:w-20 md:h-20 flex items-center justify-center relative">
+                <div className="absolute inset-0 bg-white/20 rounded-full animate-ping opacity-30"></div>
+                <div className="absolute inset-0 border-2 border-white/50 rounded-full scale-100 group-hover/btn:scale-110 transition-transform"></div>
+                <div className="w-14 h-14 md:w-16 md:h-16 emergency-orange text-white rounded-full flex items-center justify-center shadow-[0_10px_30px_rgba(234,88,12,0.4)] transform transition-all duration-300 group-hover/btn:scale-110 active:scale-95">
+                  <svg className="w-6 h-6 md:w-8 md:h-8 ml-1" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M7 6v12l10-6z" />
+                  </svg>
+                </div>
               </div>
             </div>
-            
-            <div className="absolute bottom-4 left-4 text-left">
-               <p className="text-[10px] font-black text-white uppercase tracking-widest bg-emergency-orange/80 px-2 py-0.5 rounded backdrop-blur-sm">Click to Play</p>
+
+            {/* Floating Metadata */}
+            <div className="absolute top-4 left-4 flex gap-2">
+               <span className="bg-trust-blue/80 backdrop-blur-md text-white text-[9px] font-black uppercase px-2 py-1 rounded-md tracking-widest">{video.duration}</span>
+               <span className="bg-emergency-orange/80 backdrop-blur-md text-white text-[9px] font-black uppercase px-2 py-1 rounded-md tracking-widest">{video.level}</span>
             </div>
           </button>
         ) : (
-          <iframe 
-            className="absolute inset-0 w-full h-full"
-            src={`https://www.youtube.com/embed/${video.embedId}?autoplay=1`}
-            title={video.title}
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          ></iframe>
+          <div className="w-full h-full bg-black relative">
+            {isLoading && (
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="w-10 h-10 border-4 border-emergency-orange border-t-transparent rounded-full animate-spin"></div>
+              </div>
+            )}
+            <iframe 
+              className="absolute inset-0 w-full h-full"
+              src={`https://www.youtube.com/embed/${video.embedId}?autoplay=1&modestbranding=1&rel=0`}
+              title={video.title}
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              onLoad={() => setIsLoading(false)}
+            ></iframe>
+          </div>
         )}
       </div>
-      <div className="p-5 flex-1 flex flex-col">
-        <div className="flex items-center gap-2 mb-3">
-          <div className="w-1.5 h-1.5 rounded-full bg-emergency-orange animate-pulse"></div>
-          <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{video.category}</span>
+      
+      <div className="p-6 md:p-8 flex-1 flex flex-col">
+        <div className="flex items-center gap-2 mb-4">
+          <div className="w-2 h-2 rounded-full bg-emergency-orange animate-pulse"></div>
+          <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">{video.category} Service Guide</span>
         </div>
-        <h3 className="text-lg font-bold text-trust-blue mb-2 leading-tight">{video.title}</h3>
-        <p className="text-slate-500 text-xs leading-relaxed mb-4 flex-grow">
+        <h3 className="text-xl font-black text-trust-blue mb-3 leading-tight uppercase tracking-tighter group-hover:text-emergency-orange transition-colors">
+          {video.title}
+        </h3>
+        <p className="text-slate-500 text-sm leading-relaxed mb-6 flex-grow font-medium">
           {video.description}
         </p>
         <button 
-          onClick={() => setIsPlaying(true)}
-          className="text-trust-blue text-xs font-black uppercase tracking-wider flex items-center gap-2 hover:text-emergency-orange transition-colors"
+          onClick={() => !isPlaying && handlePlay()}
+          className="group/link flex items-center gap-2 text-trust-blue font-black uppercase tracking-widest text-[11px] hover:text-emergency-orange transition-colors"
         >
-          {isPlaying ? 'Playing Now' : 'Watch Full Guide'}
-          <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+          {isPlaying ? 'Now Playing' : 'Start Education'}
+          <div className="w-6 h-6 rounded-full bg-slate-100 flex items-center justify-center group-hover/link:bg-emergency-orange group-hover/link:text-white transition-all">
+            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+            </svg>
+          </div>
         </button>
       </div>
     </div>
@@ -96,27 +128,35 @@ const Services: React.FC = () => {
   const troubleshootingVideos = [
     {
       title: "Strange Furnace Noises?",
-      description: "Differentiate between normal system startup and red-flag sounds like banging or screeching.",
+      description: "Differentiate between normal system startup sounds and critical failure warnings like screeching or banging.",
       embedId: "qHn2k0_XpLg",
-      category: "Heating"
+      category: "Heating",
+      duration: "3:42",
+      level: "Essential"
     },
     {
-      title: "AC Not Cooling Enough?",
-      description: "From dirty coils to frozen lines—learn what causes low cooling performance in hot weather.",
+      title: "AC Efficiency Secrets",
+      description: "Learn how to optimize your air conditioner's cooling power while reducing peak-hour energy consumption.",
       embedId: "M_zLz5k9zE4",
-      category: "Cooling"
+      category: "Cooling",
+      duration: "5:15",
+      level: "Intermediate"
     },
     {
-      title: "Changing Your Air Filter",
-      description: "A quick 1-minute guide to finding and replacing your furnace filter to protect your blower motor.",
+      title: "Filter Health 101",
+      description: "A deep dive into why high-MERV filters might be hurting your blower motor and when to swap them.",
       embedId: "vBvXg7N6L1U",
-      category: "Maintenance"
+      category: "Maintenance",
+      duration: "2:10",
+      level: "DIY-Safe"
     },
     {
-      title: "Thermostat Troubleshooting",
-      description: "Is it the furnace or just the batteries? Check these 3 things before booking a repair.",
+      title: "Thermostat Logic",
+      description: "Troubleshooting digital communication errors between your smart thermostat and your furnace control board.",
       embedId: "8x8XzWkF_0s",
-      category: "Electrical"
+      category: "Electrical",
+      duration: "4:30",
+      level: "Technical"
     }
   ];
 
@@ -145,9 +185,19 @@ const Services: React.FC = () => {
 
   return (
     <div className="flex flex-col">
-      <section className="trust-blue py-16 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl md:text-5xl font-extrabold mb-4 uppercase tracking-tighter">Our HVAC Services</h1>
+      <section className="trust-blue py-16 text-white relative overflow-hidden">
+        <div className="absolute inset-0 bg-white/5 pointer-events-none">
+          <svg className="w-full h-full opacity-10" viewBox="0 0 100 100" preserveAspectRatio="none">
+            <defs>
+              <pattern id="grid-pattern" width="10" height="10" patternUnits="userSpaceOnUse">
+                <path d="M 10 0 L 0 0 0 10" fill="none" stroke="currentColor" strokeWidth="0.5"/>
+              </pattern>
+            </defs>
+            <rect width="100" height="100" fill="url(#grid-pattern)" />
+          </svg>
+        </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+          <h1 className="text-4xl md:text-5xl font-black mb-4 uppercase tracking-tighter">Certified HVAC Engineering</h1>
           <p className="text-blue-100 max-w-2xl mx-auto text-lg font-medium">
             Professional solutions for every season. We specialize in high-efficiency equipment tailored for the GTA climate.
           </p>
@@ -155,178 +205,143 @@ const Services: React.FC = () => {
       </section>
 
       {/* Furnace Section */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center gap-12">
-          <div className="flex-1 space-y-6">
-            <h2 className="text-3xl font-extrabold text-trust-blue uppercase tracking-tighter">Furnace Repair & Installation</h2>
-            <div className="w-20 h-1.5 bg-emergency-orange"></div>
+      <section className="py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center gap-16">
+          <div className="flex-1 space-y-8">
+            <h2 className="text-3xl md:text-4xl font-black text-trust-blue uppercase tracking-tighter">Heating & Furnace Architecture</h2>
+            <div className="w-24 h-2 bg-emergency-orange"></div>
             <p className="text-slate-600 leading-relaxed text-lg font-medium">
-              Don't get left in the cold. Our licensed technicians handle everything from minor repairs to full high-efficiency gas furnace installations. We service all major brands including Lennox, Carrier, and York.
+              Don't get left in the cold. Our licensed technicians handle everything from minor thermal coupling repairs to full high-efficiency gas furnace installations. We service all major brands including Lennox, Carrier, and York.
             </p>
-            <ul className="space-y-3">
-              {['24/7 Emergency Heating Repair', 'Expert Diagnosis & Tuning', 'High-Efficiency Upgrades', 'Annual Maintenance Plans'].map((item) => (
-                <li key={item} className="flex items-center gap-3 text-slate-700 font-bold">
-                  <svg className="w-5 h-5 text-emergency-orange" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/></svg>
+            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {['24/7 Emergency Dispatch', 'Precision Diagnostics', 'High-Efficiency Upgrades', 'Carbon Monoxide Checks'].map((item) => (
+                <li key={item} className="flex items-center gap-3 text-slate-700 font-black uppercase tracking-tighter text-sm">
+                  <div className="w-5 h-5 bg-orange-100 text-emergency-orange rounded-md flex items-center justify-center">
+                    <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/></svg>
+                  </div>
                   {item}
                 </li>
               ))}
             </ul>
-            <Link to="/contact" className="inline-block emergency-orange text-white px-8 py-4 rounded-xl font-black text-lg hover:scale-105 transition shadow-lg uppercase tracking-tighter">Get Furnace Estimate</Link>
+            <Link to="/contact" className="inline-flex items-center gap-3 emergency-orange text-white px-10 py-5 rounded-2xl font-black text-lg hover:scale-[1.03] transition shadow-2xl uppercase tracking-tighter">
+              Book Furnace Repair
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+            </Link>
           </div>
-          <div className="flex-1 rounded-3xl overflow-hidden shadow-2xl border-4 border-white group">
-            <img 
-              src="https://images.unsplash.com/photo-1581094288338-2314dddb79a7?auto=format&fit=crop&q=80&w=800&h=600" 
-              alt="High Efficiency Gas Furnace Service" 
-              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
-            />
+          <div className="flex-1 relative">
+            <div className="absolute -inset-4 bg-slate-900/5 rounded-[3rem] -z-10"></div>
+            <div className="rounded-[2.5rem] overflow-hidden shadow-2xl border-4 border-white group">
+              <img 
+                src="https://images.unsplash.com/photo-1581094288338-2314dddb79a7?auto=format&fit=crop&q=80&w=1000&h=800" 
+                alt="High Efficiency Gas Furnace Service" 
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" 
+              />
+            </div>
           </div>
         </div>
       </section>
 
       {/* AC Section */}
-      <section className="py-20 bg-slate-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row-reverse items-center gap-12">
-          <div className="flex-1 space-y-6">
-            <h2 className="text-3xl font-extrabold text-trust-blue uppercase tracking-tighter">AC Install & Maintenance</h2>
-            <div className="w-20 h-1.5 bg-emergency-orange"></div>
+      <section className="py-24 bg-slate-50 border-y border-slate-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row-reverse items-center gap-16">
+          <div className="flex-1 space-y-8">
+            <h2 className="text-3xl md:text-4xl font-black text-trust-blue uppercase tracking-tighter">Cooling & Air Optimization</h2>
+            <div className="w-24 h-2 bg-trust-blue"></div>
             <p className="text-slate-600 leading-relaxed text-lg font-medium">
               Stay cool during the humid GTA summers. We provide quiet, efficient, and reliable central air conditioning and ductless mini-split systems that keep your home comfortable while lowering energy costs.
             </p>
-            <ul className="space-y-3">
-              {['Central AC Installation', 'Ductless Mini-Split Systems', 'Refrigerant Leak Detection', 'Condenser Cleaning'].map((item) => (
-                <li key={item} className="flex items-center gap-3 text-slate-700 font-bold">
-                  <svg className="w-5 h-5 text-emergency-orange" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/></svg>
+            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {['Central AC Design', 'Ductless Mini-Splits', 'Leak Detection', 'Condenser Overhauls'].map((item) => (
+                <li key={item} className="flex items-center gap-3 text-slate-700 font-black uppercase tracking-tighter text-sm">
+                  <div className="w-5 h-5 bg-blue-100 text-trust-blue rounded-md flex items-center justify-center">
+                    <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/></svg>
+                  </div>
                   {item}
                 </li>
               ))}
             </ul>
-            <Link to="/contact" className="inline-block emergency-orange text-white px-8 py-4 rounded-xl font-black text-lg hover:scale-105 transition shadow-lg uppercase tracking-tighter">Get AC Quote</Link>
+            <Link to="/contact" className="inline-flex items-center gap-3 trust-blue text-white px-10 py-5 rounded-2xl font-black text-lg hover:scale-[1.03] transition shadow-2xl uppercase tracking-tighter">
+              Get Cooling Audit
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+            </Link>
           </div>
-          <div className="flex-1 rounded-3xl overflow-hidden shadow-2xl border-4 border-white group">
-            <img 
-              src="https://images.unsplash.com/photo-1621905252507-b354bcadcabc?auto=format&fit=crop&q=80&w=800&h=600" 
-              alt="Professional Central Air Conditioning Installation" 
-              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* Rebate Calculator Section */}
-      <section className="py-24 bg-white overflow-hidden relative">
-        <div className="absolute top-0 left-0 w-full h-1/2 bg-slate-50"></div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="flex flex-col lg:flex-row items-center gap-16">
-            <div className="lg:w-1/2 space-y-8">
-              <div>
-                <span className="text-savings-green font-black uppercase tracking-widest text-sm mb-4 block">Ontario Savings Program</span>
-                <h2 className="text-3xl md:text-5xl font-extrabold text-trust-blue uppercase tracking-tighter leading-none mb-6">
-                  Estimate Your <span className="text-savings-green">Instant Savings</span>
-                </h2>
-                <div className="w-24 h-1.5 bg-emergency-orange mb-8"></div>
-                <p className="text-slate-600 text-lg leading-relaxed font-medium">
-                  Switching to a high-efficiency Heat Pump can unlock up to <strong>$7,100 in government rebates</strong>. Use our smart estimator to see how much you could qualify for based on your home size and current energy source.
-                </p>
-              </div>
-              
-              <div className="space-y-4">
-                <div className="flex items-start gap-4 p-5 bg-blue-50 rounded-2xl border border-blue-100 shadow-inner">
-                  <div className="bg-trust-blue text-white p-2 rounded-lg shrink-0">
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                  </div>
-                  <p className="text-sm text-trust-blue font-bold italic leading-relaxed">Rebates are limited and processed on a first-come, first-served basis. Secure your eligibility today with an Absolute SmartAudit.</p>
-                </div>
-                <Link to="/rebates" className="inline-flex items-center gap-2 text-trust-blue font-black uppercase tracking-widest text-sm hover:text-emergency-orange transition-colors">
-                  View Full Rebate Guide
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M9 5l7 7-7 7"/></svg>
-                </Link>
-              </div>
-            </div>
-            
-            <div className="lg:w-1/2 w-full">
-              <RebateCalculator />
+          <div className="flex-1 relative">
+            <div className="absolute -inset-4 bg-trust-blue/5 rounded-[3rem] -z-10"></div>
+            <div className="rounded-[2.5rem] overflow-hidden shadow-2xl border-4 border-white group">
+              <img 
+                src="https://images.unsplash.com/photo-1621905252507-b354bcadcabc?auto=format&fit=crop&q=80&w=1000&h=800" 
+                alt="Professional Central Air Conditioning Installation" 
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" 
+              />
             </div>
           </div>
         </div>
       </section>
 
-      {/* Responsive Video Learning Center Section */}
-      <section className="py-24 bg-slate-100 border-y border-slate-200">
+      {/* Enhanced Video Learning Center */}
+      <section className="py-24 bg-white relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <span className="text-emergency-orange font-black uppercase tracking-[0.2em] text-sm mb-4 block">Expert Education Series</span>
-            <h2 className="text-3xl md:text-5xl font-extrabold text-trust-blue mb-4 uppercase tracking-tighter">HVAC Video Learning Center</h2>
-            <p className="text-slate-600 max-w-2xl mx-auto text-lg font-medium">
-              Identifying common issues early can save you thousands. Watch our technicians explain the warning signs and DIY maintenance basics.
-            </p>
-            <div className="w-24 h-1.5 bg-emergency-orange mx-auto mt-8"></div>
+          <div className="flex flex-col md:flex-row items-end justify-between mb-16 gap-6">
+            <div className="max-w-2xl">
+              <span className="text-emergency-orange font-black uppercase tracking-[0.3em] text-xs mb-4 block">Knowledge Repository</span>
+              <h2 className="text-3xl md:text-5xl font-black text-trust-blue uppercase tracking-tighter leading-none mb-6">
+                HVAC Video <span className="text-slate-400 italic">Learning Center</span>
+              </h2>
+              <p className="text-slate-500 text-lg font-medium leading-relaxed">
+                Empowering Mississauga homeowners with professional insights. Watch our technicians explain common diagnostic red flags and maintenance protocols.
+              </p>
+            </div>
+            <div className="bg-slate-50 p-6 rounded-[2rem] border border-slate-100 text-center md:text-right">
+              <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">Content Status</p>
+              <div className="flex items-center gap-2 justify-center md:justify-end">
+                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                <span className="text-sm font-black text-trust-blue uppercase tracking-tighter">Updated Weekly</span>
+              </div>
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10">
             {troubleshootingVideos.map((video, idx) => (
               <VideoCard key={idx} video={video} />
             ))}
           </div>
           
-          <div className="mt-16 bg-white p-8 rounded-[2rem] shadow-sm border border-slate-200 flex flex-col md:flex-row items-center justify-between gap-8">
-            <div className="text-center md:text-left">
-              <h4 className="text-xl font-bold text-trust-blue mb-1 uppercase tracking-tighter">Still not sure what's wrong?</h4>
-              <p className="text-slate-500 font-medium">Our 24/7 dispatchers are ready to send a technician to your door in Mississauga today.</p>
-            </div>
-            <div className="flex gap-4">
-              <a href="tel:6477465959" className="emergency-orange text-white px-8 py-4 rounded-xl font-black text-lg hover:scale-105 transition shadow-lg uppercase tracking-tighter">Call Now</a>
-              <Link to="/contact" className="border-2 border-trust-blue text-trust-blue px-8 py-4 rounded-xl font-black text-lg hover:bg-slate-50 transition uppercase tracking-tighter">Book Online</Link>
+          <div className="mt-20 bg-trust-blue p-8 md:p-14 rounded-[3rem] shadow-2xl relative overflow-hidden group">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 -mr-32 -mt-32 rounded-full blur-3xl transition-transform duration-1000 group-hover:scale-150"></div>
+            <div className="flex flex-col lg:flex-row items-center justify-between gap-10 relative z-10 text-center lg:text-left">
+              <div className="max-w-2xl">
+                <h4 className="text-2xl md:text-4xl font-black text-white mb-4 uppercase tracking-tighter leading-none">Diagnostic support needed?</h4>
+                <p className="text-blue-100 text-lg font-medium">Our 24/7 technical dispatchers are ready to send a field engineer to your Mississauga location within 2-4 hours.</p>
+              </div>
+              <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+                <a href="tel:6477465959" className="emergency-orange text-white px-10 py-5 rounded-2xl font-black text-lg hover:scale-105 transition shadow-2xl uppercase tracking-tighter text-center">Dispatch Now</a>
+                <Link to="/contact" className="bg-white/10 backdrop-blur-md border border-white/20 text-white px-10 py-5 rounded-2xl font-black text-lg hover:bg-white/20 transition uppercase tracking-tighter text-center">Request Audit</Link>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Warranty Section */}
-      <section className="py-20 bg-slate-900 text-white">
+      {/* Rebate Calculator Section Integration */}
+      <section className="py-24 bg-slate-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-extrabold mb-4 uppercase tracking-tighter">Our Industry-Leading Warranty</h2>
-            <p className="text-slate-400 max-w-2xl mx-auto text-lg">We don't just fix it; we stand behind it. Absolute Heating & Cooling provides complete peace of mind with every visit.</p>
+            <h2 className="text-3xl md:text-4xl font-black text-trust-blue uppercase tracking-tighter">Financial Optimization</h2>
+            <p className="text-slate-500 font-bold uppercase tracking-widest text-xs mt-2">Maximize your Ontario Heat Pump Grants</p>
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-white/5 border border-white/10 p-8 rounded-2xl backdrop-blur-sm group hover:bg-white/10 transition-colors">
-              <div className="w-14 h-14 bg-emergency-orange/20 rounded-xl flex items-center justify-center mb-6 text-emergency-orange transform group-hover:rotate-12 transition-transform">
-                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-              </div>
-              <h3 className="text-xl font-bold mb-3 uppercase tracking-tighter">10-Year Parts Warranty</h3>
-              <p className="text-slate-400 leading-relaxed font-medium">Most of our new high-efficiency installations come with a full 10-year manufacturer parts warranty, ensuring long-term protection for your investment.</p>
-            </div>
-
-            <div className="bg-white/5 border border-white/10 p-8 rounded-2xl backdrop-blur-sm group hover:bg-white/10 transition-colors">
-              <div className="w-14 h-14 bg-emergency-orange/20 rounded-xl flex items-center justify-center mb-6 text-emergency-orange transform group-hover:rotate-12 transition-transform">
-                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-              </div>
-              <h3 className="text-xl font-bold mb-3 uppercase tracking-tighter">1-Year Labor Guarantee</h3>
-              <p className="text-slate-400 leading-relaxed font-medium">We provide a 1-year labor warranty on all new installations. If anything isn't working perfectly due to our workmanship, we'll fix it at no cost to you.</p>
-            </div>
-
-            <div className="bg-white/5 border border-white/10 p-8 rounded-2xl backdrop-blur-sm group hover:bg-white/10 transition-colors">
-              <div className="w-14 h-14 bg-emergency-orange/20 rounded-xl flex items-center justify-center mb-6 text-emergency-orange transform group-hover:rotate-12 transition-transform">
-                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-              </div>
-              <h3 className="text-xl font-bold mb-3 uppercase tracking-tighter">90-Day Repair Warranty</h3>
-              <p className="text-slate-400 leading-relaxed font-medium">Every repair we perform is backed by our 90-day parts and labor guarantee. You can trust that our diagnosis and fix will hold up when it matters most.</p>
-            </div>
-          </div>
+          <RebateCalculator />
         </div>
       </section>
 
-      {/* Service FAQs Section */}
+      {/* FAQ Section */}
       <section className="py-24 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-extrabold text-trust-blue mb-4 uppercase tracking-tighter">Service & Maintenance FAQ</h2>
-            <p className="text-slate-600 font-bold uppercase tracking-widest text-xs">Expert answers to keep your home comfortable year-round.</p>
-            <div className="w-20 h-1 bg-emergency-orange mx-auto mt-6"></div>
+            <h2 className="text-3xl md:text-4xl font-black text-trust-blue mb-4 uppercase tracking-tighter">Technical FAQ Repository</h2>
+            <div className="w-20 h-1.5 bg-emergency-orange mx-auto"></div>
           </div>
 
-          <div className="bg-slate-50 rounded-[3rem] p-8 md:p-12 border border-slate-100 shadow-inner">
+          <div className="bg-slate-50 rounded-[3rem] p-8 md:p-14 border border-slate-100 shadow-inner space-y-2">
             {serviceFAQs.map((faq, index) => (
               <ServiceFAQItem 
                 key={index} 
@@ -338,16 +353,16 @@ const Services: React.FC = () => {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-20 bg-slate-50">
+      {/* Sticky Final CTA */}
+      <section className="py-20 bg-slate-900 text-white">
         <div className="max-w-4xl mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-black text-trust-blue mb-8 uppercase tracking-tighter">Ready for a Reliable HVAC Solution?</h2>
+          <h2 className="text-3xl md:text-5xl font-black mb-8 uppercase tracking-tighter leading-none">Ready for a Technical Upgrade?</h2>
           <div className="flex flex-col sm:flex-row justify-center gap-6">
-            <a href="tel:6477465959" className="emergency-orange text-white px-10 py-5 rounded-2xl font-black text-xl hover:scale-105 transition shadow-xl inline-flex items-center gap-2 justify-center">
-              Call (647) 746-5959
+            <a href="tel:6477465959" className="emergency-orange text-white px-12 py-6 rounded-2xl font-black text-xl hover:scale-105 transition shadow-2xl flex items-center gap-3 justify-center">
+              Call Engineer: (647) 746-5959
             </a>
-            <Link to="/contact" className="bg-white text-trust-blue border-4 border-trust-blue px-10 py-5 rounded-2xl font-black text-xl hover:bg-slate-100 transition shadow-lg inline-block uppercase tracking-tighter">
-              Book Your Service
+            <Link to="/contact" className="bg-white text-trust-blue px-12 py-6 rounded-2xl font-black text-xl hover:bg-slate-100 transition shadow-lg inline-block uppercase tracking-tighter">
+              Book Smart Service
             </Link>
           </div>
         </div>
