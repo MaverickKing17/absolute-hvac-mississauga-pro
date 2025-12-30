@@ -2,21 +2,40 @@
 import React, { useState } from 'react';
 import RebateCalculator from '../components/RebateCalculator';
 
-const FAQItem: React.FC<{ question: string; answer: string }> = ({ question, answer }) => {
+const FAQItem: React.FC<{ question: string; answer: string; category: string; icon: React.ReactNode }> = ({ question, answer, category, icon }) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <div className="border-b border-slate-200">
+    <div className={`group mb-4 transition-all duration-500 border-2 rounded-2xl overflow-hidden ${isOpen ? 'border-trust-blue shadow-[0_15px_40px_rgba(30,58,138,0.1)] bg-white' : 'border-slate-50 bg-slate-50/30 hover:border-slate-200'}`}>
       <button 
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full py-5 flex justify-between items-center text-left focus:outline-none group"
+        className="w-full px-6 py-5 flex justify-between items-center text-left focus:outline-none"
       >
-        <span className="text-base md:text-lg font-bold text-trust-blue group-hover:text-savings-green transition-colors">{question}</span>
-        <svg className={`w-5 h-5 md:w-6 md:h-6 transition-transform duration-300 ${isOpen ? 'rotate-180 text-savings-green' : 'text-slate-400'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-        </svg>
+        <div className="flex items-center gap-4">
+          <div className={`p-2.5 rounded-xl transition-colors ${isOpen ? 'bg-trust-blue text-white' : 'bg-white text-slate-400 group-hover:text-trust-blue group-hover:bg-blue-50'}`}>
+            {icon}
+          </div>
+          <div>
+            <span className="block text-[9px] font-black uppercase tracking-[0.2em] text-slate-400 mb-1">{category}</span>
+            <span className={`text-base md:text-lg font-bold leading-tight transition-colors ${isOpen ? 'text-trust-blue' : 'text-slate-700'}`}>{question}</span>
+          </div>
+        </div>
+        <div className={`w-8 h-8 rounded-full flex items-center justify-center transition-all duration-500 ${isOpen ? 'bg-trust-blue text-white rotate-180' : 'bg-slate-100 text-slate-400'}`}>
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M19 9l-7 7-7-7" />
+          </svg>
+        </div>
       </button>
-      <div className={`overflow-hidden transition-all duration-300 ${isOpen ? 'max-h-96 pb-5' : 'max-h-0'}`}>
-        <p className="text-slate-600 text-sm md:text-base leading-relaxed">{answer}</p>
+      <div className={`transition-all duration-500 ease-in-out ${isOpen ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0 pointer-events-none'}`}>
+        <div className="px-6 pb-6 pt-2 ml-14 border-t border-slate-50">
+          <p className="text-slate-600 text-sm md:text-base leading-relaxed font-medium">
+            {answer}
+          </p>
+          <div className="mt-4 flex items-center gap-4">
+            <button className="text-[10px] font-black uppercase tracking-widest text-trust-blue hover:text-emergency-orange transition-colors">Was this helpful?</button>
+            <div className="h-3 w-px bg-slate-200"></div>
+            <button className="text-[10px] font-black uppercase tracking-widest text-slate-400">Copy Link</button>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -131,6 +150,45 @@ const ProcessTimeline: React.FC = () => {
 };
 
 const Rebates: React.FC = () => {
+  const faqData = [
+    {
+      question: "Am I eligible for the $7,100 rebate?",
+      answer: "Eligibility is primarily based on being an Enbridge Gas customer in Ontario and owning a detached, semi-detached, or row townhouse. During our SmartAudit™, we verify your existing insulation and heating efficiency to ensure you qualify for the maximum tier of government funding.",
+      category: "Eligibility",
+      icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+    },
+    {
+      question: "Do heat pumps really work in Ontario's extreme cold?",
+      answer: "Absolutely. We only install 'Cold Climate' Heat Pumps (ccASHP) rated for operation down to -25°C. For peak safety, we often configure a Hybrid System where your existing or new gas furnace acts as a supplementary heat source only on the few days where temperatures drop into extreme ranges.",
+      category: "Performance",
+      icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M13 16V6a1 1 0 00-2 0v10a3.5 3.5 0 107 0V9a1 1 0 10-2 0v7a1.5 1.5 0 11-3 0z" /></svg>
+    },
+    {
+      question: "How long does it take to receive the rebate check?",
+      answer: "Once the post-install energy audit is uploaded, the processing time by Enbridge and NRCan typically ranges from 12 to 20 weeks. We handle 100% of the portal documentation to ensure there are zero administrative delays in your payout.",
+      category: "Timeline",
+      icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+    },
+    {
+      question: "Do I need to keep my gas furnace as a backup?",
+      answer: "It is recommended in Ontario. A Hybrid Dual-Fuel system allows the Heat Pump to handle 90% of the season's load while keeping the furnace for high-intensity cold snaps. This configuration is actually required for many of the higher-tier $7,100 rebates.",
+      category: "Infrastructure",
+      icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a2 2 0 00-1.96 1.414l-.547 2.188a2 2 0 00.75 2.227l1.722 1.292a2 2 0 002.574-.3l1.166-1.166a2 2 0 00.702-2.227l-.547-2.188z" /></svg>
+    },
+    {
+      question: "Are heat pumps louder than standard AC units?",
+      answer: "Quite the opposite. Modern inverter-driven heat pumps are whisper-quiet, often operating between 45-55 decibels. This is significantly quieter than traditional central AC units, making them ideal for Mississauga neighborhoods with close property lines.",
+      category: "Technical",
+      icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" /></svg>
+    },
+    {
+      question: "Is there a deadline for the $7,100 grant program?",
+      answer: "Yes, funding for the HER+ program is finite and allocated by the Federal government. Once the budget is exhausted, the rebate will close without notice. We recommend starting your SmartAudit™ immediately to lock in your spot in the current funding cycle.",
+      category: "Urgency",
+      icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+    }
+  ];
+
   return (
     <div className="flex flex-col bg-white">
       {/* Hero Section */}
@@ -252,27 +310,39 @@ const Rebates: React.FC = () => {
         </div>
       </section>
 
-      {/* FAQ Section */}
-      <section className="py-16 md:py-24 bg-slate-50">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12 md:mb-16">
-            <h2 className="text-3xl md:text-4xl font-black text-trust-blue mb-4 uppercase tracking-tighter">Rebate & Performance FAQ</h2>
-            <p className="text-slate-600 font-medium">Everything you need to know about heat pump technology and the Ontario rebate process.</p>
+      {/* Enhanced Rebate & Performance FAQ */}
+      <section className="py-24 bg-slate-50 relative overflow-hidden">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center mb-16">
+            <div className="inline-block bg-white border border-slate-100 px-4 py-2 rounded-2xl shadow-sm mb-6">
+               <span className="text-trust-blue font-black uppercase tracking-[0.3em] text-xs">Knowledge Base</span>
+            </div>
+            <h2 className="text-4xl md:text-6xl font-black text-trust-blue mb-4 uppercase tracking-tighter leading-none">Rebate & <span className="text-emergency-orange">Performance</span> FAQ</h2>
+            <p className="text-slate-500 font-bold uppercase tracking-widest text-xs mt-4">Essential insights for Mississauga homeowners</p>
           </div>
 
-          <div className="bg-white rounded-[2.5rem] shadow-xl p-6 md:p-12 border border-slate-100">
-            <FAQItem 
-              question="Am I eligible for the $7,100 rebate?"
-              answer="Most Ontario homeowners who use Enbridge gas and are upgrading their primary residence qualify for the HER+ program. We conduct a free eligibility check during our first visit to confirm your home meets the insulation and equipment requirements."
-            />
-            <FAQItem 
-              question="Do heat pumps really work in Ontario's extreme cold?"
-              answer="Yes! Modern 'Cold Climate' heat pumps (ccASHP) are specifically designed to operate efficiently at temperatures as low as -25°C or -30°C. For added peace of mind, many Mississauga homeowners opt for a 'Hybrid' system that uses a gas furnace as a backup for the few extreme deep-freeze days per year."
-            />
-            <FAQItem 
-              question="How long does it take to receive the rebate check?"
-              answer="Generally, the rebate checks arrive within 12 to 24 weeks after the post-retrofit energy audit is submitted and approved by Enbridge/NRCan. Absolute Heating provides all the necessary technical documentation and assists you through the portal to ensure your application is processed as quickly as possible."
-            />
+          <div className="space-y-4">
+            {faqData.map((faq, index) => (
+              <FAQItem 
+                key={index} 
+                question={faq.question} 
+                answer={faq.answer} 
+                category={faq.category}
+                icon={faq.icon}
+              />
+            ))}
+          </div>
+
+          {/* Neural Help Desk Footer */}
+          <div className="mt-16 bg-white rounded-3xl p-10 border border-slate-100 shadow-xl flex flex-col md:flex-row items-center gap-10">
+             <div className="flex-1 text-center md:text-left">
+                <h4 className="text-xl font-black text-trust-blue uppercase tracking-tighter mb-2">Still have questions?</h4>
+                <p className="text-slate-500 text-sm font-medium">Our AI-powered SmartCare™ system can analyze your specific HVAC configuration in real-time.</p>
+             </div>
+             <div className="flex flex-wrap justify-center gap-4">
+                <button onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})} className="px-8 py-4 bg-trust-blue text-white rounded-xl font-black uppercase tracking-tighter text-sm hover:scale-105 transition shadow-lg">Talk to AI</button>
+                <a href="tel:6477465959" className="px-8 py-4 border-2 border-slate-100 text-slate-600 rounded-xl font-black uppercase tracking-tighter text-sm hover:bg-slate-50 transition">Human Support</a>
+             </div>
           </div>
         </div>
       </section>
