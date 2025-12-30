@@ -42,9 +42,12 @@
     .animate-bounce-x { animation: bounce-x 1s infinite; }
     .animate-bounce-x-right { animation: bounce-x-right 1s infinite; }
     
-    @keyframes shimmer {
-      0% { transform: translateX(-100%); }
-      100% { transform: translateX(100%); }
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .animate-marquee {
+      animation: marquee 35s linear infinite;
     }
 
     .no-scrollbar::-webkit-scrollbar { display: none; }

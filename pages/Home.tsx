@@ -1,33 +1,53 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import AIReviewCarousel from '../components/AIReviewCarousel';
 
-const BrandCarousel = () => {
-  const brands = [
-    { name: "Trane", url: "https://v5.air-conditioner-repair-mississauga.ca/wp-content/uploads/2024/04/trane-logo.webp" },
-    { name: "Lennox", url: "https://v5.air-conditioner-repair-mississauga.ca/wp-content/uploads/2024/04/lennox-logo.webp" },
-    { name: "Carrier", url: "https://v5.air-conditioner-repair-mississauga.ca/wp-content/uploads/2024/04/carrier-logo.webp" },
-    { name: "Rheem", url: "https://v5.air-conditioner-repair-mississauga.ca/wp-content/uploads/2024/04/rheem-logo.webp" },
-    { name: "Ruud", url: "https://v5.air-conditioner-repair-mississauga.ca/wp-content/uploads/2024/04/ruud-logo.webp" },
-    { name: "Bryant", url: "https://v5.air-conditioner-repair-mississauga.ca/wp-content/uploads/2024/04/bryant-logo.webp" },
-    { name: "Goodman", url: "https://v5.air-conditioner-repair-mississauga.ca/wp-content/uploads/2024/04/goodman-logo.webp" },
-    { name: "Navien", url: "https://v5.air-conditioner-repair-mississauga.ca/wp-content/uploads/2024/04/navien-logo.webp" },
-    { name: "IFLOW", url: "https://v5.air-conditioner-repair-mississauga.ca/wp-content/uploads/2024/04/iflow-logo.webp" }
-  ];
+const BrandLogo = ({ brand }: { brand: { name: string, url: string } }) => {
+  const [error, setError] = useState(false);
+
+  if (error) {
+    return (
+      <div className="h-10 md:h-12 px-6 bg-slate-50 border border-slate-100 rounded-lg flex items-center justify-center grayscale opacity-40 hover:opacity-100 transition-all">
+        <span className="text-sm font-black text-trust-blue uppercase tracking-[0.2em]">{brand.name}</span>
+      </div>
+    );
+  }
 
   return (
-    <div className="w-full bg-white py-12 border-y border-slate-100 overflow-hidden relative group">
-      <div className="flex animate-[shimmer_30s_linear_infinite] whitespace-nowrap gap-16 items-center">
-        {[...brands, ...brands].map((brand, i) => (
-          <img 
-            key={i} 
-            src={brand.url} 
-            alt={brand.name} 
-            className="h-12 md:h-16 w-auto grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all duration-500 filter contrast-125"
-          />
+    <img 
+      src={brand.url} 
+      alt={brand.name} 
+      onError={() => setError(true)}
+      className="h-10 md:h-14 w-auto grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-700 filter contrast-125 brightness-90 px-4"
+    />
+  );
+};
+
+const BrandCarousel = () => {
+  const brands = [
+    { name: "Trane", url: "https://upload.wikimedia.org/wikipedia/commons/1/1d/Trane_logo.svg" },
+    { name: "Lennox", url: "https://upload.wikimedia.org/wikipedia/en/thumb/c/c0/Lennox_International_logo.svg/1200px-Lennox_International_logo.svg.png" },
+    { name: "Carrier", url: "https://upload.wikimedia.org/wikipedia/commons/e/e5/Carrier_logo.svg" },
+    { name: "Rheem", url: "https://upload.wikimedia.org/wikipedia/en/thumb/0/07/Rheem_logo.svg/1200px-Rheem_logo.svg.png" },
+    { name: "Ruud", url: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Ruud_logo.svg/1200px-Ruud_logo.svg.png" },
+    { name: "Bryant", url: "https://upload.wikimedia.org/wikipedia/en/thumb/b/b3/Bryant_Heating_%26_Cooling_Systems_logo.svg/1200px-Bryant_Heating_%26_Cooling_Systems_logo.svg.png" },
+    { name: "Goodman", url: "https://upload.wikimedia.org/wikipedia/commons/2/2f/Goodman_Manufacturing_logo.svg" },
+    { name: "Navien", url: "https://upload.wikimedia.org/wikipedia/en/thumb/5/5e/Navien_logo.svg/1200px-Navien_logo.svg.png" },
+    { name: "Mitsubishi", url: "https://upload.wikimedia.org/wikipedia/commons/b/b7/Mitsubishi-logo.png" }
+  ];
+
+  const duplicatedBrands = [...brands, ...brands, ...brands];
+
+  return (
+    <div className="w-full bg-white py-14 border-y border-slate-100 overflow-hidden relative group">
+      <div className="flex animate-marquee whitespace-nowrap gap-12 items-center">
+        {duplicatedBrands.map((brand, i) => (
+          <BrandLogo key={i} brand={brand} />
         ))}
       </div>
+      <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-white to-transparent z-10"></div>
+      <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-white to-transparent z-10"></div>
     </div>
   );
 };
@@ -100,12 +120,12 @@ const Home: React.FC = () => {
       {/* Trust & Brands Section */}
       <section className="py-12 bg-white">
         <div className="max-w-7xl mx-auto px-6 text-center">
-          <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.5em] mb-8">Authorized Tier-1 Brand Deployment</p>
+          <p className="text-[11px] font-black text-slate-400 uppercase tracking-[0.5em] mb-8">Authorized Tier-1 Brand Deployment</p>
           <BrandCarousel />
         </div>
       </section>
 
-      {/* Expert Help Grid - Superior Version of "Get Expert Help" */}
+      {/* Expert Help Grid */}
       <section className="py-24 md:py-32 bg-slate-50 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-1/2 h-full bg-trust-blue/[0.02] -skew-x-12 translate-x-1/2"></div>
         <div className="max-w-7xl mx-auto px-6 relative z-10">
@@ -119,7 +139,7 @@ const Home: React.FC = () => {
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8">
             {expertHelpServices.map((service, i) => (
               <div key={i} className="group bg-white p-8 md:p-10 rounded-[2.5rem] border border-slate-100 shadow-sm hover:shadow-[0_40px_80px_-20px_rgba(30,58,138,0.15)] hover:-translate-y-2 transition-all duration-500 relative overflow-hidden">
-                <div className="absolute top-0 left-0 w-full h-[3px] bg-emergency-orange scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+                <div className="absolute top-0 left-0 w-full h-[4px] bg-emergency-orange scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
                 <div className="text-4xl mb-6 transform transition-transform group-hover:scale-125 group-hover:rotate-12 duration-500">{service.icon}</div>
                 <h3 className="text-xl md:text-2xl font-black text-trust-blue mb-3 uppercase tracking-tighter group-hover:text-emergency-orange transition-colors">{service.title}</h3>
                 <p className="text-slate-500 text-sm font-medium leading-relaxed mb-8 opacity-0 group-hover:opacity-100 transition-opacity translate-y-2 group-hover:translate-y-0 duration-500">{service.desc}</p>
@@ -132,7 +152,7 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* Why Choose Us - Enhanced Performance Icons */}
+      {/* Why Choose Us */}
       <section className="py-24 md:py-32 bg-white">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex flex-col lg:flex-row items-center gap-20">
@@ -184,8 +204,8 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* Serving Industry 16+ Years & Review Extraction */}
-      <section className="py-24 md:py-32 bg-slate-950 text-white relative overflow-hidden">
+      {/* Serving Industry 16+ Years & Reviews */}
+      <section className="py-24 md:py-32 bg-slate-950 text-white relative overflow-hidden border-y border-white/10">
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10 pointer-events-none"></div>
         <div className="max-w-7xl mx-auto px-6 relative z-10">
           <div className="flex flex-col md:flex-row items-end justify-between mb-24 gap-8">
