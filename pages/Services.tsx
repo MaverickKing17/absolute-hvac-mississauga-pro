@@ -3,6 +3,27 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Services: React.FC = () => {
+  const troubleshootingVideos = [
+    {
+      title: "Is Your Furnace Making Noise?",
+      description: "Learn to identify the difference between normal operation sounds and warning signs like banging or whistling.",
+      embedId: "qHn2k0_XpLg", // Example placeholder ID
+      category: "Heating"
+    },
+    {
+      title: "AC Running But Not Cooling?",
+      description: "Common causes including dirty filters, frozen coils, and when it's time to call a professional for a recharge.",
+      embedId: "M_zLz5k9zE4", // Example placeholder ID
+      category: "Cooling"
+    },
+    {
+      title: "Blank Thermostat Screen?",
+      description: "Quick troubleshooting steps to check your batteries and breaker before booking a service call.",
+      embedId: "8x8XzWkF_0s", // Example placeholder ID
+      category: "Electrical"
+    }
+  ];
+
   return (
     <div className="flex flex-col">
       <section className="trust-blue py-16 text-white">
@@ -91,6 +112,52 @@ const Services: React.FC = () => {
         </div>
       </section>
 
+      {/* Embedded Video Troubleshooting Section */}
+      <section className="py-20 bg-slate-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-extrabold text-trust-blue mb-4">HVAC Troubleshooting & Insights</h2>
+            <p className="text-slate-600 max-w-2xl mx-auto text-lg">
+              Watch our expert guides to identifying common heating and cooling issues before they become costly emergencies.
+            </p>
+            <div className="w-24 h-1.5 bg-emergency-orange mx-auto mt-6"></div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {troubleshootingVideos.map((video, idx) => (
+              <div key={idx} className="bg-white rounded-2xl overflow-hidden shadow-lg border border-slate-200 group">
+                <div className="aspect-video bg-slate-200 relative">
+                  {/* Placeholder for iframe embed - Using a generic div style for the visual */}
+                  <div className="absolute inset-0 flex items-center justify-center bg-slate-800 text-white font-bold opacity-0 group-hover:opacity-10 transition-opacity z-10 pointer-events-none">
+                    Watch Video
+                  </div>
+                  <iframe 
+                    className="w-full h-full"
+                    src={`https://www.youtube.com/embed/${video.embedId}`}
+                    title={video.title}
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  ></iframe>
+                </div>
+                <div className="p-6">
+                  <span className="text-xs font-bold text-emergency-orange uppercase tracking-widest block mb-2">{video.category}</span>
+                  <h3 className="text-xl font-bold text-trust-blue mb-3">{video.title}</h3>
+                  <p className="text-slate-600 text-sm leading-relaxed mb-4">
+                    {video.description}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+          
+          <div className="mt-12 text-center">
+            <p className="text-slate-500 font-medium">Still having issues? Our technicians are ready to help 24/7.</p>
+            <Link to="/contact" className="mt-4 inline-block text-trust-blue font-bold border-b-2 border-trust-blue hover:text-emergency-orange hover:border-emergency-orange transition-all">Schedule a Professional Diagnostic →</Link>
+          </div>
+        </div>
+      </section>
+
       {/* Warranty Section */}
       <section className="py-20 bg-slate-900 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -121,7 +188,7 @@ const Services: React.FC = () => {
                 <svg className="w-8 h-8 text-emergency-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
               </div>
               <h3 className="text-xl font-bold mb-3">90-Day Repair Warranty</h3>
-              <p className="text-slate-600 dark:text-slate-400 leading-relaxed">Every repair we perform is backed by our 90-day parts and labor guarantee. You can trust that our diagnosis and fix will hold up when it matters most.</p>
+              <p className="text-slate-400 leading-relaxed text-slate-400 leading-relaxed">Every repair we perform is backed by our 90-day parts and labor guarantee. You can trust that our diagnosis and fix will hold up when it matters most.</p>
             </div>
           </div>
 

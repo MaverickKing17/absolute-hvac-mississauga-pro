@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import RebateCalculator from '../components/RebateCalculator';
 
 const FAQItem: React.FC<{ question: string; answer: string }> = ({ question, answer }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -45,11 +46,22 @@ const Rebates: React.FC = () => {
         </div>
       </section>
 
+      {/* Smart Calculator Feature */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-black text-trust-blue uppercase tracking-tighter">AI Savings Analysis</h2>
+            <p className="text-slate-500 mt-2">Enter your home details for a real-time provincial grant estimate.</p>
+          </div>
+          <RebateCalculator />
+        </div>
+      </section>
+
       {/* How It Works (3-Step Process) */}
       <section className="py-24 bg-slate-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-extrabold text-trust-blue mb-4">Your Path to $7,100 Savings</h2>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-trust-blue mb-4 uppercase tracking-tighter">Your Path to $7,100 Savings</h2>
             <p className="text-slate-600 max-w-2xl mx-auto">We've simplified the complex government processes. Here is how we get your money back.</p>
           </div>
 
@@ -88,7 +100,7 @@ const Rebates: React.FC = () => {
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-extrabold text-trust-blue mb-4">Savings Calculator</h2>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-trust-blue mb-4 uppercase tracking-tighter">Investment vs Reward</h2>
             <p className="text-slate-600">Compare the upfront investment against your final after-rebate cost.</p>
           </div>
 
@@ -136,7 +148,7 @@ const Rebates: React.FC = () => {
       <section className="py-24 bg-slate-50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-extrabold text-trust-blue mb-4">Rebate & Performance FAQ</h2>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-trust-blue mb-4 uppercase tracking-tighter">Rebate & Performance FAQ</h2>
             <p className="text-slate-600">Everything you need to know about heat pump technology and the Ontario rebate process.</p>
           </div>
 
@@ -152,26 +164,6 @@ const Rebates: React.FC = () => {
             <FAQItem 
               question="How long does it take to receive the rebate check?"
               answer="Generally, the rebate checks arrive within 12 to 24 weeks after the post-retrofit energy audit is submitted and approved by Enbridge/NRCan. Absolute Heating provides all the necessary technical documentation and assists you through the portal to ensure your application is processed as quickly as possible."
-            />
-            <FAQItem 
-              question="What is a 'Hybrid' or 'Dual Fuel' system?"
-              answer="A hybrid system combines an electric heat pump with your existing or a new high-efficiency gas furnace. The heat pump handles the heating for the majority of the year, while the furnace automatically takes over when temperatures drop below a certain 'switch-point.' This offers the best of both worlds: maximum rebates and total comfort."
-            />
-            <FAQItem 
-              question="Can I use a heat pump with my existing ductwork?"
-              answer="In most cases, yes. Our technicians will inspect your current ductwork during the free consultation to ensure it can handle the airflow required by a modern heat pump system. If minor modifications are needed, we handle that as part of the installation."
-            />
-            <FAQItem 
-              question="Which brands qualify for the maximum rebate?"
-              answer="We install rebate-eligible equipment from premium brands like Mitsubishi, Daikin, and Lennox. To qualify for the $7,100, the equipment must be NRCan certified as a Cold Climate Heat Pump. We only quote systems that are officially listed on the eligible equipment list."
-            />
-            <FAQItem 
-              question="Is the cost of the energy audit covered?"
-              answer="Yes! The Enbridge HER+ program includes an additional $600 reimbursement specifically to cover the cost of your pre- and post-retrofit energy audits. This means the professional assessment is effectively free once you complete your upgrades."
-            />
-            <FAQItem 
-              question="What maintenance does a heat pump require?"
-              answer="Similar to an air conditioner or furnace, heat pumps require annual maintenance to ensure peak efficiency. This typically involves cleaning the outdoor condenser coils, checking refrigerant levels, and replacing indoor air filters. We offer affordable annual maintenance plans to keep your system running optimally."
             />
           </div>
         </div>

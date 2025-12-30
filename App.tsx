@@ -8,6 +8,8 @@ import Services from './pages/Services';
 import Rebates from './pages/Rebates';
 import About from './pages/About';
 import Contact from './pages/Contact';
+import AIChatWidget from './components/AIChatWidget';
+import UrgencyBanner from './components/UrgencyBanner';
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -21,6 +23,7 @@ const App: React.FC = () => {
   return (
     <Router>
       <div className="flex flex-col min-h-screen">
+        <UrgencyBanner />
         <ScrollToTop />
         <Navbar />
         <main className="flex-grow">
@@ -33,9 +36,10 @@ const App: React.FC = () => {
           </Routes>
         </main>
         <Footer />
+        <AIChatWidget />
         
         {/* Persistent Emergency Call Button for Mobile */}
-        <div className="fixed bottom-4 right-4 z-50 md:hidden">
+        <div className="fixed bottom-4 left-4 z-50 md:hidden">
           <a 
             href="tel:6477465959" 
             className="emergency-orange text-white px-6 py-4 rounded-full shadow-2xl flex items-center gap-2 font-bold animate-pulse"
