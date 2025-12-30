@@ -43,11 +43,6 @@ const FAQItem: React.FC<{ question: string; answer: string; category: string; ic
           <p className="text-slate-600 text-sm md:text-base leading-relaxed font-medium">
             {answer}
           </p>
-          <div className="mt-4 flex items-center gap-4">
-            <button className="text-[10px] font-black uppercase tracking-widest text-trust-blue hover:text-emergency-orange transition-colors">Was this helpful?</button>
-            <div className="h-3 w-px bg-slate-200"></div>
-            <button className="text-[10px] font-black uppercase tracking-widest text-slate-400">Copy Direct Link</button>
-          </div>
         </div>
       </div>
     </div>
@@ -58,84 +53,129 @@ const ProcessTimeline: React.FC = () => {
   const steps = [
     { 
       step: 1, 
-      title: "Free Consultation", 
-      desc: "Our data-driven specialists assess your property's specific load requirements and eligibility, ensuring you qualify for the full $7,100 before we start.",
+      title: "Neural SmartAudit™", 
+      desc: "Our AI model analyzes your home's thermal load profile and historical energy logs to verify eligibility for the top-tier $7,100 grant bracket.",
       icon: (
         <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
         </svg>
       ),
-      tag: "Zero Cost Audit"
+      tag: "Step 01: Analysis",
+      logs: ["Thermal Map: OK", "Enbridge DB: Active", "Grant Prob: 98%"]
     },
     { 
       step: 2, 
       title: "Precision Install", 
-      desc: "Our TSSA-Certified engineering team installs your high-efficiency system. We prioritize technical compliance to meet strict Enbridge standards.",
+      desc: "TSSA-Certified field engineers deploy your hybrid system. Every component is logged into the Enbridge HER+ compliance portal in real-time.",
       icon: (
         <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
         </svg>
       ),
-      tag: "Certified Setup"
+      tag: "Step 02: Deployment",
+      logs: ["TSSA Audit: PASSED", "Serial Log: STORED", "Node ID: ACTIVE"]
     },
     { 
       step: 3, 
       title: "Rebate Harvesting", 
-      desc: "Post-install, we manage the final audit documentation and portal submission. Your rebate check is processed directly for maximum payout.",
+      desc: "Post-installation data packets are transmitted for final audit. Absolute manages all portal communication to secure your direct deposit.",
       icon: (
         <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
       ),
-      tag: "Direct Deposit"
+      tag: "Step 03: Payout",
+      logs: ["NRCan Sync: COMPLETE", "Audit File: UPLOADED", "Status: FUNDED"]
     }
   ];
 
   return (
     <div className="relative py-12">
-      <div className="hidden lg:block absolute top-[120px] left-[15%] right-[15%] h-1 bg-slate-200 z-0">
-        <div className="h-full bg-savings-green w-2/3 animate-[shimmer_3s_infinite] origin-left"></div>
+      {/* Desktop Infographic Connector (Neural Path) */}
+      <div className="hidden lg:block absolute top-[148px] left-[10%] right-[10%] h-[2px] bg-slate-200 z-0">
+        <div className="h-full bg-savings-green w-full origin-left animate-[shimmer_2s_infinite]"></div>
+        {/* Connection Pulse Nodes */}
+        <div className="absolute top-1/2 left-0 -translate-y-1/2 w-4 h-4 bg-savings-green rounded-full shadow-[0_0_15px_rgba(5,150,69,0.8)] border-4 border-white"></div>
+        <div className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 w-4 h-4 bg-savings-green rounded-full shadow-[0_0_15px_rgba(5,150,69,0.8)] border-4 border-white"></div>
+        <div className="absolute top-1/2 right-0 -translate-y-1/2 w-4 h-4 bg-savings-green rounded-full shadow-[0_0_15px_rgba(5,150,69,0.8)] border-4 border-white"></div>
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-16 relative z-10">
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 md:gap-16 relative z-10">
         {steps.map((item, idx) => (
-          <div key={item.step} className="group flex flex-col items-center">
-            <div className="relative mb-8">
-              <div className="w-24 h-24 bg-white rounded-3xl shadow-xl flex items-center justify-center border-4 border-slate-50 group-hover:border-savings-green transition-all duration-500 transform group-hover:-translate-y-2 group-hover:rotate-6">
-                <div className="text-trust-blue group-hover:text-savings-green transition-colors">
-                  {item.icon}
+          <div key={item.step} className="group relative">
+            {/* Visual Step Counter & Icon */}
+            <div className="flex flex-col items-center mb-8">
+               <div className="relative">
+                  <div className="w-24 h-24 bg-white rounded-3xl shadow-2xl flex items-center justify-center border-4 border-slate-50 group-hover:border-savings-green transition-all duration-700 relative z-10">
+                    <div className="text-trust-blue group-hover:text-savings-green transition-colors duration-500 transform group-hover:scale-110">
+                      {item.icon}
+                    </div>
+                  </div>
+                  {/* Neural Scan Line (AI Visual) */}
+                  <div className="absolute top-0 left-0 w-full h-[2px] bg-blue-400/50 shadow-lg ai-scan-line z-20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                  
+                  <div className="absolute -top-3 -right-3 w-10 h-10 bg-slate-900 text-white rounded-xl flex items-center justify-center font-black text-sm border-2 border-white shadow-xl z-20 group-hover:bg-savings-green transition-colors">
+                    {item.step}
+                  </div>
+               </div>
+            </div>
+
+            {/* Infographic Content Card */}
+            <div className="bg-white p-8 rounded-[3rem] shadow-sm hover:shadow-2xl transition-all duration-700 border border-slate-100 group-hover:border-savings-green/20 relative overflow-hidden flex flex-col h-full">
+              {/* Data Visualization Corner */}
+              <div className="absolute top-0 right-0 w-24 h-24 bg-slate-50 -mr-12 -mt-12 rounded-full opacity-50 group-hover:bg-savings-green/10 transition-colors"></div>
+              
+              <div className="relative z-10">
+                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-savings-green mb-3 block">{item.tag}</span>
+                <h3 className="text-2xl font-black text-trust-blue mb-4 uppercase tracking-tighter group-hover:text-savings-green transition-colors">{item.title}</h3>
+                <p className="text-slate-500 text-sm leading-relaxed font-medium mb-8">{item.desc}</p>
+              </div>
+
+              {/* Technical Log Overlay (ML Aesthetics) */}
+              <div className="mt-auto pt-6 border-t border-slate-50">
+                <div className="grid grid-cols-1 gap-2">
+                   {item.logs.map((log, lIdx) => (
+                     <div key={lIdx} className="flex items-center justify-between text-[8px] font-mono font-black uppercase text-slate-400 group-hover:text-savings-green/70 transition-colors">
+                        <span>{log.split(':')[0]}</span>
+                        <span className="text-slate-200">..................</span>
+                        <span className="text-slate-500 font-bold">{log.split(':')[1]}</span>
+                     </div>
+                   ))}
                 </div>
               </div>
-              <div className="absolute -top-3 -right-3 w-10 h-10 savings-green text-white rounded-full flex items-center justify-center font-black text-lg border-4 border-white shadow-lg">
-                {item.step}
-              </div>
+
+              {/* Mobile Progress Line */}
               {idx < steps.length - 1 && (
-                <div className="lg:hidden absolute left-1/2 bottom-[-64px] w-1 h-16 bg-slate-200">
+                <div className="lg:hidden absolute left-1/2 bottom-[-40px] w-1 h-10 bg-slate-200 z-0">
                   <div className="w-full h-1/2 bg-savings-green animate-pulse"></div>
                 </div>
               )}
             </div>
-            <div className="bg-white p-8 rounded-[2rem] shadow-sm group-hover:shadow-2xl transition-all duration-500 border border-slate-100 group-hover:border-savings-green/20 text-center flex flex-col h-full max-w-sm">
-              <span className="text-[10px] font-black uppercase tracking-[0.3em] text-savings-green mb-3 block">{item.tag}</span>
-              <h3 className="text-2xl font-black text-trust-blue mb-4 uppercase tracking-tighter group-hover:text-savings-green transition-colors">{item.title}</h3>
-              <p className="text-slate-500 text-sm leading-relaxed font-medium mb-6">{item.desc}</p>
-              <div className="mt-auto pt-6 border-t border-slate-50 flex items-center justify-center gap-2">
-                <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
-                <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest italic">Standard Protocol Verified</span>
-              </div>
-            </div>
           </div>
         ))}
       </div>
-      <div className="mt-24 flex flex-col items-center animate-in fade-in slide-in-from-bottom-10 duration-1000">
-        <div className="savings-green px-10 py-4 rounded-2xl shadow-2xl transform -rotate-2 hover:rotate-0 transition-all duration-500 cursor-default group">
-          <div className="flex items-center gap-4 text-white">
-            <svg className="w-10 h-10" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-            </svg>
-            <div>
-              <p className="text-[10px] font-black uppercase tracking-[0.2em] opacity-80 leading-none mb-1">Target Achievement</p>
-              <h4 className="text-2xl font-black uppercase tracking-tighter leading-none">$7,100 Rebate Secured</h4>
+
+      {/* Infographic Milestone - Success Certificate UI */}
+      <div className="mt-24 flex flex-col items-center">
+        <div className="relative group max-w-xl w-full">
+          <div className="absolute inset-0 bg-savings-green blur-3xl opacity-10 group-hover:opacity-20 transition-opacity"></div>
+          <div className="relative bg-slate-900 rounded-[3.5rem] p-1 border-2 border-white/10 shadow-2xl overflow-hidden">
+            {/* Shimmer Effect */}
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:animate-[shimmer_2s_infinite] pointer-events-none"></div>
+            
+            <div className="bg-slate-950 rounded-[3.3rem] p-8 md:p-12 text-center border border-white/5">
+               <div className="flex flex-col items-center">
+                  <div className="w-16 h-16 bg-savings-green/20 rounded-2xl flex items-center justify-center mb-6 border border-savings-green/30">
+                    <svg className="w-10 h-10 text-savings-green" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                  <h4 className="text-3xl md:text-5xl font-black text-white uppercase tracking-tighter leading-none mb-4">Rebate Secured</h4>
+                  <div className="h-1 w-20 bg-savings-green rounded-full mb-6"></div>
+                  <p className="text-slate-400 font-bold uppercase tracking-[0.2em] text-[10px] mb-2">Maximum Funding Extraction Authorized</p>
+                  <p className="text-4xl md:text-6xl font-black text-savings-green tracking-tighter tabular-nums">$7,100.00</p>
+                  <p className="mt-8 text-[9px] font-mono text-slate-600 uppercase tracking-widest">Protocol: Direct Deposit Cycle | Frequency: Final Audit Verified</p>
+               </div>
             </div>
           </div>
         </div>
@@ -171,34 +211,10 @@ const Rebates: React.FC = () => {
       icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a2 2 0 00-1.96 1.414l-.547 2.188a2 2 0 00.75 2.227l1.722 1.292a2 2 0 002.574-.3l1.166-1.166a2 2 0 00.702-2.227l-.547-2.188z" /></svg>
     },
     {
-      question: "Are heat pumps louder than standard AC units?",
-      answer: "Quite the opposite. Modern inverter-driven heat pumps are whisper-quiet, often operating between 45-55 decibels. This is significantly quieter than traditional central AC units, making them ideal for Mississauga neighborhoods with close property lines.",
-      category: "Performance",
-      icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" /></svg>
-    },
-    {
       question: "Is there a deadline for the $7,100 grant program?",
       answer: "Yes, funding for the HER+ program is finite and allocated by the Federal government. Once the budget is exhausted, the rebate will close without notice. We recommend starting your SmartAudit™ immediately to lock in your spot in the current funding cycle.",
       category: "Urgency",
       icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-    },
-    {
-      question: "Does the rebate cover tankless water heaters?",
-      answer: "While the primary $7,100 grant focuses on heat pump heating/cooling, Enbridge HER+ often offers additive bonuses (up to $1,000) for switching to a high-efficiency heat pump water heater or high-efficiency tankless units when done as part of a total home retrofit.",
-      category: "Financial",
-      icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
-    },
-    {
-      question: "Can I finance the remaining cost after the rebate?",
-      answer: "Yes. We offer Mississauga residents 0% interest-free financing for up to 12 months, or low-interest plans for up to 10 years. This allows you to install the system today, wait for your rebate check, and pay off the balance without any upfront financial stress.",
-      category: "Financial",
-      icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-    },
-    {
-      question: "What maintenance does a heat pump require?",
-      answer: "Maintenance is simple but vital. We recommend an annual coil cleaning and a software check of the inverter control board. Absolute's SmartCare™ maintenance plan covers these visits, ensuring your system maintains the efficiency levels required for rebate compliance.",
-      category: "Technical",
-      icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /></svg>
     }
   ];
 
@@ -226,7 +242,7 @@ const Rebates: React.FC = () => {
         </div>
       </section>
 
-      <section className="py-24 bg-slate-50 overflow-hidden relative">
+      <section className="py-24 bg-slate-50 overflow-hidden relative border-y border-slate-100">
         <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
           <svg className="w-full h-full" viewBox="0 0 100 100">
             <pattern id="timeline-grid" width="10" height="10" patternUnits="userSpaceOnUse">
@@ -293,35 +309,18 @@ const Rebates: React.FC = () => {
               </table>
             </div>
           </div>
-          <div className="mt-8 p-6 bg-slate-50 rounded-2xl border border-slate-200 text-center">
-            <p className="text-[10px] md:text-sm text-slate-500 italic font-medium leading-relaxed">*Estimated costs for Mississauga properties. Absolute Heating manages all <strong>TSSA compliance and certification checks</strong> to ensure your rebate claim is 100% valid.</p>
-          </div>
         </div>
       </section>
 
       <section className="py-24 bg-slate-50 relative overflow-hidden">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16">
-            <div className="inline-block bg-white border border-slate-100 px-4 py-2 rounded-2xl shadow-sm mb-6">
-               <span className="text-trust-blue font-black uppercase tracking-[0.3em] text-xs">Knowledge Base</span>
-            </div>
             <h2 className="text-4xl md:text-6xl font-black text-trust-blue mb-4 uppercase tracking-tighter leading-none">Rebate & <span className="text-emergency-orange">Performance</span> FAQ</h2>
-            <p className="text-slate-500 font-bold uppercase tracking-widest text-xs mt-4">Essential insights for Mississauga homeowners</p>
           </div>
           <div className="space-y-4">
             {faqData.map((faq, index) => (
               <FAQItem key={index} question={faq.question} answer={faq.answer} category={faq.category} icon={faq.icon} />
             ))}
-          </div>
-          <div className="mt-16 bg-white rounded-3xl p-10 border border-slate-100 shadow-xl flex flex-col md:flex-row items-center gap-10">
-             <div className="flex-1 text-center md:text-left">
-                <h4 className="text-xl font-black text-trust-blue uppercase tracking-tighter mb-2">Still have questions?</h4>
-                <p className="text-slate-500 text-sm font-medium">Our AI-powered SmartCare™ system can analyze your specific HVAC configuration in real-time.</p>
-             </div>
-             <div className="flex flex-wrap justify-center gap-4">
-                <button onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})} className="px-8 py-4 bg-trust-blue text-white rounded-xl font-black uppercase tracking-tighter text-sm hover:scale-105 transition shadow-lg">Ask SmartCare™ AI</button>
-                <a href="tel:6477465959" className="px-8 py-4 border-2 border-slate-100 text-slate-600 rounded-xl font-black uppercase tracking-tighter text-sm hover:bg-slate-50 transition">Human Support</a>
-             </div>
           </div>
         </div>
       </section>
@@ -329,7 +328,6 @@ const Rebates: React.FC = () => {
       <section className="py-16 md:py-24 bg-white">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="relative rounded-[2.5rem] overflow-hidden bg-slate-900 shadow-2xl transform hover:scale-[1.01] transition-transform">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-savings-green opacity-20 blur-3xl -mr-20 -mt-20"></div>
             <div className="relative p-10 md:p-20 text-center flex flex-col items-center">
               <div className="bg-red-600 text-white px-4 py-1 rounded font-black text-xs uppercase tracking-[0.2em] mb-6 animate-pulse">Action Required</div>
               <h2 className="text-3xl md:text-5xl font-black text-white mb-6 uppercase tracking-tighter leading-none">Rebate Windows Are Closing</h2>

@@ -1,6 +1,6 @@
 
 import React from 'react';
-import TestimonialCarousel from '../components/TestimonialCarousel';
+import AIReviewCarousel from '../components/AIReviewCarousel';
 
 const About: React.FC = () => {
   const trustBadges = [
@@ -46,188 +46,204 @@ const About: React.FC = () => {
   ];
 
   return (
-    <div className="flex flex-col">
-      <section className="bg-slate-100 py-20 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center gap-16">
-          <div className="flex-1">
-            <h1 className="text-4xl md:text-5xl font-extrabold text-trust-blue mb-6 uppercase tracking-tighter leading-none">Absolute Heating & Cooling Inc</h1>
-            <div className="w-24 h-2 bg-emergency-orange mb-8"></div>
-            <p className="text-slate-700 text-lg leading-relaxed mb-6 font-medium">
-              Founded in Mississauga, we have built our reputation on two things: technical excellence and honest pricing. We aren't just a big corporation; we are local professionals who live and work in the community.
+    <div className="flex flex-col bg-white">
+      {/* Hero Section with Unified Aesthetics */}
+      <section className="bg-slate-50 py-20 md:py-32 overflow-hidden border-b border-slate-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center gap-20">
+          <div className="flex-1 space-y-8">
+            <div className="inline-flex items-center gap-3 bg-trust-blue/5 border border-trust-blue/10 px-4 py-1.5 rounded-full mb-2">
+               <span className="w-2 h-2 bg-trust-blue rounded-full animate-pulse"></span>
+               <span className="text-[10px] font-black text-trust-blue uppercase tracking-widest leading-none">Established 2010 | Mississauga Flagship</span>
+            </div>
+            <h1 className="text-4xl md:text-7xl font-black text-trust-blue mb-6 uppercase tracking-tighter leading-none">
+              Engineering <br/><span className="text-emergency-orange italic">Integrity.</span>
+            </h1>
+            <p className="text-slate-600 text-lg md:text-xl leading-relaxed font-medium max-w-xl">
+              Absolute Heating & Cooling isn't just a service provider—we are a technical engineering firm dedicated to optimizing Mississauga's residential infrastructure.
             </p>
-            <p className="text-slate-700 text-lg leading-relaxed mb-8 font-medium">
-              Based out of our flagship location at the <span className="font-bold text-trust-blue underline decoration-emergency-orange/30">Mississauga Flea Market (3092 Mavis Rd)</span>, we've served thousands of GTA families with reliable HVAC solutions that last.
+            <p className="text-slate-500 text-base leading-relaxed font-medium max-w-xl">
+              Operating out of our high-traffic flagship unit at the <span className="font-bold text-trust-blue">Mississauga Flea Market (3092 Mavis Rd)</span>, we combine old-school reliability with new-age data diagnostics.
             </p>
-            <div className="flex flex-wrap gap-8">
-              <div className="text-center">
-                <p className="text-3xl font-extrabold text-emergency-orange">15+</p>
-                <p className="text-[10px] text-slate-500 font-black uppercase tracking-widest">Years Exp</p>
+            <div className="flex flex-wrap gap-10 pt-4">
+              <div className="text-left">
+                <p className="text-4xl font-black text-emergency-orange tracking-tighter">15+</p>
+                <p className="text-[10px] text-slate-400 font-black uppercase tracking-widest mt-1">Years Protocol</p>
               </div>
-              <div className="text-center">
-                <p className="text-3xl font-extrabold text-emergency-orange">4.9</p>
-                <p className="text-[10px] text-slate-500 font-black uppercase tracking-widest">Star Rating</p>
+              <div className="text-left">
+                <p className="text-4xl font-black text-trust-blue tracking-tighter">4.9</p>
+                <p className="text-[10px] text-slate-400 font-black uppercase tracking-widest mt-1">Sentiment Score</p>
               </div>
-              <div className="text-center">
-                <p className="text-3xl font-extrabold text-emergency-orange">100%</p>
-                <p className="text-[10px] text-slate-500 font-black uppercase tracking-widest">TSSA Certified</p>
+              <div className="text-left">
+                <p className="text-4xl font-black text-savings-green tracking-tighter">100%</p>
+                <p className="text-[10px] text-slate-400 font-black uppercase tracking-widest mt-1">TSSA Verified</p>
               </div>
             </div>
           </div>
+          
           <div className="flex-1 relative group">
-            <div className="absolute top-8 left-8 z-20">
-               <div className="bg-white/90 backdrop-blur-md px-4 py-2 rounded-xl shadow-xl border border-slate-100 flex items-center gap-3">
-                  <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                  <span className="text-[10px] font-black text-trust-blue uppercase tracking-widest leading-none">Active in Mississauga</span>
+            {/* Neural Pulse Background for AI Aesthetic */}
+            <div className="absolute -inset-20 bg-trust-blue/5 rounded-full blur-[100px] pointer-events-none group-hover:bg-emergency-orange/5 transition-colors duration-1000"></div>
+            
+            <div className="relative z-10">
+               <div className="absolute top-8 left-8 z-30">
+                  <div className="bg-white/80 backdrop-blur-md px-5 py-2.5 rounded-2xl shadow-xl border border-white/40 flex items-center gap-3">
+                     <div className="relative flex h-2 w-2">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                     </div>
+                     <span className="text-[10px] font-black text-trust-blue uppercase tracking-widest leading-none">Node: Mavis Rd Active</span>
+                  </div>
+               </div>
+               
+               <div className="rounded-[3.5rem] shadow-2xl relative border-[12px] border-white overflow-hidden group/img bg-slate-100 aspect-square">
+                 <img 
+                   src="https://i.ibb.co/KccR7Vvy/gpt-image-1-5-b-Replace-the-current-1.png" 
+                   alt="Absolute HVAC Professional Performing Diagnostic" 
+                   className="w-full h-full object-cover transition-all duration-1000 brightness-90 saturate-[0.8]" 
+                 />
+                 {/* AI Neural Scan Overlay Overlay */}
+                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 via-transparent to-transparent opacity-60 group-hover/img:opacity-40 transition-opacity"></div>
+                 <div className="absolute top-0 left-0 w-full h-1 bg-blue-400 ai-scan-line opacity-0 group-hover/img:opacity-100 transition-opacity"></div>
+                 
+                 <div className="absolute bottom-10 left-10 right-10 p-6 bg-slate-900/60 backdrop-blur-2xl rounded-3xl border border-white/10">
+                    <div className="flex items-center justify-between mb-4">
+                       <span className="text-[9px] font-black text-blue-300 uppercase tracking-widest">Diagnostic Stream V2.8</span>
+                       <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Enbridge HER+ Compliant</span>
+                    </div>
+                    <div className="h-1.5 w-full bg-white/10 rounded-full overflow-hidden">
+                       <div className="h-full bg-blue-400 animate-[shimmer_3s_infinite] w-3/4"></div>
+                    </div>
+                 </div>
                </div>
             </div>
-            <div className="absolute -inset-4 bg-gradient-to-tr from-trust-blue/20 to-emergency-orange/20 rounded-[3rem] blur-2xl group-hover:opacity-100 transition-opacity opacity-0"></div>
-            <div className="rounded-[2.5rem] shadow-2xl relative z-10 border-[6px] border-white overflow-hidden group/img">
-              <img 
-                src="https://i.ibb.co/KccR7Vvy/gpt-image-1-5-b-Replace-the-current-1.png" 
-                alt="Absolute HVAC Professional Technician performing a precision diagnostic on a control panel" 
-                className="w-full h-full object-cover transition-all duration-700 group-hover/img:scale-110" 
-              />
-              <div className="absolute bottom-6 left-6 right-6 bg-slate-900/40 backdrop-blur-xl p-6 rounded-2xl border border-white/20">
-                 <div className="flex justify-between items-center text-white">
-                    <div>
-                       <p className="text-[9px] font-black uppercase tracking-widest opacity-80 mb-1">Current Node</p>
-                       <p className="text-sm font-black uppercase tracking-tighter">Mavis Rd Flagship Unit</p>
-                    </div>
-                    <div className="bg-emergency-orange px-3 py-1 rounded-lg text-[9px] font-black uppercase tracking-widest">Live Audit</div>
-                 </div>
-              </div>
-            </div>
-            <div className="absolute -bottom-6 -right-6 w-full h-full trust-blue rounded-[2.5rem] -z-0 opacity-10"></div>
           </div>
         </div>
       </section>
 
+      {/* Industry Credentials Section */}
       <section className="py-24 bg-white relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-full h-full opacity-[0.03] pointer-events-none">
-          <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-            <defs>
-              <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
-                <path d="M 10 0 L 0 0 0 10" fill="none" stroke="currentColor" strokeWidth="0.5"/>
-              </pattern>
-            </defs>
-            <rect width="100" height="100" fill="url(#grid)" />
-          </svg>
-        </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center mb-20">
-            <span className="text-trust-blue font-black uppercase tracking-[0.3em] text-xs mb-4 block">Proven Excellence</span>
-            <h2 className="text-4xl md:text-5xl font-black text-trust-blue uppercase tracking-tighter leading-none mb-6">
-              Industry <span className="text-emergency-orange">Credentials</span> & Trust
+          <div className="text-center mb-24">
+            <span className="text-trust-blue font-black uppercase tracking-[0.4em] text-xs mb-4 block">Proven Performance</span>
+            <h2 className="text-4xl md:text-6xl font-black text-trust-blue uppercase tracking-tighter leading-none mb-6">
+              Industry <span className="text-emergency-orange italic">Accreditation.</span>
             </h2>
-            <div className="w-32 h-1.5 bg-slate-200 mx-auto rounded-full"></div>
+            <p className="text-slate-500 max-w-xl mx-auto font-medium text-lg leading-relaxed">
+              Our engineering protocols are validated by North America's leading consumer protection and industry governing bodies.
+            </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10" role="list">
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12" role="list">
             {trustBadges.map((badge, idx) => (
               <div 
                 key={idx} 
-                role="listitem"
-                aria-label={badge.aria}
-                tabIndex={0}
-                className="group relative flex flex-col items-center text-center p-12 bg-white rounded-[3rem] border-2 border-slate-50 hover:border-trust-blue/30 shadow-[0_10px_30px_rgba(0,0,0,0.04)] hover:shadow-[0_25px_60px_rgba(30,58,138,0.12)] transition-all duration-500 hover:-translate-y-3 focus:ring-4 focus:ring-trust-blue/20 outline-none"
+                className="group relative flex flex-col items-center text-center p-12 bg-white rounded-[3.5rem] border-2 border-slate-50 hover:border-trust-blue/20 shadow-sm hover:shadow-[0_40px_100px_rgba(30,58,138,0.1)] transition-all duration-700 hover:-translate-y-4"
               >
-                <div className="absolute top-6 right-8 bg-slate-100 group-hover:bg-trust-blue group-hover:text-white text-slate-400 text-[10px] font-black px-4 py-1.5 rounded-full uppercase tracking-widest transition-colors duration-300">
+                <div className="absolute top-8 right-10 bg-slate-100 group-hover:bg-trust-blue group-hover:text-white text-slate-400 text-[9px] font-black px-4 py-2 rounded-full uppercase tracking-widest transition-all">
                   {badge.status}
                 </div>
-                <div className={`mb-10 p-8 ${badge.bg} rounded-[2.5rem] transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-sm`} aria-hidden="true">
+                <div className={`mb-12 p-10 ${badge.bg} rounded-[2.5rem] transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-700 shadow-inner`}>
                   <div className={`${badge.color}`}>
                     {badge.icon}
                   </div>
                 </div>
                 <h3 className="text-2xl font-black text-trust-blue mb-4 uppercase tracking-tighter leading-tight">{badge.name}</h3>
                 <p className="text-slate-500 text-base leading-relaxed font-medium">{badge.description}</p>
-                <div className="mt-8 w-12 h-1 bg-slate-100 group-hover:w-24 group-hover:bg-emergency-orange transition-all duration-500 rounded-full"></div>
               </div>
             ))}
           </div>
-          <div className="mt-20 text-center">
-            <p className="text-slate-400 font-bold uppercase tracking-widest text-[11px] mb-6 flex items-center justify-center gap-4">
-              <span className="h-px w-8 bg-slate-200"></span>
-              Licensed • Insured • TSSA Registered
-              <span className="h-px w-8 bg-slate-200"></span>
-            </p>
-          </div>
         </div>
       </section>
 
-      <section className="py-24 bg-slate-50 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row items-end justify-between mb-16 gap-6">
+      {/* Sentiment Analysis (Reviews) Section - Fixed Clipping */}
+      <section className="py-24 bg-slate-50 overflow-hidden relative border-y border-slate-100">
+        <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
+          <svg className="w-full h-full" viewBox="0 0 100 100"><pattern id="dots" width="10" height="10" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="0.5" fill="black"/></pattern><rect width="100%" height="100%" fill="url(#dots)"/></svg>
+        </div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="flex flex-col md:flex-row items-end justify-between mb-20 gap-8">
             <div className="max-w-2xl">
-              <span className="text-emergency-orange font-black uppercase tracking-[0.2em] text-sm mb-4 block">Social Proof</span>
-              <h2 className="text-3xl md:text-5xl font-extrabold text-trust-blue uppercase tracking-tighter leading-none">
-                What Our Customers <span className="text-emergency-orange">In Mississauga</span> Say
+              <span className="text-emergency-orange font-black uppercase tracking-[0.3em] text-xs mb-4 block">Neural Sentiment Data</span>
+              <h2 className="text-3xl md:text-6xl font-black text-trust-blue uppercase tracking-tighter leading-none mb-6">
+                Sentiment <br/><span className="text-slate-400 italic">Extraction.</span>
               </h2>
-            </div>
-            <div className="bg-white px-6 py-4 rounded-2xl shadow-sm border border-slate-200 hidden md:block">
-              <div className="flex text-yellow-400 gap-1 mb-1">
-                {[...Array(5)].map((_, i) => (
-                  <svg key={i} className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
-                ))}
-              </div>
-              <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">4.9/5 Based on 500+ Google Reviews</p>
-            </div>
-          </div>
-          <TestimonialCarousel />
-          <div className="mt-12 flex justify-center">
-            <div className="bg-slate-100/80 border border-slate-200 px-8 py-4 rounded-2xl flex flex-col md:flex-row items-center gap-4 max-w-4xl shadow-inner group">
-              <div className="bg-white p-2 rounded-lg shadow-sm border border-slate-100 text-trust-blue transform group-hover:rotate-12 transition-transform duration-500">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              </div>
-              <p className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.1em] text-center md:text-left leading-relaxed">
-                <span className="text-trust-blue font-black">AI Transparency Note:</span> All customer feedback is processed through proprietary Absolute SmartCare™ machine learning models to identify service trends and sentiment. Data is strictly <span className="text-emergency-orange">anonymized</span> and used exclusively for internal service optimization and technical training.
+              <p className="text-slate-500 text-lg font-medium leading-relaxed">
+                Absolute SmartCare™ analyzes customer feedback to ensure zero-fault service consistency across Mississauga.
               </p>
             </div>
+            <div className="flex flex-col items-end">
+              <div className="bg-white px-8 py-5 rounded-3xl shadow-xl border border-slate-100 flex items-baseline gap-4">
+                 <span className="text-xs font-black text-slate-400 uppercase tracking-widest">Aggregate Rating:</span>
+                 <span className="text-4xl font-black text-trust-blue tracking-tighter leading-none">4.9<span className="text-lg text-slate-400">/5</span></span>
+              </div>
+            </div>
+          </div>
+          
+          <AIReviewCarousel />
+        </div>
+      </section>
+
+      {/* Flagship Location Unit */}
+      <section className="py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-slate-900 rounded-[4rem] overflow-hidden shadow-2xl flex flex-col md:flex-row border border-white/10 relative">
+             {/* Background Map Placeholder */}
+             <div className="md:w-1/2 h-[500px] relative bg-slate-800 flex items-center justify-center group overflow-hidden">
+                <div className="absolute inset-0 opacity-40 group-hover:scale-110 transition-transform duration-[2000ms]">
+                  <img src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?auto=format&fit=crop&q=80&w=1200" className="w-full h-full object-cover grayscale" alt="Mississauga Cityscape" />
+                </div>
+                <div className="relative z-10 text-center p-12 bg-slate-950/80 backdrop-blur-xl border border-white/10 rounded-[3rem] shadow-2xl">
+                   <div className="w-20 h-20 bg-emergency-orange/20 rounded-full flex items-center justify-center mx-auto mb-6 border border-emergency-orange/30">
+                      <svg className="w-10 h-10 text-emergency-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                   </div>
+                   <p className="font-black text-2xl text-white uppercase tracking-tighter mb-2">3092 Mavis Rd, Mississauga</p>
+                   <p className="text-blue-300 font-bold uppercase tracking-widest text-[10px] italic">Inside Mississauga Flea Market - Aisles 3 & 4</p>
+                </div>
+             </div>
+             
+             <div className="md:w-1/2 p-12 md:p-20 flex flex-col justify-center text-white">
+                <div className="space-y-12">
+                   <div>
+                      <h3 className="text-2xl font-black uppercase tracking-tighter mb-6 border-l-4 border-emergency-orange pl-6">Mission Continuity</h3>
+                      <div className="space-y-4 font-bold text-slate-400">
+                        <p className="flex justify-between items-center border-b border-white/10 pb-4 hover:text-white transition-colors">
+                          <span className="uppercase tracking-widest text-[11px]">Field Response:</span> 
+                          <span className="text-white text-lg font-black tracking-tighter uppercase">24/7 Priority</span>
+                        </p>
+                        <p className="flex justify-between items-center border-b border-white/10 pb-4 hover:text-white transition-colors">
+                          <span className="uppercase tracking-widest text-[11px]">Flagship Walk-in:</span> 
+                          <span className="text-white text-lg font-black tracking-tighter uppercase">Sat - Sun</span>
+                        </p>
+                      </div>
+                   </div>
+                   
+                   <div>
+                      <h3 className="text-2xl font-black uppercase tracking-tighter mb-6 border-l-4 border-trust-blue pl-6">Technical Audit Verified</h3>
+                      <div className="flex flex-wrap gap-4 mt-6">
+                        <div className="px-5 py-2.5 bg-white/5 border border-white/10 rounded-xl text-[10px] font-black uppercase tracking-widest text-slate-300 hover:bg-white/10 transition">TSSA Registered</div>
+                        <div className="px-5 py-2.5 bg-white/5 border border-white/10 rounded-xl text-[10px] font-black uppercase tracking-widest text-slate-300 hover:bg-white/10 transition">HRAI Member</div>
+                        <div className="px-5 py-2.5 bg-white/5 border border-white/10 rounded-xl text-[10px] font-black uppercase tracking-widest text-slate-300 hover:bg-white/10 transition">Licensed Gas Fitter</div>
+                      </div>
+                   </div>
+
+                   <a href="tel:6477465959" className="emergency-orange text-white py-6 rounded-2xl text-center font-black text-2xl hover:scale-[1.03] transition-all shadow-[0_20px_60px_rgba(234,88,12,0.4)] uppercase tracking-tighter">
+                      Connect with Engineer
+                   </a>
+                </div>
+             </div>
           </div>
         </div>
       </section>
 
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-extrabold text-trust-blue mb-4 uppercase tracking-tighter">Visit Our Mississauga Headquarters</h2>
-            <p className="text-slate-600 max-w-2xl mx-auto font-medium">We are conveniently located in the heart of Mississauga at the Flea Market on Mavis Road.</p>
-          </div>
-          <div className="bg-slate-50 rounded-[2.5rem] overflow-hidden shadow-2xl flex flex-col md:flex-row border border-slate-100">
-            <div className="md:w-1/2 h-[450px] bg-slate-300">
-              <div className="w-full h-full flex items-center justify-center bg-blue-50 text-trust-blue text-center p-8">
-                <div>
-                  <div className="w-20 h-20 bg-trust-blue/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <svg className="w-10 h-10 text-trust-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                  </div>
-                  <p className="font-black text-2xl uppercase tracking-tighter mb-2">3092 Mavis Rd, Mississauga</p>
-                  <p className="text-slate-500 font-bold uppercase tracking-widest text-xs italic">Inside Mississauga Flea Market - Aisles 3 & 4</p>
-                </div>
-              </div>
-            </div>
-            <div className="md:w-1/2 p-12 flex flex-col justify-center space-y-8">
-              <div>
-                <h3 className="text-xl font-black text-trust-blue mb-4 uppercase tracking-wider border-b-2 border-emergency-orange inline-block">Operation Hours</h3>
-                <div className="space-y-2 mt-4 font-bold text-slate-600">
-                  <p className="flex justify-between"><span>Mon - Fri:</span> <span>8:00 AM - 6:00 PM</span></p>
-                  <p className="flex justify-between"><span>Sat - Sun:</span> <span>9:00 AM - 5:00 PM</span></p>
-                  <p className="text-emergency-orange font-black mt-4 flex items-center gap-2">
-                    <span className="w-2 h-2 bg-red-500 rounded-full animate-ping"></span>
-                    24/7 EMERGENCY DISPATCH AVAILABLE
-                  </p>
-                </div>
-              </div>
-              <div>
-                <h3 className="text-xl font-black text-trust-blue mb-4 uppercase tracking-wider border-b-2 border-emergency-orange inline-block">Certification</h3>
-                <div className="flex flex-wrap gap-4 items-center mt-4">
-                  <div className="px-4 py-2 bg-white rounded-lg text-[10px] font-black uppercase tracking-widest text-slate-600 border border-slate-200 shadow-sm">TSSA Registered</div>
-                  <div className="px-4 py-2 bg-white rounded-lg text-[10px] font-black uppercase tracking-widest text-slate-600 border border-slate-200 shadow-sm">HRAI Member</div>
-                  <div className="px-4 py-2 bg-white rounded-lg text-[10px] font-black uppercase tracking-widest text-slate-600 border border-slate-200 shadow-sm">Licensed Gas Fitter</div>
-                </div>
-              </div>
-              <a href="https://www.google.com/maps/search/?api=1&query=3092+Mavis+Rd,+Mississauga,+ON+L5L+5X1" target="_blank" rel="noopener noreferrer" className="trust-blue text-white px-8 py-5 rounded-2xl text-center font-black text-xl hover:scale-[1.02] transition-transform shadow-xl uppercase tracking-tighter">Get Directions Now</a>
-            </div>
+      {/* Corporate Final Banner */}
+      <section className="py-20 bg-slate-900 text-white border-t border-white/5">
+        <div className="max-w-4xl mx-auto px-4 text-center">
+          <h2 className="text-3xl md:text-5xl font-black mb-10 uppercase tracking-tighter leading-none">Ready for a Technical Upgrade?</h2>
+          <div className="flex flex-col sm:flex-row justify-center gap-6">
+            <a href="tel:6477465959" className="emergency-orange text-white px-12 py-6 rounded-2xl font-black text-xl hover:scale-105 transition shadow-2xl flex items-center gap-3 justify-center uppercase tracking-tighter">
+              Call Direct: (647) 746-5959
+            </a>
           </div>
         </div>
       </section>
