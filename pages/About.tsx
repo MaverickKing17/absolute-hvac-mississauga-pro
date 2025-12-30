@@ -225,7 +225,7 @@ const About: React.FC = () => {
                   <div className="px-4 py-2 bg-white rounded-lg text-[10px] font-black uppercase tracking-widest text-slate-600 border border-slate-200 shadow-sm">Licensed Gas Fitter</div>
                 </div>
               </div>
-              <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" className="trust-blue text-white px-8 py-5 rounded-2xl text-center font-black text-xl hover:scale-[1.02] transition-transform shadow-xl uppercase tracking-tighter">Get Directions Now</a>
+              <a href="https://www.google.com/maps/search/?api=1&query=3092+Mavis+Rd,+Mississauga,+ON+L5L+5X1" target="_blank" rel="noopener noreferrer" className="trust-blue text-white px-8 py-5 rounded-2xl text-center font-black text-xl hover:scale-[1.02] transition-transform shadow-xl uppercase tracking-tighter">Get Directions Now</a>
             </div>
           </div>
         </div>

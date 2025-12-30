@@ -6,14 +6,15 @@ import AIReviewCarousel from '../components/AIReviewCarousel';
 const Home: React.FC = () => {
   return (
     <div className="flex flex-col">
-      {/* Hero Section - Updated with Requested Asset */}
-      <section className="relative bg-slate-900 overflow-hidden">
-        <div className="absolute inset-0 opacity-50">
+      {/* Hero Section - Updated with requested asset */}
+      <section className="relative bg-slate-900 overflow-hidden min-h-[600px] flex items-center">
+        <div className="absolute inset-0">
           <img 
             src="https://i.ibb.co/LhqfYfRQ/wan2-5-t2i-preview-b-Replace-the-current.png" 
-            alt="Absolute HVAC Professional Engineering" 
-            className="w-full h-full object-cover"
+            alt="Absolute Heating and Cooling Professional HVAC Engineering" 
+            className="w-full h-full object-cover opacity-60"
           />
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-900/40 to-transparent"></div>
         </div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32 flex flex-col items-start text-left">
           <div className="inline-block bg-emergency-orange text-white px-4 py-1.5 rounded-full text-sm font-bold uppercase tracking-widest mb-6 shadow-lg">

@@ -319,7 +319,7 @@ const Services: React.FC = () => {
     {
       title: "Strange Furnace Noises?",
       description: "Differentiate between normal system startup sounds and critical failure warnings like screeching or banging.",
-      embedId: "zT35tT7e3uM",
+      embedId: "_fP_H9V0R48",
       category: "Heating",
       duration: "3:42",
       level: "Essential"
@@ -327,7 +327,7 @@ const Services: React.FC = () => {
     {
       title: "AC Efficiency Secrets",
       description: "Learn how to optimize your air conditioner's cooling power while reducing peak-hour energy consumption.",
-      embedId: "N1eA7u0G79M",
+      embedId: "P1p67W5iH-Y",
       category: "Cooling",
       duration: "5:15",
       level: "Intermediate"
@@ -343,7 +343,7 @@ const Services: React.FC = () => {
     {
       title: "Smart Thermostat Logic",
       description: "Troubleshooting digital communication errors between your smart thermostat and your furnace control board.",
-      embedId: "jYpD-1v1Fas",
+      embedId: "zV9m-8r3_7Y",
       category: "Electrical",
       duration: "4:30",
       level: "Technical"
@@ -353,7 +353,7 @@ const Services: React.FC = () => {
   const serviceFAQs = [
     {
       question: "How often should I have my HVAC system serviced?",
-      answer: "We recommend a professional tune-up twice a year: once in the spring for your AC and once in the fall for your furnace. Regular maintenance ensures peak efficiency, prevents mid-season breakdowns, and is often a requirement to keep your manufacturer's warranty valid."
+      answer: "We recommend a professional tune-up twice a year: once in the spring for your AC and once in the fall for your furnace. Regular maintenance ensures peak efficiency, prevents mid-season breakthroughs, and is often a requirement to keep your manufacturer's warranty valid."
     },
     {
       question: "What are the warning signs my furnace needs repair?",
