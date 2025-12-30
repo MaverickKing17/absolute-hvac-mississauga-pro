@@ -3,12 +3,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import RebateCalculator from '../components/RebateCalculator';
 
-/**
- * AIScanOverlay Component
- * Adds a neural scan animation and data points to images for ML aesthetic
- */
-const AIScanOverlay: React.FC = () => (
-  <div className="absolute inset-0 pointer-events-none overflow-hidden group-hover:bg-trust-blue/5 transition-colors duration-700">
+const AIScanOverlay = () => (
+  <div className="absolute inset-0 pointer-events-none overflow-hidden group-hover:bg-trust-blue/10 transition-colors duration-700">
     <div className="absolute top-0 left-0 w-full h-[2px] bg-blue-400/50 shadow-[0_0_15px_rgba(59,130,246,0.8)] ai-scan-line z-30 opacity-0 group-hover:opacity-100 transition-opacity"></div>
     <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-1000">
       <div className="absolute top-1/4 left-1/4 w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse shadow-[0_0_8px_rgba(59,130,246,1)]"></div>
@@ -18,58 +14,76 @@ const AIScanOverlay: React.FC = () => (
   </div>
 );
 
-const ServiceFAQItem: React.FC<{ question: string; answer: string; index: number }> = ({ question, answer, index }) => {
+// Fix: Add explicit typing for ServiceFAQItem props to resolve TS error
+interface ServiceFAQItemProps {
+  question: string;
+  answer: string;
+  index: number;
+}
+
+const ServiceFAQItem: React.FC<ServiceFAQItemProps> = ({ question, answer, index }) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <div className={`transition-all duration-500 border-b border-slate-100 last:border-0 ${isOpen ? 'bg-slate-50/50' : ''}`}>
+    <div className={`transition-all duration-500 border-b border-slate-100 last:border-0 ${isOpen ? 'bg-slate-50/80' : ''}`}>
       <button 
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full py-6 px-4 flex justify-between items-center text-left focus:outline-none group"
+        className="w-full py-7 px-6 flex justify-between items-center text-left focus:outline-none group"
       >
-        <div className="flex items-center gap-4">
-          <span className="text-xs font-black text-slate-300 font-mono tracking-widest">{String(index + 1).padStart(2, '0')}</span>
-          <span className={`text-base md:text-lg font-bold transition-colors ${isOpen ? 'text-emergency-orange' : 'text-trust-blue group-hover:text-emergency-orange'}`}>{question}</span>
+        <div className="flex items-center gap-5">
+          <span className="text-xs font-black text-slate-300 font-mono tracking-widest leading-none">[{String(index + 1).padStart(2, '0')}]</span>
+          <span className={`text-base md:text-xl font-black transition-colors uppercase tracking-tight ${isOpen ? 'text-emergency-orange' : 'text-trust-blue group-hover:text-emergency-orange'}`}>{question}</span>
         </div>
-        <div className={`w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 ${isOpen ? 'bg-emergency-orange text-white rotate-180' : 'bg-slate-100 text-slate-400 group-hover:bg-slate-200'}`}>
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M19 9l-7 7-7-7" /></svg>
+        <div className={`w-10 h-10 rounded-2xl flex items-center justify-center transition-all duration-500 ${isOpen ? 'bg-emergency-orange text-white rotate-180 shadow-lg' : 'bg-slate-100 text-slate-400 group-hover:bg-trust-blue group-hover:text-white'}`}>
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M19 9l-7 7-7-7" /></svg>
         </div>
       </button>
-      <div className={`overflow-hidden transition-all duration-500 ease-in-out ${isOpen ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'}`}>
-        <div className="px-14 pb-8 pr-8">
-          <p className="text-slate-500 leading-relaxed font-medium text-sm md:text-base">{answer}</p>
+      <div className={`overflow-hidden transition-all duration-500 ease-in-out ${isOpen ? 'max-h-[600px] opacity-100' : 'max-h-0 opacity-0'}`}>
+        <div className="px-20 pb-10 pr-10">
+          <p className="text-slate-600 leading-relaxed font-medium text-base md:text-lg border-l-2 border-emergency-orange/20 pl-6 italic">{answer}</p>
         </div>
       </div>
     </div>
   );
 };
 
-const VideoCard: React.FC<{ video: { title: string; description: string; embedId: string; category: string; duration: string } }> = ({ video }) => {
+// Fix: Add explicit typing for VideoCard props to resolve TS error
+interface VideoCardProps {
+  video: {
+    title: string;
+    description: string;
+    embedId: string;
+    category: string;
+    duration: string;
+  };
+}
+
+const VideoCard: React.FC<VideoCardProps> = ({ video }) => {
   const [isPlaying, setIsPlaying] = useState(false);
 
   return (
-    <div className="bg-white rounded-[2rem] overflow-hidden shadow-sm hover:shadow-[0_40px_80px_rgba(30,58,138,0.15)] hover:-translate-y-2 hover:border-trust-blue transition-all duration-700 flex flex-col h-full group border border-slate-100 relative ring-offset-4 hover:ring-2 ring-trust-blue/10">
+    <div className="bg-white rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-[0_40px_100px_rgba(30,58,138,0.2)] hover:-translate-y-2 hover:border-trust-blue transition-all duration-700 flex flex-col h-full group border border-slate-100 relative ring-offset-8 hover:ring-4 ring-trust-blue/5">
       <div className="aspect-video bg-slate-900 overflow-hidden relative">
         {!isPlaying ? (
           <div className="w-full h-full cursor-pointer" onClick={() => setIsPlaying(true)}>
             <img 
               src={`https://img.youtube.com/vi/${video.embedId}/maxresdefault.jpg`} 
               alt={video.title}
-              className="w-full h-full object-cover transition-transform duration-[2000ms] group-hover:scale-110 saturate-[0.8] brightness-75 group-hover:brightness-100 group-hover:saturate-100"
+              className="w-full h-full object-cover transition-transform duration-[1500ms] group-hover:scale-110 saturate-[0.7] brightness-75 group-hover:brightness-100 group-hover:saturate-100"
             />
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-16 h-16 emergency-orange text-white rounded-full flex items-center justify-center shadow-2xl transform transition-transform group-hover:scale-110 border-2 border-white/20">
-                <svg className="w-7 h-7 ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M7 6v12l10-6z" /></svg>
+              <div className="w-20 h-20 emergency-orange text-white rounded-full flex items-center justify-center shadow-[0_15px_50px_rgba(234,88,12,0.6)] transform transition-all duration-500 group-hover:scale-125 border-4 border-white/20">
+                <svg className="w-8 h-8 ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M7 6v12l10-6z" /></svg>
               </div>
             </div>
-            <div className="absolute top-4 left-4">
-              <span className="bg-black/60 backdrop-blur-md text-white text-[10px] font-black px-2.5 py-1 rounded-lg tracking-widest uppercase">{video.duration}</span>
+            <div className="absolute top-5 left-5 z-20">
+              <span className="bg-white/10 backdrop-blur-xl border border-white/20 text-white text-[10px] font-black px-3 py-1.5 rounded-xl tracking-widest uppercase">{video.duration}</span>
             </div>
             <AIScanOverlay />
           </div>
         ) : (
           <iframe 
             className="w-full h-full"
-            src={`https://www.youtube.com/embed/${video.embedId}?autoplay=1`}
+            src={`https://www.youtube.com/embed/${video.embedId}?autoplay=1&modestbranding=1&rel=0`}
             title={video.title}
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -78,134 +92,131 @@ const VideoCard: React.FC<{ video: { title: string; description: string; embedId
         )}
       </div>
       
-      <div className="p-8 flex-1 flex flex-col">
-        <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 block">{video.category} Learning Node</span>
-        <h3 className="text-xl font-black text-trust-blue mb-3 leading-tight uppercase tracking-tighter group-hover:text-emergency-orange transition-colors">{video.title}</h3>
-        <p className="text-slate-500 text-sm leading-relaxed mb-6 flex-grow font-medium">{video.description}</p>
-        <button onClick={() => setIsPlaying(!isPlaying)} className="text-trust-blue font-black uppercase tracking-widest text-[11px] flex items-center gap-2 hover:text-emergency-orange transition-colors">
-           {isPlaying ? 'Close Interface' : 'Initialize Protocol'}
-           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M9 5l7 7-7 7"/></svg>
+      <div className="p-10 flex-1 flex flex-col">
+        <div className="flex items-center gap-2 mb-3">
+          <div className="w-1.5 h-1.5 rounded-full bg-emergency-orange animate-pulse"></div>
+          <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] block">{video.category} Learning Module</span>
+        </div>
+        <h3 className="text-2xl font-black text-trust-blue mb-4 leading-none uppercase tracking-tighter group-hover:text-emergency-orange transition-colors">{video.title}</h3>
+        <p className="text-slate-500 text-sm leading-relaxed mb-8 flex-grow font-medium">{video.description}</p>
+        <button onClick={() => setIsPlaying(!isPlaying)} className="group/btn text-trust-blue font-black uppercase tracking-widest text-[11px] flex items-center gap-3 hover:text-emergency-orange transition-all">
+           <div className={`w-8 h-8 rounded-xl flex items-center justify-center transition-all ${isPlaying ? 'bg-emergency-orange text-white' : 'bg-slate-100 group-hover/btn:bg-trust-blue group-hover/btn:text-white'}`}>
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+           </div>
+           <span>{isPlaying ? 'Terminate Stream' : 'Initialize Protocol'}</span>
         </button>
       </div>
     </div>
   );
 };
 
-const Services: React.FC = () => {
+const Services = () => {
   const troubleshootingVideos = [
-    { title: "Strange Furnace Noises?", description: "Decode banging, whistling, or screeching sounds before they lead to a system lockout.", embedId: "_fP_H9V0R48", category: "Heating", duration: "3:42" },
-    { title: "AC Efficiency Secrets", description: "Learn how to optimize your cooling cycle and reduce peak energy draw during heatwaves.", embedId: "P1p67W5iH-Y", category: "Cooling", duration: "5:15" },
-    { title: "Smart Filter Health", description: "Why high-MERV filters might be choking your system and how to find the perfect balance.", embedId: "f04L7-c8L-U", category: "Air Quality", duration: "2:10" },
-    { title: "Heat Pump Mastery", description: "Visualizing the phase-change cycle of Ontario's most popular hybrid heating solution.", embedId: "zV9m-8r3_7Y", category: "Heat Pumps", duration: "4:30" }
+    { title: "Furnace Lockout Codes", description: "Learn to read diagnostic blink codes on your furnace control board to identify common ignition failures.", embedId: "_fP_H9V0R48", category: "Heating", duration: "4:15" },
+    { title: "AC Efficiency Mapping", description: "Visualizing the thermal envelope and how airflow restriction impacts your SEER2 rating in summer.", embedId: "P1p67W5iH-Y", category: "Cooling", duration: "6:20" },
+    { title: "Smart Filter Dynamics", description: "Testing high-MERV vs static pressure. Why the wrong filter choice leads to blower motor fatigue.", embedId: "f04L7-c8L-U", category: "Maintenance", duration: "3:05" },
+    { title: "Hybrid Pumping Logic", description: "A technical breakdown of how Cold Climate Air Source Heat Pumps function alongside gas backups.", embedId: "zV9m-8r3_7Y", category: "Heat Pumps", duration: "5:45" }
   ];
 
   const serviceFAQs = [
-    { question: "How often should I have my furnace serviced?", answer: "We recommend a professional tune-up once every year, ideally in late summer or early fall. This ensures your system is safe (no carbon monoxide leaks) and running at peak efficiency before the winter load kicks in." },
-    { question: "What are the common signs of a failing AC compressor?", answer: "Warning signs include unusual grinding noises, circuit breakers tripping regularly, warm air blowing from vents, or a noticeable decrease in cooling speed. Early detection can save thousands in component replacement costs." },
-    { question: "Are heat pumps really effective in -20°C Ontario winters?", answer: "Yes. Modern Cold-Climate Air Source Heat Pumps (ccASHPs) are engineered to extract heat from ambient air down to -25°C. For extreme cold, we integrate them as a hybrid system with your furnace as a fail-safe backup." },
-    { question: "Why is my furnace blowing cold air?", answer: "This is often caused by a dirty air filter, a tripped high-limit switch, or a faulty flame sensor. If a filter change doesn't fix it, our technical team can diagnose the internal logic error in under 30 minutes." },
-    { question: "How long does a typical AC installation take?", answer: "A standard central air installation in Mississauga takes between 4 to 8 hours. We deploy a two-person engineering team to ensure TSSA compliance and same-day commissioning." },
-    { question: "Do you offer emergency 24/7 HVAC repairs?", answer: "Absolutely. Absolute provides emergency dispatch for no-heat situations or critical AC failures across Mississauga, Brampton, and Oakville, even on holidays." },
-    { question: "Can a smart thermostat really lower my energy bills?", answer: "Yes, by up to 15%. Smart thermostats use predictive occupancy modeling and weather data to reduce heating/cooling cycles when you're away, paying for themselves in under 12 months." },
-    { question: "What is the lifespan of a modern HVAC system?", answer: "With regular maintenance, a high-efficiency furnace typically lasts 15-20 years, while central AC units last 12-15 years. Heat pumps have a similar 15-year lifecycle." },
-    { question: "Do you handle the Enbridge rebate paperwork for me?", answer: "We handle 100% of the technical documentation. We coordinate with NRCan-certified auditors to ensure your data packets are submitted correctly for the $7,100 grant." },
-    { question: "What areas of Mississauga do you serve?", answer: "We cover all of Peel Region including Erin Mills, Port Credit, Streetsville, Meadowvale, Churchill Meadows, and Cooksville." },
-    { question: "What is MERV rating and which one should I use?", answer: "MERV (Minimum Efficiency Reporting Value) ranges from 1-20. Most residential systems are optimized for MERV 8-11. Going higher (MERV 13+) can restrict airflow and damage your blower motor if the system isn't designed for it." },
-    { question: "Is it better to repair or replace an old furnace?", answer: "If your furnace is over 12 years old and the repair cost exceeds 30% of a new unit, we typically recommend replacement—especially with current $7,100 rebates making new systems highly affordable." }
+    { question: "What is a SmartCare™ Predictive Audit?", answer: "Our SmartCare™ audit uses digital thermal imaging and blower door diagnostics to identify microscopic air leaks and insulation gaps that standard inspections miss, ensuring 100% precision." },
+    { question: "How often should I have my system serviced?", answer: "For maximum efficiency and TSSA compliance, we recommend bi-annual service: Fall for heating (safety/efficiency) and Spring for cooling (charge/coil cleaning)." },
+    { question: "Why is my furnace making a banging sound?", answer: "This 'boom' is often delayed ignition, where gas builds up before lighting. It is a critical safety issue that requires immediate technical calibration of the burners." },
+    { question: "What are the benefits of a Hybrid Heat Pump?", answer: "Hybrid systems offer the best of both worlds: extreme electricity-based efficiency for 90% of the year, and high-intensity gas backup for Ontario's record cold snaps." },
+    { question: "How long does a full system replacement take?", answer: "Absolute Engineering teams typically complete a full furnace and AC retrofit in 6-8 hours, including commissioning, balancing, and homeowner interface training." },
+    { question: "Are your technicians TSSA and HRAI certified?", answer: "Yes. Every field engineer at Absolute is fully licensed by the TSSA (Technical Standards and Safety Authority) and HRAI, ensuring legal compliance and home safety." },
+    { question: "What is the $7,100 rebate eligibility criteria?", answer: "Eligibility is based on your primary heat source (Natural Gas) and residence type. We handle all paperwork to ensure your system meets the specific COP and SEER2 requirements." },
+    { question: "Why is my AC frozen up in July?", answer: "Freezing is usually caused by restricted airflow (dirty filter) or low refrigerant levels. Continuing to run a frozen unit can permanently damage the compressor scroll." },
+    { question: "What areas of the GTA do you provide 24/7 service?", answer: "We provide priority dispatch to Mississauga, Brampton, Oakville, and Etobicoke. Our central node at 3092 Mavis Rd allows for < 90min response times." },
+    { question: "Can I install a high-MERV filter in my old furnace?", answer: "Old blower motors aren't designed for the high static pressure of MERV 13+ filters. We recommend a system-matched 4-inch media filter for better air quality without system strain." },
+    { question: "What is the lifespan of a modern condensing furnace?", answer: "With absolute maintenance, a high-efficiency condensing furnace has a design lifecycle of 18-22 years. Without service, failure typically occurs at year 12." },
+    { question: "Is the rebate paid as a credit or a check?", answer: "The Enbridge HER+ rebate is issued as a direct deposit or mailed check following the final post-retrofit energy audit, which we coordinate for you." }
   ];
 
   return (
     <div className="flex flex-col bg-white overflow-hidden">
-      {/* Dynamic Hero Section */}
-      <section className="relative bg-slate-900 py-24 md:py-40 flex items-center justify-center text-center overflow-hidden">
+      <section className="relative min-h-[600px] md:min-h-[800px] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
-          <img src="https://images.unsplash.com/photo-1581094288338-2314dddb7bc3?auto=format&fit=crop&q=80&w=2000" className="w-full h-full object-cover opacity-30 grayscale" alt="HVAC Engineering Background" />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/60 to-transparent"></div>
+          <img 
+            src="https://i.ibb.co/j9WhYRVZ/hunyuan-image-3-0-a-Replace-the-current-1.png" 
+            className="w-full h-full object-cover object-center scale-105 group-hover:scale-100 transition-transform duration-[10s]" 
+            alt="Absolute HVAC Engineering Visual" 
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-950/80 via-slate-950/40 to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
         </div>
-        <div className="relative z-10 max-w-5xl mx-auto px-4">
-          <div className="inline-flex items-center gap-2 bg-emergency-orange/20 border border-emergency-orange/30 px-4 py-1.5 rounded-full mb-8">
-            <span className="w-2 h-2 bg-emergency-orange rounded-full animate-ping"></span>
-            <span className="text-[10px] font-black text-white uppercase tracking-[0.3em]">Licensed TSSA Engineering</span>
+        <div className="relative z-10 max-w-7xl mx-auto px-6 text-left w-full py-24">
+          <div className="inline-flex items-center gap-3 bg-emergency-orange/20 border border-emergency-orange/30 backdrop-blur-md px-5 py-2 rounded-full mb-10">
+            <span className="relative flex h-3 w-3">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emergency-orange opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-3 w-3 bg-emergency-orange"></span>
+            </span>
+            <span className="text-[10px] font-black text-white uppercase tracking-[0.4em]">Precision Mechanical Protocol</span>
           </div>
-          <h1 className="text-4xl md:text-8xl font-black text-white mb-8 uppercase tracking-tighter leading-none">
-            Precision <span className="text-emergency-orange italic">Mechanical</span> Solutions
+          <h1 className="text-5xl md:text-8xl font-black text-white mb-8 uppercase tracking-tighter leading-[0.9] drop-shadow-2xl">
+            Engineering <br/><span className="text-emergency-orange italic">Excellence.</span>
           </h1>
-          <p className="text-blue-100 text-lg md:text-2xl max-w-2xl mx-auto leading-relaxed font-medium">
-            Mississauga's premier destination for high-efficiency heating, cooling, and air quality engineering.
+          <p className="text-slate-200 text-lg md:text-2xl max-w-2xl mb-12 leading-relaxed font-medium drop-shadow-lg">
+            Absolute Heating & Cooling defines the new standard for residential HVAC infrastructure in Mississauga. We don't just install; we architect comfort.
           </p>
+          <div className="flex flex-wrap gap-6">
+            <a href="tel:6477465959" className="emergency-orange text-white px-12 py-6 rounded-2xl font-black text-xl hover:scale-[1.05] transition-all shadow-[0_20px_60px_rgba(234,88,12,0.4)] uppercase tracking-tighter">Immediate Dispatch</a>
+            <Link to="/contact" className="bg-white/10 backdrop-blur-xl border border-white/20 text-white px-12 py-6 rounded-2xl font-black text-xl hover:bg-white hover:text-trust-blue transition-all uppercase tracking-tighter">Request SmartAudit™</Link>
+          </div>
         </div>
-        {/* Shimmer line */}
-        <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-blue-400 to-transparent"></div>
       </section>
 
-      {/* Main Service Blocks with High-End Imagery */}
-      <section className="py-24 space-y-24">
-        {/* Heating Block */}
+      <section className="py-24 space-y-32">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row items-center gap-16 md:gap-24">
-            <div className="flex-1 space-y-8">
-              <span className="text-emergency-orange font-black uppercase tracking-[0.4em] text-xs">Protocol: Thermal Extraction</span>
-              <h2 className="text-4xl md:text-6xl font-black text-trust-blue uppercase tracking-tighter leading-none">High-Efficiency <br/><span className="text-slate-400">Heating Systems</span></h2>
-              <p className="text-slate-600 text-lg leading-relaxed font-medium">
-                Our technicians are masters of natural gas and electric heating logic. From the Absolute Platinum™ Furnace series to multi-stage heat exchanger replacements, we ensure 100% thermal reliability.
-              </p>
-              <div className="grid grid-cols-2 gap-4">
-                {['TSSA Certified', '24/7 Dispatch', 'OEM Parts', 'Safety Audit'].map(t => (
-                  <div key={t} className="flex items-center gap-3 text-sm font-bold text-slate-500 uppercase tracking-tight">
-                    <svg className="w-5 h-5 text-emergency-orange" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/></svg>
-                    {t}
+          <div className="flex flex-col md:flex-row items-center gap-20">
+            <div className="flex-1 space-y-10">
+              <div>
+                <span className="text-emergency-orange font-black uppercase tracking-[0.4em] text-xs block mb-4">Heating Architecture</span>
+                <h2 className="text-4xl md:text-7xl font-black text-trust-blue uppercase tracking-tighter leading-none">Furnace <br/><span className="text-slate-400">Optimization.</span></h2>
+              </div>
+              <p className="text-slate-600 text-lg leading-relaxed font-medium">Our technicians handle natural gas and electric heating logic with surgical precision. From full-system retrofits to sensor calibration, we restore your system to factory-spec efficiency.</p>
+              <div className="grid grid-cols-2 gap-6">
+                {[{ label: "Commissioning", value: "TSSA Verified" }, { label: "Componentry", value: "OEM Original" }, { label: "Testing", value: "Zero-Fault" }, { label: "Support", value: "24/7 Priority" }].map((stat, i) => (
+                  <div key={i} className="p-6 bg-slate-50 rounded-[2rem] border border-slate-100 group hover:border-emergency-orange/30 transition-all">
+                    <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">{stat.label}</p>
+                    <p className="text-xl font-black text-trust-blue uppercase tracking-tighter group-hover:text-emergency-orange transition-colors">{stat.value}</p>
                   </div>
                 ))}
               </div>
-              <a href="tel:6477465959" className="inline-flex items-center gap-4 bg-trust-blue text-white px-10 py-5 rounded-2xl font-black text-lg hover:scale-[1.03] transition-all shadow-xl uppercase tracking-tighter">
-                Request Service Node
-                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-              </a>
             </div>
             <div className="flex-1 relative group">
-              <div className="rounded-[4rem] overflow-hidden shadow-2xl relative bg-slate-100 border-8 border-white aspect-square">
-                <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&q=80&w=1000" className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-[2000ms] group-hover:scale-110" alt="Furnace Interior Engineering" />
+              <div className="rounded-[4rem] overflow-hidden shadow-2xl relative bg-slate-900 border-8 border-white aspect-square">
+                <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&q=80&w=1200" className="w-full h-full object-cover grayscale brightness-75 group-hover:grayscale-0 group-hover:brightness-100 transition-all duration-[1.5s] group-hover:scale-105" alt="Furnace Engineering" />
                 <AIScanOverlay />
-                <div className="absolute bottom-8 left-8 right-8 p-6 bg-slate-900/60 backdrop-blur-xl rounded-3xl border border-white/10 opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-4 group-hover:translate-y-0">
-                  <p className="text-[10px] text-blue-300 font-black uppercase tracking-widest mb-1">Live Thermal Diagnostic</p>
-                  <p className="text-white text-sm font-bold">System Load: NOMINAL | Output: 98.2% AFUE</p>
-                </div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Cooling Block */}
-        <div className="bg-slate-50 py-24 border-y border-slate-100">
+        <div className="bg-slate-50 py-32 border-y border-slate-100 overflow-hidden">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-col md:flex-row-reverse items-center gap-16 md:gap-24">
-              <div className="flex-1 space-y-8">
-                <span className="text-trust-blue font-black uppercase tracking-[0.4em] text-xs">Protocol: Phase Change cooling</span>
-                <h2 className="text-4xl md:text-6xl font-black text-trust-blue uppercase tracking-tighter leading-none">Precision <br/><span className="text-slate-400">Cooling Solutions</span></h2>
-                <p className="text-slate-600 text-lg leading-relaxed font-medium">
-                  We deploy ultra-quiet, variable-speed AC units that provide dehumidification and precise climate control. Optimized for Mississauga's humid summers, our systems run 40% quieter than standard models.
-                </p>
-                <div className="space-y-4">
-                  <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between">
+            <div className="flex flex-col md:flex-row-reverse items-center gap-20">
+              <div className="flex-1 space-y-10">
+                <div>
+                  <span className="text-trust-blue font-black uppercase tracking-[0.4em] text-xs block mb-4">Phase Change Logic</span>
+                  <h2 className="text-4xl md:text-7xl font-black text-trust-blue uppercase tracking-tighter leading-none">Cooling <br/><span className="text-slate-400">Innovation.</span></h2>
+                </div>
+                <p className="text-slate-600 text-lg leading-relaxed font-medium">Experience whisper-quiet air conditioning systems that actively monitor humidity and airflow. Optimized for the unique moisture profile of Lake Ontario coastal areas.</p>
+                <div className="bg-white p-10 rounded-[3rem] border border-slate-200 shadow-xl relative overflow-hidden group">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/5 -mr-16 -mt-16 rounded-full blur-3xl"></div>
+                  <div className="flex items-center gap-6">
+                    <div className="w-16 h-16 bg-trust-blue text-white rounded-2xl flex items-center justify-center font-black text-3xl shadow-xl">22</div>
                     <div>
-                      <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1">Energy Index</p>
-                      <p className="text-xl font-black text-trust-blue uppercase tracking-tighter leading-none">SEER2 22+</p>
-                    </div>
-                    <div className="h-10 w-px bg-slate-100"></div>
-                    <div>
-                      <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1">Acoustic Logic</p>
-                      <p className="text-xl font-black text-trust-blue uppercase tracking-tighter leading-none">48 dB Peak</p>
+                      <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1">Peak Index</p>
+                      <p className="text-2xl font-black text-trust-blue uppercase tracking-tighter leading-none">SEER2 ENERGY RATING</p>
                     </div>
                   </div>
                 </div>
-                <Link to="/contact" className="inline-flex items-center gap-4 bg-emergency-orange text-white px-10 py-5 rounded-2xl font-black text-lg hover:scale-[1.03] transition-all shadow-xl uppercase tracking-tighter">
-                  Claim Cooling Audit
-                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-                </Link>
+                <Link to="/rebates" className="inline-flex items-center gap-4 bg-trust-blue text-white px-10 py-5 rounded-2xl font-black text-lg hover:scale-[1.03] transition-all shadow-xl uppercase tracking-tighter">Claim $7,100 Rebate</Link>
               </div>
               <div className="flex-1 relative group">
-                <div className="rounded-[4rem] overflow-hidden shadow-2xl relative bg-slate-100 border-8 border-white aspect-square">
-                  <img src="https://images.unsplash.com/photo-1621905252507-b354bcadc0d6?auto=format&fit=crop&q=80&w=1000" className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-[2000ms] group-hover:scale-110" alt="Central AC Component" />
+                <div className="rounded-[4rem] overflow-hidden shadow-2xl relative bg-slate-900 border-8 border-white aspect-square">
+                  <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&q=80&w=1200" className="w-full h-full object-cover grayscale brightness-75 group-hover:grayscale-0 group-hover:brightness-100 transition-all duration-[1.5s] group-hover:scale-105" alt="Cooling Engineering" />
                   <AIScanOverlay />
                 </div>
               </div>
@@ -214,63 +225,50 @@ const Services: React.FC = () => {
         </div>
       </section>
 
-      {/* Expanded Estimator Section */}
       <section className="py-24 bg-white relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-16">
-          <span className="text-savings-green font-black uppercase tracking-[0.4em] text-xs mb-4 block">Funding Extraction Logic</span>
-          <h2 className="text-3xl md:text-5xl font-black text-trust-blue uppercase tracking-tighter leading-none mb-6">
-            Unlock Your <span className="text-savings-green italic">$7,100 Rebate</span>
-          </h2>
-          <p className="text-slate-500 max-w-2xl mx-auto font-medium text-lg">
-            Use our refined SmartCare™ calculator to verify your exact provincial grant eligibility based on current 2024 Ontario energy protocols.
-          </p>
+          <span className="text-savings-green font-black uppercase tracking-[0.4em] text-xs mb-4 block">Grant Extraction Module</span>
+          <h2 className="text-3xl md:text-6xl font-black text-trust-blue uppercase tracking-tighter leading-none mb-8">Check Your <span className="text-savings-green italic">Rebate Eligibility.</span></h2>
+          <p className="text-slate-500 max-w-2xl mx-auto font-medium text-lg leading-relaxed">Ontario's HER+ program is budget-finite. Use our engineering calculator to verify your home's thermal match for the maximum $7,100 grant.</p>
         </div>
         <RebateCalculator />
       </section>
 
-      {/* Video Learning Center */}
-      <section className="py-24 bg-slate-50 border-y border-slate-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-6xl font-black text-trust-blue uppercase tracking-tighter leading-none">Diagnostic <br/><span className="text-slate-400">Knowledge Hub</span></h2>
+      <section className="py-32 bg-slate-950 border-y border-white/5 relative">
+        <div className="absolute inset-0 bg-blue-900/10 pointer-events-none"></div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center mb-24">
+            <h2 className="text-4xl md:text-7xl font-black text-white uppercase tracking-tighter leading-none">Diagnostic <br/><span className="text-slate-400">Intelligence Hub</span></h2>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {troubleshootingVideos.map((video, idx) => (
-              <VideoCard key={idx} video={video} />
-            ))}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+            {troubleshootingVideos.map((video, idx) => (<VideoCard key={idx} video={video} />))}
           </div>
         </div>
       </section>
 
-      {/* Massive FAQ Section (12 Items) */}
-      <section className="py-24 bg-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <span className="text-trust-blue font-black uppercase tracking-[0.4em] text-xs mb-4 block">Engineering FAQ</span>
-            <h2 className="text-4xl md:text-5xl font-black text-trust-blue uppercase tracking-tighter leading-none">Service & <br/><span className="text-emergency-orange italic">Diagnostic Intel</span></h2>
+      <section className="py-32 bg-white">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-20">
+            <span className="text-emergency-orange font-black uppercase tracking-[0.5em] text-[10px] mb-6 block">Absolute Engineering Protocol</span>
+            <h2 className="text-4xl md:text-7xl font-black text-trust-blue uppercase tracking-tighter leading-none">Service & <br/><span className="text-slate-400 italic">Technical FAQ</span></h2>
           </div>
-          <div className="bg-white border border-slate-100 rounded-[3rem] shadow-2xl overflow-hidden divide-y divide-slate-50">
-            {serviceFAQs.map((faq, index) => (
-              <ServiceFAQItem key={index} index={index} question={faq.question} answer={faq.answer} />
-            ))}
+          <div className="bg-white border-2 border-slate-50 rounded-[4rem] shadow-[0_40px_120px_rgba(0,0,0,0.05)] overflow-hidden divide-y divide-slate-100">
+            {serviceFAQs.map((faq, index) => (<ServiceFAQItem key={index} index={index} question={faq.question} answer={faq.answer} />))}
           </div>
         </div>
       </section>
 
-      {/* High-Impact CTA */}
-      <section className="py-24 bg-slate-900 text-white relative">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-900/20 to-orange-900/20"></div>
-        <div className="max-w-4xl mx-auto px-4 text-center relative z-10">
-          <h2 className="text-4xl md:text-6xl font-black mb-10 uppercase tracking-tighter leading-none">Protocol Engagement: <br/><span className="text-emergency-orange italic">Immediate Response</span></h2>
+      <section className="py-32 bg-slate-900 text-white relative">
+        <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
+          <h2 className="text-4xl md:text-7xl font-black mb-12 uppercase tracking-tighter leading-none">Ready for a <br/><span className="text-emergency-orange italic">Technical Upgrade?</span></h2>
           <div className="flex flex-col sm:flex-row justify-center gap-6">
-            <a href="tel:6477465959" className="emergency-orange text-white px-12 py-6 rounded-2xl font-black text-xl md:text-2xl hover:scale-105 transition-all shadow-2xl flex items-center gap-4 justify-center uppercase tracking-tighter">
-              Call Engineer: (647) 746-5959
-            </a>
-            <Link to="/contact" className="bg-white text-trust-blue px-12 py-6 rounded-2xl font-black text-xl md:text-2xl hover:bg-slate-100 transition shadow-xl uppercase tracking-tighter text-center">
-              Request SmartAudit™
-            </Link>
+            <a href="tel:6477465959" className="emergency-orange text-white px-12 py-7 rounded-[2rem] font-black text-2xl hover:scale-105 transition-all shadow-2xl flex items-center gap-4 justify-center uppercase tracking-tighter">Call Engineer: (647) 746-5959</a>
           </div>
-          <p className="mt-12 text-[10px] text-slate-500 font-mono uppercase tracking-[0.4em]">Node Status: Active | Average Dispatch Time: 94 Minutes</p>
+          <div className="mt-16 flex items-center justify-center gap-8 opacity-50">
+             <span className="text-[10px] font-mono font-bold tracking-widest uppercase">Node: Mississauga Active</span>
+             <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></div>
+             <span className="text-[10px] font-mono font-bold tracking-widest uppercase">Response: {'< 90 min'}</span>
+          </div>
         </div>
       </section>
     </div>

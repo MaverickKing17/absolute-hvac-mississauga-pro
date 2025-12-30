@@ -1,19 +1,18 @@
 
 import React, { useState, useEffect, useRef } from 'react';
-import { GoogleGenAI, GenerateContentResponse } from "@google/genai";
+import { GoogleGenAI } from "@google/genai";
 
-const AIChatWidget: React.FC = () => {
+const AIChatWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [inputText, setInputText] = useState("");
   const [isTyping, setIsTyping] = useState(false);
-  const [messages, setMessages] = useState<{ text: string; isBot: boolean }[]>([
+  const [messages, setMessages] = useState([
     { text: "Hi! I'm Absolute's AI Assistant. Are you looking for a quote or do you have an emergency repair?", isBot: true }
   ]);
   
-  const messagesEndRef = useRef<HTMLDivElement>(null);
-  const chatSessionRef = useRef<any>(null);
+  const messagesEndRef = useRef(null);
+  const chatSessionRef = useRef(null);
 
-  // Auto-scroll to bottom on new messages
   useEffect(() => {
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
@@ -33,10 +32,9 @@ const AIChatWidget: React.FC = () => {
     });
   };
 
-  const handleSendMessage = async (text: string) => {
+  const handleSendMessage = async (text) => {
     if (!text.trim()) return;
 
-    // Add user message to UI
     setMessages(prev => [...prev, { text, isBot: false }]);
     setInputText("");
     setIsTyping(true);
@@ -49,12 +47,10 @@ const AIChatWidget: React.FC = () => {
       const responseStream = await chatSessionRef.current.sendMessageStream({ message: text });
       
       let fullResponse = "";
-      // Add initial bot message placeholder
       setMessages(prev => [...prev, { text: "", isBot: true }]);
 
       for await (const chunk of responseStream) {
-        const c = chunk as GenerateContentResponse;
-        const newText = c.text;
+        const newText = chunk.text;
         if (newText) {
           fullResponse += newText;
           setMessages(prev => {
@@ -72,7 +68,7 @@ const AIChatWidget: React.FC = () => {
     }
   };
 
-  const handleQuickReply = (type: string) => {
+  const handleQuickReply = (type) => {
     let text = "";
     if (type === 'rebate') text = "Tell me about the $7,100 heat pump rebates.";
     if (type === 'emergency') text = "I have an HVAC emergency!";
@@ -108,7 +104,6 @@ const AIChatWidget: React.FC = () => {
         </button>
       ) : (
         <div className="bg-white w-[350px] md:w-[400px] h-[600px] rounded-[2rem] shadow-[0_20px_60px_rgba(0,0,0,0.25)] border border-slate-200 flex flex-col overflow-hidden animate-in zoom-in-95 slide-in-from-bottom-10 fade-in duration-300">
-          {/* Header */}
           <div className="trust-blue p-5 text-white relative overflow-hidden shrink-0">
             <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 -mr-12 -mt-12 rounded-full blur-2xl"></div>
             <div className="relative flex justify-between items-center">
@@ -126,25 +121,18 @@ const AIChatWidget: React.FC = () => {
                   <p className="text-[10px] text-blue-200 uppercase tracking-widest font-semibold">ONLINE | CERTIFIED ASSISTANT</p>
                 </div>
               </div>
-              <button 
-                onClick={() => setIsOpen(false)} 
-                className="hover:bg-white/10 p-2 rounded-full transition-colors"
-              >
+              <button onClick={() => setIsOpen(false)} className="hover:bg-white/10 p-2 rounded-full transition-colors">
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>
             </div>
           </div>
-          
-          {/* Messages Area */}
           <div className="flex-1 overflow-y-auto p-5 space-y-4 bg-slate-50/50 scroll-smooth">
             {messages.map((msg, i) => (
               <div key={i} className={`flex ${msg.isBot ? 'justify-start' : 'justify-end'} animate-in slide-in-from-bottom-2 duration-300`}>
                 <div className={`max-w-[85%] p-4 rounded-2xl text-sm leading-relaxed shadow-sm whitespace-pre-wrap ${
-                  msg.isBot 
-                    ? 'bg-white text-slate-700 rounded-tl-none border border-slate-100' 
-                    : 'trust-blue text-white rounded-tr-none'
+                  msg.isBot ? 'bg-white text-slate-700 rounded-tl-none border border-slate-100' : 'trust-blue text-white rounded-tr-none'
                 }`}>
                   {msg.text || (isTyping && i === messages.length - 1 ? "..." : "")}
                 </div>
@@ -163,52 +151,16 @@ const AIChatWidget: React.FC = () => {
             )}
             <div ref={messagesEndRef}></div>
           </div>
-
-          {/* Controls */}
           <div className="p-5 bg-white border-t border-slate-100 space-y-4 shrink-0">
             <div className="flex flex-wrap gap-2">
-              <button 
-                onClick={() => handleQuickReply('rebate')} 
-                className="text-[11px] font-bold bg-white text-slate-600 hover:border-savings-green hover:text-savings-green px-4 py-2 rounded-xl transition-all border border-slate-200 shadow-sm"
-              >
-                💰 Heat Pump Rebates
-              </button>
-              <button 
-                onClick={() => handleQuickReply('emergency')} 
-                className="text-[11px] font-bold bg-white text-slate-600 hover:border-emergency-orange hover:text-emergency-orange px-4 py-2 rounded-xl transition-all border border-slate-200 shadow-sm"
-              >
-                🚨 Emergency Repair
-              </button>
-              <button 
-                onClick={() => handleQuickReply('inspection')} 
-                className="text-[11px] font-bold bg-white text-slate-600 hover:border-trust-blue hover:text-trust-blue px-4 py-2 rounded-xl transition-all border border-slate-200 shadow-sm"
-              >
-                📅 Book Inspection
-              </button>
+              <button onClick={() => handleQuickReply('rebate')} className="text-[11px] font-bold bg-white text-slate-600 hover:border-savings-green hover:text-savings-green px-4 py-2 rounded-xl transition-all border border-slate-200 shadow-sm">💰 Heat Pump Rebates</button>
+              <button onClick={() => handleQuickReply('emergency')} className="text-[11px] font-bold bg-white text-slate-600 hover:border-emergency-orange hover:text-emergency-orange px-4 py-2 rounded-xl transition-all border border-slate-200 shadow-sm">🚨 Emergency Repair</button>
+              <button onClick={() => handleQuickReply('inspection')} className="text-[11px] font-bold bg-white text-slate-600 hover:border-trust-blue hover:text-trust-blue px-4 py-2 rounded-xl transition-all border border-slate-200 shadow-sm">📅 Book Inspection</button>
             </div>
-            
-            <form 
-              onSubmit={(e) => {
-                e.preventDefault();
-                handleSendMessage(inputText);
-              }}
-              className="relative group"
-            >
-              <input 
-                type="text" 
-                value={inputText}
-                onChange={(e) => setInputText(e.target.value)}
-                placeholder="Type your message..." 
-                className="w-full text-sm bg-slate-100 border-none rounded-2xl py-4 pl-5 pr-12 text-slate-700 focus:ring-2 focus:ring-trust-blue/20 outline-none transition-all" 
-              />
-              <button 
-                type="submit"
-                disabled={!inputText.trim() || isTyping}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-trust-blue hover:scale-110 disabled:opacity-30 disabled:scale-100 transition-all p-2 bg-white rounded-xl shadow-sm"
-              >
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
-                </svg>
+            <form onSubmit={(e) => { e.preventDefault(); handleSendMessage(inputText); }} className="relative group">
+              <input type="text" value={inputText} onChange={(e) => setInputText(e.target.value)} placeholder="Type your message..." className="w-full text-sm bg-slate-100 border-none rounded-2xl py-4 pl-5 pr-12 text-slate-700 focus:ring-2 focus:ring-trust-blue/20 outline-none transition-all" />
+              <button type="submit" disabled={!inputText.trim() || isTyping} className="absolute right-3 top-1/2 -translate-y-1/2 text-trust-blue hover:scale-110 disabled:opacity-30 disabled:scale-100 transition-all p-2 bg-white rounded-xl shadow-sm">
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" /></svg>
               </button>
             </form>
             <p className="text-[10px] text-center text-slate-400 font-medium">Powered by Absolute SmartCare™</p>
