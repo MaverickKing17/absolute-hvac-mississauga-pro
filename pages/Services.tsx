@@ -540,9 +540,119 @@ const Services: React.FC = () => {
               <VideoCard key={idx} video={video} />
             ))}
           </div>
-          
-          {/* Enhanced Emergency Link Card */}
-          <div className="mt-20 relative p-1 rounded-[3.5rem] bg-gradient-to-br from-trust-blue via-slate-900 to-emergency-orange shadow-[0_40px_100px_rgba(30,58,138,0.3)] group overflow-hidden">
+        </div>
+      </section>
+
+      {/* Warranty & Maintenance Framework - New Section */}
+      <section className="py-24 bg-slate-50 relative overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-savings-green via-green-400 to-savings-green"></div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 bg-savings-green/10 border border-savings-green/20 px-4 py-1.5 rounded-full mb-6">
+              <svg className="w-4 h-4 text-savings-green" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+              </svg>
+              <span className="text-[10px] text-savings-green font-black uppercase tracking-widest leading-none">Absolute Guarantee™ Security Layer</span>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-black text-trust-blue uppercase tracking-tighter leading-none mb-6">Heat Pump <span className="text-savings-green">Warranty Architecture</span></h2>
+            <p className="text-slate-600 max-w-2xl mx-auto text-lg font-medium">Every heat pump installation is backed by our technical protection grid, ensuring your investment remains efficient for the next decade.</p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
+            {/* Warranty Card 1 */}
+            <div className="bg-white p-10 rounded-[2.5rem] shadow-xl border border-slate-100 hover:border-savings-green/30 transition-all duration-500 group">
+               <div className="w-16 h-16 bg-blue-50 text-trust-blue rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
+                  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+               </div>
+               <h3 className="text-2xl font-black text-trust-blue uppercase tracking-tighter mb-4">10-Year Parts Protection</h3>
+               <p className="text-slate-500 text-sm leading-relaxed mb-6 font-medium">Full coverage for critical components including the inverter compressor, thermal exchange coils, and control boards.</p>
+               <div className="pt-6 border-t border-slate-50 flex items-center justify-between">
+                  <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Type: Comprehensive</span>
+                  <div className="flex gap-0.5">
+                     {[...Array(5)].map((_, i) => <div key={i} className="w-3 h-1 bg-savings-green rounded-full"></div>)}
+                  </div>
+               </div>
+            </div>
+
+            {/* Warranty Card 2 */}
+            <div className="bg-white p-10 rounded-[2.5rem] shadow-xl border border-slate-100 hover:border-savings-green/30 transition-all duration-500 group">
+               <div className="w-16 h-16 bg-orange-50 text-emergency-orange rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
+                  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+               </div>
+               <h3 className="text-2xl font-black text-trust-blue uppercase tracking-tighter mb-4">10-Year Labor Assurance</h3>
+               <p className="text-slate-500 text-sm leading-relaxed mb-6 font-medium">We stand behind our engineering. If a manufacturing defect occurs, Absolute covers 100% of the technical repair labor costs.</p>
+               <div className="pt-6 border-t border-slate-50 flex items-center justify-between">
+                  <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Status: Factory Backed</span>
+                  <div className="flex gap-0.5">
+                     {[...Array(5)].map((_, i) => <div key={i} className="w-3 h-1 bg-savings-green rounded-full"></div>)}
+                  </div>
+               </div>
+            </div>
+
+            {/* Warranty Card 3 */}
+            <div className="bg-white p-10 rounded-[2.5rem] shadow-xl border border-slate-100 hover:border-savings-green/30 transition-all duration-500 group">
+               <div className="w-16 h-16 bg-green-50 text-savings-green rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
+                  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
+               </div>
+               <h3 className="text-2xl font-black text-trust-blue uppercase tracking-tighter mb-4">Absolute Unit Exchange</h3>
+               <p className="text-slate-500 text-sm leading-relaxed mb-6 font-medium">For high-end Hybrid configurations, we offer a "Zero-Fault" unit replacement if a compressor failure occurs within the first 12 months.</p>
+               <div className="pt-6 border-t border-slate-50 flex items-center justify-between">
+                  <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Grade: Platinum Tier</span>
+                  <div className="flex gap-0.5">
+                     {[...Array(5)].map((_, i) => <div key={i} className="w-3 h-1 bg-savings-green rounded-full"></div>)}
+                  </div>
+               </div>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-[2.5rem] p-10 md:p-14 border-2 border-slate-100 flex flex-col md:flex-row items-center gap-10">
+             <div className="flex-1">
+                <div className="flex items-center gap-2 mb-4">
+                   <div className="w-1 h-10 bg-emergency-orange rounded-full"></div>
+                   <h4 className="text-xl md:text-2xl font-black text-trust-blue uppercase tracking-tighter">Warranty Continuity Requirements</h4>
+                </div>
+                <p className="text-slate-500 text-sm leading-relaxed font-medium mb-6">To ensure your protection remains valid under manufacturer and Absolute guidelines, the following protocols must be maintained:</p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                   <div className="flex items-start gap-3">
+                      <div className="w-5 h-5 bg-slate-100 text-trust-blue rounded flex items-center justify-center shrink-0 mt-0.5">
+                         <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/></svg>
+                      </div>
+                      <span className="text-xs font-bold text-slate-600 uppercase tracking-tight">Annual Professional Maintenance Visit</span>
+                   </div>
+                   <div className="flex items-start gap-3">
+                      <div className="w-5 h-5 bg-slate-100 text-trust-blue rounded flex items-center justify-center shrink-0 mt-0.5">
+                         <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/></svg>
+                      </div>
+                      <span className="text-xs font-bold text-slate-600 uppercase tracking-tight">System Registration within 60 Days</span>
+                   </div>
+                   <div className="flex items-start gap-3">
+                      <div className="w-5 h-5 bg-slate-100 text-trust-blue rounded flex items-center justify-center shrink-0 mt-0.5">
+                         <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/></svg>
+                      </div>
+                      <span className="text-xs font-bold text-slate-600 uppercase tracking-tight">Quarterly Air Filter Replacements</span>
+                   </div>
+                   <div className="flex items-start gap-3">
+                      <div className="w-5 h-5 bg-slate-100 text-trust-blue rounded flex items-center justify-center shrink-0 mt-0.5">
+                         <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/></svg>
+                      </div>
+                      <span className="text-xs font-bold text-slate-600 uppercase tracking-tight">TSSA-Certified Installer Usage Only</span>
+                   </div>
+                </div>
+             </div>
+             <div className="bg-slate-50 p-8 rounded-3xl border border-slate-100 text-center md:w-80">
+                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4">Suggested Service Plan</p>
+                <div className="text-2xl font-black text-trust-blue uppercase tracking-tighter mb-4">SmartCare™ Plus</div>
+                <p className="text-xs text-slate-500 font-medium leading-relaxed mb-6">Automate your warranty compliance with scheduled visits and diagnostic reporting.</p>
+                <Link to="/contact" className="inline-block w-full bg-trust-blue text-white py-4 rounded-xl font-black uppercase tracking-tighter text-sm hover:bg-slate-800 transition shadow-lg">Activate Plan</Link>
+             </div>
+          </div>
+        </div>
+      </section>
+      
+      {/* Enhanced Emergency Link Card */}
+      <section className="py-24 bg-white relative">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="relative p-1 rounded-[3.5rem] bg-gradient-to-br from-trust-blue via-slate-900 to-emergency-orange shadow-[0_40px_100px_rgba(30,58,138,0.3)] group overflow-hidden">
             <div className="absolute inset-0 bg-slate-950 opacity-90 transition-opacity group-hover:opacity-80"></div>
             {/* Background Texture Overlay */}
             <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
