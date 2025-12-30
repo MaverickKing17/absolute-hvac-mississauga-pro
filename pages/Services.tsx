@@ -45,9 +45,9 @@ const VideoCard: React.FC<{ video: { title: string; description: string; embedId
             onClick={handlePlay}
             className="absolute inset-0 w-full h-full flex items-center justify-center group/btn overflow-hidden"
           >
-            {/* High-Quality Thumbnail with subtle zoom on hover */}
+            {/* Using hqdefault.jpg for better cross-video availability compared to maxresdefault */}
             <img 
-              src={`https://img.youtube.com/vi/${video.embedId}/maxresdefault.jpg`} 
+              src={`https://img.youtube.com/vi/${video.embedId}/hqdefault.jpg`} 
               alt={video.title}
               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-80"
               loading="lazy"
@@ -129,7 +129,7 @@ const Services: React.FC = () => {
     {
       title: "Strange Furnace Noises?",
       description: "Differentiate between normal system startup sounds and critical failure warnings like screeching or banging.",
-      embedId: "qHn2k0_XpLg",
+      embedId: "_r54p18kS6U",
       category: "Heating",
       duration: "3:42",
       level: "Essential"
@@ -137,7 +137,7 @@ const Services: React.FC = () => {
     {
       title: "AC Efficiency Secrets",
       description: "Learn how to optimize your air conditioner's cooling power while reducing peak-hour energy consumption.",
-      embedId: "M_zLz5k9zE4",
+      embedId: "XU6K6XQ3vF4",
       category: "Cooling",
       duration: "5:15",
       level: "Intermediate"
@@ -145,15 +145,15 @@ const Services: React.FC = () => {
     {
       title: "Filter Health 101",
       description: "A deep dive into why high-MERV filters might be hurting your blower motor and when to swap them.",
-      embedId: "vBvXg7N6L1U",
+      embedId: "_kO54203l-Y",
       category: "Maintenance",
       duration: "2:10",
       level: "DIY-Safe"
     },
     {
-      title: "Thermostat Logic",
+      title: "Smart Thermostat Logic",
       description: "Troubleshooting digital communication errors between your smart thermostat and your furnace control board.",
-      embedId: "8x8XzWkF_0s",
+      embedId: "w275E1m8eNo",
       category: "Electrical",
       duration: "4:30",
       level: "Technical"
@@ -216,10 +216,10 @@ const Services: React.FC = () => {
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {['24/7 Emergency Dispatch', 'Precision Diagnostics', 'High-Efficiency Upgrades', 'Carbon Monoxide Checks'].map((item) => (
                 <li key={item} className="flex items-center gap-3 text-slate-700 font-black uppercase tracking-tighter text-sm">
-                  <div className="w-5 h-5 bg-orange-100 text-emergency-orange rounded-md flex items-center justify-center">
+                  <div className="w-5 h-5 bg-orange-100 text-emergency-orange rounded-md flex items-center justify-center shrink-0">
                     <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/></svg>
                   </div>
-                  {item}
+                  <span>{item}</span>
                 </li>
               ))}
             </ul>
@@ -241,7 +241,7 @@ const Services: React.FC = () => {
         </div>
       </section>
 
-      {/* AC Section */}
+      {/* AC Section - Fixed Broken Image */}
       <section className="py-24 bg-slate-50 border-y border-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row-reverse items-center gap-16">
           <div className="flex-1 space-y-8">
@@ -253,10 +253,10 @@ const Services: React.FC = () => {
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {['Central AC Design', 'Ductless Mini-Splits', 'Leak Detection', 'Condenser Overhauls'].map((item) => (
                 <li key={item} className="flex items-center gap-3 text-slate-700 font-black uppercase tracking-tighter text-sm">
-                  <div className="w-5 h-5 bg-blue-100 text-trust-blue rounded-md flex items-center justify-center">
+                  <div className="w-5 h-5 bg-blue-100 text-trust-blue rounded-md flex items-center justify-center shrink-0">
                     <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/></svg>
                   </div>
-                  {item}
+                  <span>{item}</span>
                 </li>
               ))}
             </ul>
@@ -269,7 +269,7 @@ const Services: React.FC = () => {
             <div className="absolute -inset-4 bg-trust-blue/5 rounded-[3rem] -z-10"></div>
             <div className="rounded-[2.5rem] overflow-hidden shadow-2xl border-4 border-white group">
               <img 
-                src="https://images.unsplash.com/photo-1621905252507-b354bcadcabc?auto=format&fit=crop&q=80&w=1000&h=800" 
+                src="https://images.unsplash.com/photo-1585338107529-13afc5f02586?auto=format&fit=crop&q=80&w=1000&h=800" 
                 alt="Professional Central Air Conditioning Installation" 
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" 
               />

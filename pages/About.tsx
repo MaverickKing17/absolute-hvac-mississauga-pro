@@ -73,7 +73,7 @@ const About: React.FC = () => {
           <div className="flex-1 relative group">
             <div className="absolute -inset-4 bg-gradient-to-tr from-trust-blue/20 to-emergency-orange/20 rounded-[3rem] blur-2xl group-hover:opacity-100 transition-opacity opacity-0"></div>
             <img 
-              src="https://images.unsplash.com/photo-1621905251918-48416bd8575a?auto=format&fit=crop&q=80&w=800&h=1000" 
+              src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80&w=800&h=1000" 
               alt="Professional Absolute HVAC Technician at work in Mississauga" 
               className="rounded-[2.5rem] shadow-2xl relative z-10 border-4 border-white grayscale-[20%] group-hover:grayscale-0 transition-all duration-700" 
             />
