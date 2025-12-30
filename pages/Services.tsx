@@ -268,7 +268,7 @@ const Services: React.FC = () => {
     {
       title: "Strange Furnace Noises?",
       description: "Differentiate between normal system startup sounds and critical failure warnings like screeching or banging.",
-      embedId: "_r54p18kS6U",
+      embedId: "zT35tT7e3uM",
       category: "Heating",
       duration: "3:42",
       level: "Essential"
@@ -276,7 +276,7 @@ const Services: React.FC = () => {
     {
       title: "AC Efficiency Secrets",
       description: "Learn how to optimize your air conditioner's cooling power while reducing peak-hour energy consumption.",
-      embedId: "XU6K6XQ3vF4",
+      embedId: "N1eA7u0G79M",
       category: "Cooling",
       duration: "5:15",
       level: "Intermediate"
@@ -284,7 +284,7 @@ const Services: React.FC = () => {
     {
       title: "Filter Health 101",
       description: "A deep dive into why high-MERV filters might be hurting your blower motor and when to swap them.",
-      embedId: "_kO54203l-Y",
+      embedId: "f04L7-c8L-U",
       category: "Maintenance",
       duration: "2:10",
       level: "DIY-Safe"
@@ -292,7 +292,7 @@ const Services: React.FC = () => {
     {
       title: "Smart Thermostat Logic",
       description: "Troubleshooting digital communication errors between your smart thermostat and your furnace control board.",
-      embedId: "w275E1m8eNo",
+      embedId: "jYpD-1v1Fas",
       category: "Electrical",
       duration: "4:30",
       level: "Technical"
@@ -310,7 +310,7 @@ const Services: React.FC = () => {
     },
     {
       question: "How often should I change my air filters?",
-      answer: "For standard 1-inch filters, we recommend changing them every 1-3 months. If you have pets, allergies, or a large family, monthly changes are best. Higher-efficiency 4-inch or 5-inch media filters can typically last 6-12 months. Clean filters are vital for airflow and preventing blower motor burnout."
+      answer: "For standard 1-inch filters, we recommend changing them every 1-3 months. If you have pets, allergies, or a large family, monthly bureaucratic changes are best. Higher-efficiency 4-inch or 5-inch media filters can typically last 6-12 months. Clean filters are vital for airflow and preventing blower motor burnout."
     },
     {
       question: "Is it worth upgrading to a high-efficiency heat pump?",
@@ -371,7 +371,7 @@ const Services: React.FC = () => {
             <div className="absolute -inset-4 bg-slate-900/5 rounded-[3rem] -z-10"></div>
             <div className="rounded-[2.5rem] overflow-hidden shadow-2xl border-4 border-white group bg-slate-100">
               <img 
-                src="https://images.unsplash.com/photo-1581094288338-2314dddb7ec3?auto=format&fit=crop&q=80&w=1000&h=800" 
+                src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&q=80&w=1000&h=800" 
                 alt="Professional Furnace Maintenance Service" 
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" 
               />

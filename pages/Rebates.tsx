@@ -22,6 +22,114 @@ const FAQItem: React.FC<{ question: string; answer: string }> = ({ question, ans
   );
 };
 
+const ProcessTimeline: React.FC = () => {
+  const steps = [
+    { 
+      step: 1, 
+      title: "Free Consultation", 
+      desc: "Our data-driven specialists assess your property's specific load requirements and eligibility, ensuring you qualify for the full $7,100 before we start.",
+      icon: (
+        <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+        </svg>
+      ),
+      tag: "Zero Cost Audit"
+    },
+    { 
+      step: 2, 
+      title: "Precision Install", 
+      desc: "Our TSSA-Certified engineering team installs your high-efficiency system. We prioritize technical compliance to meet strict Enbridge standards.",
+      icon: (
+        <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+        </svg>
+      ),
+      tag: "Certified Setup"
+    },
+    { 
+      step: 3, 
+      title: "Rebate Harvesting", 
+      desc: "Post-install, we manage the final audit documentation and portal submission. Your rebate check is processed directly for maximum payout.",
+      icon: (
+        <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      ),
+      tag: "Direct Deposit"
+    }
+  ];
+
+  return (
+    <div className="relative py-12">
+      {/* Desktop Horizontal Line */}
+      <div className="hidden lg:block absolute top-[120px] left-[15%] right-[15%] h-1 bg-slate-200 z-0">
+        <div className="h-full bg-savings-green w-2/3 animate-[shimmer_3s_infinite] origin-left"></div>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-16 relative z-10">
+        {steps.map((item, idx) => (
+          <div key={item.step} className="group flex flex-col items-center">
+            {/* Step Bubble */}
+            <div className="relative mb-8">
+              <div className="w-24 h-24 bg-white rounded-3xl shadow-xl flex items-center justify-center border-4 border-slate-50 group-hover:border-savings-green transition-all duration-500 transform group-hover:-translate-y-2 group-hover:rotate-6">
+                <div className="text-trust-blue group-hover:text-savings-green transition-colors">
+                  {item.icon}
+                </div>
+              </div>
+              
+              {/* Step Number Overlay */}
+              <div className="absolute -top-3 -right-3 w-10 h-10 savings-green text-white rounded-full flex items-center justify-center font-black text-lg border-4 border-white shadow-lg">
+                {item.step}
+              </div>
+
+              {/* Connector for Mobile */}
+              {idx < steps.length - 1 && (
+                <div className="lg:hidden absolute left-1/2 bottom-[-64px] w-1 h-16 bg-slate-200">
+                  <div className="w-full h-1/2 bg-savings-green animate-pulse"></div>
+                </div>
+              )}
+            </div>
+
+            {/* Content Box */}
+            <div className="bg-white p-8 rounded-[2rem] shadow-sm group-hover:shadow-2xl transition-all duration-500 border border-slate-100 group-hover:border-savings-green/20 text-center flex flex-col h-full max-w-sm">
+              <span className="text-[10px] font-black uppercase tracking-[0.3em] text-savings-green mb-3 block">
+                {item.tag}
+              </span>
+              <h3 className="text-2xl font-black text-trust-blue mb-4 uppercase tracking-tighter group-hover:text-savings-green transition-colors">
+                {item.title}
+              </h3>
+              <p className="text-slate-500 text-sm leading-relaxed font-medium mb-6">
+                {item.desc}
+              </p>
+              
+              <div className="mt-auto pt-6 border-t border-slate-50 flex items-center justify-center gap-2">
+                <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+                <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest italic">Standard Protocol Verified</span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+      
+      {/* Final Outcome Marker */}
+      <div className="mt-24 flex flex-col items-center animate-in fade-in slide-in-from-bottom-10 duration-1000">
+        <div className="savings-green px-10 py-4 rounded-2xl shadow-2xl transform -rotate-2 hover:rotate-0 transition-all duration-500 cursor-default group">
+          <div className="flex items-center gap-4 text-white">
+            <svg className="w-10 h-10" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+            </svg>
+            <div>
+              <p className="text-[10px] font-black uppercase tracking-[0.2em] opacity-80 leading-none mb-1">Target Achievement</p>
+              <h4 className="text-2xl font-black uppercase tracking-tighter leading-none">$7,100 Rebate Secured</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const Rebates: React.FC = () => {
   return (
     <div className="flex flex-col bg-white">
@@ -39,7 +147,7 @@ const Rebates: React.FC = () => {
             Absolute Heating is your Mississauga partner for navigating the latest Enbridge and Federal HVAC rebates. We handle the paperwork, you keep the savings.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <a href="tel:6477465959" className="savings-green hover:scale-[1.02] transition-transform text-white px-8 md:px-10 py-4 md:py-5 rounded-xl font-black text-lg md:text-xl shadow-2xl uppercase tracking-tighter">
+            <a href="tel:6477465959" className="savings-green hover:scale-[1.02] transition-transform text-white px-8 md:px-10 py-4 md:py-5 rounded-xl font-black text-lg md:text-xl shadow-2xl uppercase tracking-tighter text-center">
               Lock In My Rebate
             </a>
           </div>
@@ -57,29 +165,33 @@ const Rebates: React.FC = () => {
         </div>
       </section>
 
-      {/* How It Works (3-Step Process) */}
-      <section className="py-16 md:py-24 bg-slate-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12 md:mb-16">
-            <h2 className="text-3xl md:text-4xl font-black text-trust-blue mb-4 uppercase tracking-tighter">The $7,100 Process</h2>
-            <p className="text-slate-600 max-w-2xl mx-auto font-medium">We've simplified the complex government processes. Here is how we get your money back.</p>
+      {/* Visual Timeline Section */}
+      <section className="py-24 bg-slate-50 overflow-hidden relative">
+        {/* Decorative Grid */}
+        <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
+          <svg className="w-full h-full" viewBox="0 0 100 100">
+            <pattern id="timeline-grid" width="10" height="10" patternUnits="userSpaceOnUse">
+              <path d="M 10 0 L 0 0 0 10" fill="none" stroke="currentColor" strokeWidth="0.5"/>
+            </pattern>
+            <rect width="100" height="100" fill="url(#timeline-grid)" />
+          </svg>
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center mb-20">
+            <div className="inline-flex items-center gap-2 bg-green-500/10 border border-green-500/20 px-4 py-1.5 rounded-full mb-6">
+              <span className="w-2 h-2 bg-green-500 rounded-full animate-ping"></span>
+              <span className="text-[10px] text-green-700 font-black uppercase tracking-widest">Efficiency Optimized Protocol</span>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-black text-trust-blue mb-6 uppercase tracking-tighter leading-none">
+              The <span className="text-savings-green">$7,100 Retrieval</span> Architecture
+            </h2>
+            <p className="text-slate-600 max-w-2xl mx-auto font-medium text-lg">
+              We've engineered a frictionless 3-stage process to extract the maximum available government funding for your Mississauga residence.
+            </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
-            {[
-              { step: 1, title: "Free Consultation", desc: "We assess your home and eligibility, ensuring you qualify for the maximum grants before you spend a dime." },
-              { step: 2, title: "Expert Install", desc: "Our 5-star rated, TSSA-certified team installs your energy-efficient system to the highest regulatory standards." },
-              { step: 3, title: "Collect Rebate", desc: "We handle the documentation and post-install audit so you get your check directly from Enbridge/Greener Homes." }
-            ].map((item) => (
-              <div key={item.step} className="text-center p-6 bg-white rounded-3xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
-                <div className="w-16 h-16 bg-white shadow-lg rounded-full flex items-center justify-center mx-auto mb-6 border-4 border-savings-green">
-                  <span className="text-2xl font-black text-savings-green">{item.step}</span>
-                </div>
-                <h3 className="text-xl font-black text-trust-blue mb-3 uppercase tracking-tighter">{item.title}</h3>
-                <p className="text-slate-600 text-sm md:text-base leading-relaxed font-medium">{item.desc}</p>
-              </div>
-            ))}
-          </div>
+          <ProcessTimeline />
         </div>
       </section>
 
@@ -132,8 +244,8 @@ const Rebates: React.FC = () => {
               </table>
             </div>
           </div>
-          <div className="mt-8 p-6 bg-slate-50 rounded-2xl border border-slate-200">
-            <p className="text-[10px] md:text-sm text-slate-500 italic text-center font-medium leading-relaxed">
+          <div className="mt-8 p-6 bg-slate-50 rounded-2xl border border-slate-200 text-center">
+            <p className="text-[10px] md:text-sm text-slate-500 italic font-medium leading-relaxed">
               *Estimated costs for Mississauga properties. Absolute Heating manages all <strong>TSSA compliance and certification checks</strong> to ensure your rebate claim is 100% valid.
             </p>
           </div>
@@ -180,7 +292,7 @@ const Rebates: React.FC = () => {
               </p>
               <a 
                 href="tel:6477465959" 
-                className="w-full sm:w-auto bg-white text-trust-blue px-10 md:px-12 py-5 md:py-6 rounded-2xl font-black text-xl md:text-2xl hover:bg-slate-100 transition shadow-2xl uppercase tracking-tighter"
+                className="w-full sm:w-auto bg-white text-trust-blue px-10 md:px-12 py-5 md:py-6 rounded-2xl font-black text-xl md:text-2xl hover:bg-slate-100 transition shadow-2xl uppercase tracking-tighter text-center"
               >
                 (647) 746-5959
               </a>
