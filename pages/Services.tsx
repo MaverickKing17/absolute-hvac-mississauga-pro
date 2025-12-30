@@ -72,7 +72,6 @@ const AIPredictiveHub: React.FC = () => {
 
   return (
     <section className="py-24 bg-slate-950 relative overflow-hidden">
-      {/* Background Neural Grid */}
       <div className="absolute inset-0 opacity-20 pointer-events-none">
         <svg className="w-full h-full" viewBox="0 0 100 100">
           <defs>
@@ -108,7 +107,6 @@ const AIPredictiveHub: React.FC = () => {
               Our neural network is currently mapping your session intent. By analyzing your scroll patterns and service focus, we can preemptively identify the optimal maintenance protocol for your home.
             </p>
 
-            {/* Live Telemetry Dashboard */}
             <div className="grid grid-cols-2 gap-4 mb-12">
               {[
                 { label: 'Session Dwell', value: `${metrics.sessionTime}s`, icon: 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z' },
@@ -144,7 +142,6 @@ const AIPredictiveHub: React.FC = () => {
           </div>
 
           <div className="relative">
-            {/* Visual Analyzer UI */}
             <div className="relative z-10 aspect-square max-w-[500px] mx-auto">
               {isAnalyzing && (
                 <div className="absolute inset-0 flex items-center justify-center z-50">
@@ -232,51 +229,71 @@ const VideoCard: React.FC<{ video: { title: string; description: string; embedId
   };
 
   return (
-    <div className="bg-white rounded-[2rem] overflow-hidden shadow-sm hover:shadow-[0_20px_50px_rgba(30,58,138,0.15)] hover:scale-[1.03] hover:border-trust-blue/40 transition-all duration-500 flex flex-col h-full group border border-slate-100">
-      <div className="aspect-video bg-slate-900 relative overflow-hidden">
+    <div className="bg-white rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-[0_40px_80px_rgba(30,58,138,0.18)] hover:-translate-y-2 hover:border-trust-blue/30 transition-all duration-700 flex flex-col h-full group border border-slate-100">
+      {/* Visual Header Section - Split Panel Design */}
+      <div className="aspect-video bg-slate-900 flex overflow-hidden group/video relative border-b border-slate-100">
         {!isPlaying ? (
-          <button 
-            onClick={handlePlay}
-            className="absolute inset-0 w-full h-full flex items-center justify-center group/btn overflow-hidden"
-          >
-            <img 
-              src={`https://img.youtube.com/vi/${video.embedId}/hqdefault.jpg`} 
-              alt={video.title}
-              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-80"
-              loading="lazy"
-            />
-            
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-60"></div>
-            <div className="absolute inset-0 bg-trust-blue/10 group-hover:bg-transparent transition-colors"></div>
-            
-            <div className="relative z-10 transition-transform duration-300 group-hover:scale-110">
-              <div className="absolute inset-0 bg-white rounded-full blur-xl scale-125 opacity-0 group-hover/btn:opacity-20 transition-opacity"></div>
-              <div className="w-16 h-16 md:w-20 md:h-20 flex items-center justify-center relative">
-                <div className="absolute inset-0 bg-white/20 rounded-full animate-ping opacity-30"></div>
-                <div className="absolute inset-0 border-2 border-white/50 rounded-full scale-100 group-hover/btn:scale-110 transition-transform"></div>
-                <div className="w-14 h-14 md:w-16 md:h-16 emergency-orange text-white rounded-full flex items-center justify-center shadow-[0_10px_30px_rgba(234,88,12,0.4)] transform transition-all duration-300 group-hover/btn:scale-110 active:scale-95">
-                  <svg className="w-6 h-6 md:w-8 md:h-8 ml-1" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M7 6v12l10-6z" />
-                  </svg>
-                </div>
+          <div className="flex w-full h-full">
+            {/* Left Panel: High-Res Dynamic Thumbnail */}
+            <div className="relative flex-[7] overflow-hidden">
+               <img 
+                src={`https://img.youtube.com/vi/${video.embedId}/maxresdefault.jpg`} 
+                alt={video.title}
+                onError={(e) => { e.currentTarget.src = `https://img.youtube.com/vi/${video.embedId}/hqdefault.jpg` }}
+                className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 opacity-90 group-hover:opacity-100"
+                loading="lazy"
+              />
+              {/* Cinematic Overlays */}
+              <div className="absolute inset-0 bg-gradient-to-r from-slate-950/40 via-transparent to-transparent"></div>
+              <div className="absolute top-4 left-4 z-20 flex items-baseline gap-2">
+                 <span className="bg-white/10 backdrop-blur-xl border border-white/20 text-white text-[10px] font-black px-2.5 py-1.5 rounded-lg tracking-widest uppercase shadow-2xl">
+                    {video.duration}
+                 </span>
+                 <span className="bg-white/10 backdrop-blur-xl border border-white/20 text-white/80 text-[10px] font-black px-2.5 py-1.5 rounded-lg tracking-widest uppercase shadow-2xl opacity-0 group-hover:opacity-100 transition-opacity">
+                    {video.level}
+                 </span>
               </div>
+              {/* Neural AI Scan Line */}
+              <div className="absolute top-0 left-0 w-full h-1 bg-blue-400/30 blur-md ai-scan-line"></div>
             </div>
 
-            <div className="absolute top-4 left-4 flex gap-2">
-               <span className="bg-trust-blue/80 backdrop-blur-md text-white text-[9px] font-black uppercase px-2 py-1 rounded-md tracking-widest">{video.duration}</span>
-               <span className="bg-emergency-orange/80 backdrop-blur-md text-white text-[9px] font-black uppercase px-2 py-1 rounded-md tracking-widest">{video.level}</span>
+            {/* Right Panel: Tactical Control Sidebar */}
+            <div className="flex-[3] bg-slate-950 flex flex-col items-center justify-center relative overflow-hidden">
+               {/* Background Texture for Control Panel */}
+               <div className="absolute inset-0 opacity-10 pointer-events-none">
+                  <svg className="w-full h-full" viewBox="0 0 20 20"><pattern id="tactical" width="4" height="4" patternUnits="userSpaceOnUse"><rect width="1" height="1" fill="white"/></pattern><rect width="100%" height="100%" fill="url(#tactical)"/></svg>
+               </div>
+               
+               <button 
+                onClick={handlePlay}
+                className="relative z-10 w-16 h-16 md:w-20 md:h-20 flex items-center justify-center group/playbtn"
+                aria-label="Play educational video"
+               >
+                  {/* Outer Pulsing Ring */}
+                  <div className="absolute inset-0 bg-emergency-orange/20 rounded-full animate-ping group-hover:animate-none group-hover:scale-125 transition-all"></div>
+                  
+                  {/* Central Button Body */}
+                  <div className="w-14 h-14 md:w-16 md:h-16 emergency-orange text-white rounded-full flex items-center justify-center shadow-[0_15px_40px_rgba(234,88,12,0.6)] transform transition-all duration-500 group-hover/playbtn:scale-110 active:scale-90 border-2 border-white/20">
+                    <svg className="w-6 h-6 md:w-8 md:h-8 ml-1 drop-shadow-lg" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M7 6v12l10-6z" />
+                    </svg>
+                  </div>
+               </button>
+               
+               <p className="absolute bottom-4 text-[8px] font-black uppercase text-white/30 tracking-[0.3em] leading-none text-center">Protocol: Play</p>
             </div>
-          </button>
+          </div>
         ) : (
           <div className="w-full h-full bg-black relative">
             {isLoading && (
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-10 h-10 border-4 border-emergency-orange border-t-transparent rounded-full animate-spin"></div>
+              <div className="absolute inset-0 flex flex-col items-center justify-center bg-slate-950 z-30">
+                <div className="w-12 h-12 border-4 border-emergency-orange border-t-transparent rounded-full animate-spin mb-4"></div>
+                <p className="text-[10px] font-black text-white/50 uppercase tracking-widest animate-pulse">Initializing Interface...</p>
               </div>
             )}
             <iframe 
-              className="absolute inset-0 w-full h-full"
-              src={`https://www.youtube.com/embed/${video.embedId}?autoplay=1&modestbranding=1&rel=0`}
+              className="absolute inset-0 w-full h-full z-20"
+              src={`https://www.youtube.com/embed/${video.embedId}?autoplay=1&modestbranding=1&rel=0&showinfo=0&iv_load_policy=3&enablejsapi=1`}
               title={video.title}
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -287,28 +304,51 @@ const VideoCard: React.FC<{ video: { title: string; description: string; embedId
         )}
       </div>
       
-      <div className="p-6 md:p-8 flex-1 flex flex-col">
-        <div className="flex items-center gap-2 mb-4">
-          <div className="w-2 h-2 rounded-full bg-emergency-orange animate-pulse"></div>
-          <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">{video.category} Service Guide</span>
+      {/* Information Content Section */}
+      <div className="p-8 md:p-10 flex-1 flex flex-col bg-white">
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center gap-2">
+            <div className="w-1.5 h-1.5 rounded-full bg-emergency-orange animate-pulse"></div>
+            <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] leading-none">
+              {video.category} Service Module
+            </span>
+          </div>
+          <div className="px-2 py-0.5 border border-slate-100 rounded bg-slate-50">
+             <span className="text-[8px] font-bold text-slate-400 uppercase">Ver. 2.5-D</span>
+          </div>
         </div>
-        <h3 className="text-xl font-black text-trust-blue mb-3 leading-tight uppercase tracking-tighter group-hover:text-emergency-orange transition-colors">
+
+        <h3 className="text-xl md:text-2xl font-black text-trust-blue mb-4 leading-none uppercase tracking-tighter group-hover:text-emergency-orange transition-colors">
           {video.title}
         </h3>
-        <p className="text-slate-500 text-sm leading-relaxed mb-6 flex-grow font-medium">
+        <p className="text-slate-500 text-sm leading-relaxed mb-8 flex-grow font-medium">
           {video.description}
         </p>
-        <button 
-          onClick={() => !isPlaying && handlePlay()}
-          className="group/link flex items-center gap-2 text-trust-blue font-black uppercase tracking-widest text-[11px] hover:text-emergency-orange transition-colors"
-        >
-          {isPlaying ? 'Now Playing' : 'Start Education'}
-          <div className="w-6 h-6 rounded-full bg-slate-100 flex items-center justify-center group-hover/link:bg-emergency-orange group-hover/link:text-white transition-all">
-            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
-            </svg>
-          </div>
-        </button>
+
+        <div className="pt-6 border-t border-slate-50">
+          <button 
+            onClick={() => !isPlaying && handlePlay()}
+            className="group/link flex items-center justify-between w-full text-trust-blue font-black uppercase tracking-widest text-[11px] hover:text-emergency-orange transition-all"
+          >
+            <div className="flex items-center gap-3">
+               <div className={`w-8 h-8 rounded-xl flex items-center justify-center transition-all duration-500 ${isPlaying ? 'bg-emergency-orange text-white' : 'bg-slate-100 group-hover/link:bg-trust-blue group-hover/link:text-white'}`}>
+                 {isPlaying ? (
+                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                 ) : (
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                 )}
+               </div>
+               <span>{isPlaying ? 'System Online' : 'Initialize Protocol'}</span>
+            </div>
+            
+            {/* Intensity Gauge (Visual Decorative Only) */}
+            <div className="hidden sm:flex gap-0.5">
+               {[...Array(4)].map((_, i) => (
+                 <div key={i} className={`w-1 h-3 rounded-full transition-colors ${i < 3 ? 'bg-trust-blue/10 group-hover/link:bg-emergency-orange/30' : 'bg-slate-100'}`}></div>
+               ))}
+            </div>
+          </button>
+        </div>
       </div>
     </div>
   );
@@ -361,7 +401,7 @@ const Services: React.FC = () => {
     },
     {
       question: "How often should I change my air filters?",
-      answer: "For standard 1-inch filters, we recommend changing them every 1-3 months. If you have pets, allergies, or a large family, monthly bureaucratic changes are best. Higher-efficiency 4-inch or 5-inch media filters can typically last 6-12 months. Clean filters are vital for airflow and preventing blower motor burnout."
+      answer: "For standard 1-inch filters, we recommend changing them every 1-3 months. If you have pets, allergies, or a large family, monthly changes are best. Higher-efficiency 4-inch or 5-inch media filters can typically last 6-12 months. Clean filters are vital for airflow and preventing blower motor burnout."
     },
     {
       question: "Is it worth upgrading to a high-efficiency heat pump?",
@@ -374,7 +414,7 @@ const Services: React.FC = () => {
   ];
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col bg-white">
       <section className="trust-blue py-16 text-white relative overflow-hidden">
         <div className="absolute inset-0 bg-white/5 pointer-events-none">
           <svg className="w-full h-full opacity-10" viewBox="0 0 100 100" preserveAspectRatio="none">
@@ -394,7 +434,7 @@ const Services: React.FC = () => {
         </div>
       </section>
 
-      {/* Furnace Section - FIXED ASSET STABILITY */}
+      {/* Furnace Section */}
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center gap-16">
           <div className="flex-1 space-y-8">
@@ -431,7 +471,7 @@ const Services: React.FC = () => {
         </div>
       </section>
 
-      {/* AC Section - UPDATED WITH RELATABLE ASSET MATCHING SCREENSHOT LAYOUT */}
+      {/* AC Section */}
       <section className="py-24 bg-slate-50 border-y border-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row-reverse items-center gap-16">
           <div className="flex-1 space-y-8">
@@ -458,7 +498,6 @@ const Services: React.FC = () => {
           <div className="flex-1 relative">
             <div className="absolute -inset-4 bg-trust-blue/5 rounded-[3rem] -z-10"></div>
             <div className="rounded-[2.5rem] overflow-hidden shadow-2xl border-4 border-white group bg-slate-100">
-              {/* Updated with highly relatable, modern AC unit photo to replace unrelated placeholder */}
               <img 
                 src="https://images.unsplash.com/photo-1560706834-5390919f5a7d?auto=format&fit=crop&q=80&w=1000&h=800" 
                 alt="High-Efficiency Residential Air Conditioning Condenser Unit" 
@@ -469,27 +508,29 @@ const Services: React.FC = () => {
         </div>
       </section>
 
-      {/* New AI Interaction Hub */}
       <AIPredictiveHub />
 
       {/* Enhanced Video Learning Center */}
       <section className="py-24 bg-white relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row items-end justify-between mb-16 gap-6">
-            <div className="max-w-2xl">
+            <div className="max-w-2xl text-left">
               <span className="text-emergency-orange font-black uppercase tracking-[0.3em] text-xs mb-4 block">Knowledge Repository</span>
               <h2 className="text-3xl md:text-5xl font-black text-trust-blue uppercase tracking-tighter leading-none mb-6">
-                HVAC Video <span className="text-slate-400 italic">Learning Center</span>
+                HVAC Video <br/><span className="text-slate-400 italic">Learning Center</span>
               </h2>
               <p className="text-slate-500 text-lg font-medium leading-relaxed">
                 Empowering Mississauga homeowners with professional insights. Watch our technicians explain common diagnostic red flags and maintenance protocols.
               </p>
             </div>
-            <div className="bg-slate-50 p-6 rounded-[2rem] border border-slate-100 text-center md:text-right">
-              <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">Content Status</p>
-              <div className="flex items-center gap-2 justify-center md:justify-end">
-                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                <span className="text-sm font-black text-trust-blue uppercase tracking-tighter">Updated Weekly</span>
+            <div className="bg-slate-900 px-8 py-6 rounded-[2.5rem] shadow-2xl border border-white/10 flex items-center gap-6 group">
+              <div className="relative">
+                 <div className="w-3 h-3 bg-red-500 rounded-full animate-ping"></div>
+                 <div className="absolute inset-0 w-3 h-3 bg-red-600 rounded-full"></div>
+              </div>
+              <div className="text-left">
+                 <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Status: Node Active</p>
+                 <span className="text-sm font-black text-white uppercase tracking-tighter">Content Updated Today</span>
               </div>
             </div>
           </div>
@@ -500,23 +541,32 @@ const Services: React.FC = () => {
             ))}
           </div>
           
-          <div className="mt-20 bg-trust-blue p-8 md:p-14 rounded-[3rem] shadow-2xl relative overflow-hidden group">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 -mr-32 -mt-32 rounded-full blur-3xl transition-transform duration-1000 group-hover:scale-150"></div>
-            <div className="flex flex-col lg:flex-row items-center justify-between gap-10 relative z-10 text-center lg:text-left">
+          {/* Enhanced Emergency Link Card */}
+          <div className="mt-20 relative p-1 rounded-[3.5rem] bg-gradient-to-br from-trust-blue via-slate-900 to-emergency-orange shadow-[0_40px_100px_rgba(30,58,138,0.3)] group overflow-hidden">
+            <div className="absolute inset-0 bg-slate-950 opacity-90 transition-opacity group-hover:opacity-80"></div>
+            {/* Background Texture Overlay */}
+            <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
+               <svg className="w-full h-full" viewBox="0 0 100 100"><pattern id="dispatch-grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="white" strokeWidth="0.5"/></pattern><rect width="100%" height="100%" fill="url(#dispatch-grid)"/></svg>
+            </div>
+
+            <div className="relative p-10 md:p-20 flex flex-col lg:flex-row items-center justify-between gap-12 text-center lg:text-left">
               <div className="max-w-2xl">
-                <h4 className="text-2xl md:text-4xl font-black text-white mb-4 uppercase tracking-tighter leading-none">Diagnostic support needed?</h4>
-                <p className="text-blue-100 text-lg font-medium">Our 24/7 technical dispatchers are ready to send a field engineer to your Mississauga location within 2-4 hours.</p>
+                <div className="inline-flex items-center gap-3 bg-white/10 px-4 py-2 rounded-xl mb-6 border border-white/10">
+                   <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                   <span className="text-[10px] text-white font-black uppercase tracking-widest">Priority Dispatch Node Active</span>
+                </div>
+                <h4 className="text-3xl md:text-5xl font-black text-white mb-6 uppercase tracking-tighter leading-tight">Professional <span className="text-emergency-orange">Service Required?</span></h4>
+                <p className="text-blue-100 text-lg md:text-xl font-medium leading-relaxed">Our 24/7 technical dispatchers are ready to send a field engineer to your Mississauga location <span className="text-white font-bold border-b-2 border-emergency-orange">within 2-4 hours.</span></p>
               </div>
-              <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-                <a href="tel:6477465959" className="emergency-orange text-white px-10 py-5 rounded-2xl font-black text-lg hover:scale-105 transition shadow-2xl uppercase tracking-tighter text-center">Dispatch Now</a>
-                <Link to="/contact" className="bg-white/10 backdrop-blur-md border border-white/20 text-white px-10 py-5 rounded-2xl font-black text-lg hover:bg-white/20 transition uppercase tracking-tighter text-center">Request Audit</Link>
+              <div className="flex flex-col sm:flex-row gap-5 w-full sm:w-auto">
+                <a href="tel:6477465959" className="emergency-orange text-white px-12 py-6 rounded-2xl font-black text-xl hover:scale-110 active:scale-95 transition-all shadow-2xl uppercase tracking-tighter text-center">Dispatch Now</a>
+                <Link to="/contact" className="bg-white/10 backdrop-blur-xl border border-white/20 text-white px-12 py-6 rounded-2xl font-black text-xl hover:bg-white/20 transition-all uppercase tracking-tighter text-center">Request Quote</Link>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Rebate Calculator Section Integration */}
       <section className="py-24 bg-slate-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
@@ -527,7 +577,6 @@ const Services: React.FC = () => {
         </div>
       </section>
 
-      {/* FAQ Section */}
       <section className="py-24 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
@@ -547,7 +596,6 @@ const Services: React.FC = () => {
         </div>
       </section>
 
-      {/* Sticky Final CTA */}
       <section className="py-20 bg-slate-900 text-white">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <h2 className="text-3xl md:text-5xl font-black mb-8 uppercase tracking-tighter leading-none">Ready for a Technical Upgrade?</h2>
