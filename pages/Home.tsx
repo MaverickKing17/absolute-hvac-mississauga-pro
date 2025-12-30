@@ -6,70 +6,83 @@ import AIReviewCarousel from '../components/AIReviewCarousel';
 const Home: React.FC = () => {
   return (
     <div className="flex flex-col">
-      {/* Hero Section - Updated with requested asset */}
-      <section className="relative bg-slate-900 overflow-hidden min-h-[600px] flex items-center">
+      {/* Hero Section - Optimized for Crystal Clarity & Visual Appeal */}
+      <section className="relative bg-white overflow-hidden min-h-[700px] flex items-center">
+        {/* Background Image Layer */}
         <div className="absolute inset-0">
           <img 
             src="https://i.ibb.co/LhqfYfRQ/wan2-5-t2i-preview-b-Replace-the-current.png" 
             alt="Absolute Heating and Cooling Professional HVAC Engineering" 
-            className="w-full h-full object-cover opacity-60"
+            className="w-full h-full object-cover object-center"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-900/40 to-transparent"></div>
+          {/* Refined Gradient Overlay for Brightness & Readability */}
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-950/70 via-slate-900/30 to-transparent"></div>
         </div>
+
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32 flex flex-col items-start text-left">
-          <div className="inline-block bg-emergency-orange text-white px-4 py-1.5 rounded-full text-sm font-bold uppercase tracking-widest mb-6 shadow-lg">
+          {/* Promotion Badge */}
+          <div className="inline-block bg-white/10 backdrop-blur-md border border-white/20 text-white px-4 py-1.5 rounded-full text-[10px] md:text-xs font-black uppercase tracking-[0.2em] mb-6 shadow-xl">
             Limited Time Ontario Rebates
           </div>
-          <h1 className="text-4xl md:text-6xl font-extrabold text-white leading-tight max-w-3xl mb-6 uppercase tracking-tighter">
-            Get Up To <span className="text-emergency-orange">$7,100 Back</span> On New Heat Pumps
+
+          {/* Headline with Enhanced Depth */}
+          <h1 className="text-4xl md:text-7xl font-extrabold text-white leading-[1.1] max-w-4xl mb-6 uppercase tracking-tighter drop-shadow-2xl">
+            Get Up To <span className="text-emergency-orange">$7,100 Back</span> <br className="hidden md:block"/>
+            On New Heat Pumps
           </h1>
-          <p className="text-xl text-slate-200 max-w-2xl mb-10 leading-relaxed font-medium">
+
+          {/* Subtext with High Contrast */}
+          <p className="text-lg md:text-xl text-slate-100 max-w-2xl mb-12 leading-relaxed font-medium drop-shadow-lg">
             AI-Optimized HVAC Installation & Repairs in Mississauga. Trust the data-driven experts with a 4.9-star reputation and 15+ years of excellence.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+
+          {/* High-Conversion Buttons */}
+          <div className="flex flex-col sm:flex-row gap-5 w-full sm:w-auto">
             <Link 
               to="/rebates" 
-              className="emergency-orange text-white px-10 py-5 rounded-lg font-bold text-center text-lg hover:scale-105 transition shadow-2xl uppercase tracking-tighter"
+              className="emergency-orange text-white px-12 py-6 rounded-xl font-black text-center text-lg hover:scale-[1.03] active:scale-[0.98] transition-all shadow-[0_20px_50px_rgba(234,88,12,0.4)] uppercase tracking-tighter"
             >
               Check Rebate Eligibility
             </Link>
             <Link 
               to="/contact" 
-              className="bg-white text-trust-blue px-10 py-5 rounded-lg font-bold text-center text-lg hover:bg-slate-100 transition shadow-xl uppercase tracking-tighter"
+              className="bg-white text-trust-blue px-12 py-6 rounded-xl font-black text-center text-lg hover:bg-slate-50 hover:scale-[1.03] active:scale-[0.98] transition-all shadow-2xl uppercase tracking-tighter border border-slate-100"
             >
               Request Free Estimate
             </Link>
           </div>
           
-          {/* Enhanced AI Data Badges */}
-          <div className="mt-12 flex flex-wrap items-center gap-6">
+          {/* Trust Assets Layer - Bottom of Hero */}
+          <div className="mt-16 flex flex-wrap items-center gap-8">
+            {/* Rating Badge */}
             <div className="flex flex-col">
-              <div className="flex text-yellow-400 text-2xl mb-1">
+              <div className="flex text-yellow-400 text-2xl mb-1 drop-shadow-md">
                 ★★★★★
               </div>
               <div className="flex items-baseline gap-2">
-                <p className="text-white font-black text-xl leading-none">4.9/5 Rating</p>
-                <div className="flex items-center gap-1.5 bg-green-500/20 px-2 py-0.5 rounded border border-green-500/30">
+                <p className="text-white font-black text-2xl leading-none drop-shadow-md">4.9/5 Rating</p>
+                <div className="flex items-center gap-1.5 bg-green-500/30 backdrop-blur-md px-2.5 py-1 rounded-full border border-green-500/40">
                    <div className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></div>
-                   <span className="text-[10px] text-green-300 font-bold uppercase tracking-widest">Live Sync</span>
+                   <span className="text-[9px] text-green-100 font-black uppercase tracking-widest">Live Sync</span>
                 </div>
               </div>
-              <p className="text-slate-400 text-xs font-bold uppercase mt-1 tracking-wider">Extracted from 500+ Local Sources</p>
+              <p className="text-slate-300 text-[10px] font-bold uppercase mt-2 tracking-wider drop-shadow-sm">Extracted from 500+ Local Sources</p>
             </div>
             
-            <div className="hidden md:block h-12 w-px bg-slate-700"></div>
+            <div className="hidden md:block h-16 w-px bg-white/20"></div>
             
-            <div className="bg-white/5 backdrop-blur-md p-4 rounded-xl border border-white/10 relative overflow-hidden group">
-              <div className="absolute top-0 left-0 w-full h-0.5 bg-blue-500/50 ai-scan-line"></div>
-              <div className="flex items-center gap-3">
-                <div className="bg-trust-blue/50 p-2 rounded-lg">
-                  <svg className="w-6 h-6 text-blue-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+            {/* Compliance Badge */}
+            <div className="bg-white/10 backdrop-blur-xl p-5 rounded-2xl border border-white/20 relative overflow-hidden group shadow-2xl">
+              <div className="absolute top-0 left-0 w-full h-0.5 bg-blue-400 ai-scan-line"></div>
+              <div className="flex items-center gap-4">
+                <div className="bg-blue-500/40 p-2.5 rounded-xl border border-white/20 shadow-inner">
+                  <svg className="w-7 h-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                   </svg>
                 </div>
                 <div>
-                  <p className="text-[10px] uppercase text-blue-300 font-black tracking-[0.2em] leading-none mb-1">TSSA Certified</p>
-                  <p className="text-white text-sm font-black uppercase italic">Full Compliance Audit</p>
+                  <p className="text-[10px] uppercase text-blue-200 font-black tracking-[0.2em] leading-none mb-1">TSSA Certified</p>
+                  <p className="text-white text-base font-black uppercase italic tracking-tight">Full Compliance Audit</p>
                 </div>
               </div>
             </div>
