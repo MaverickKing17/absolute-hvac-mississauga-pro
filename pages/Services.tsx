@@ -244,7 +244,7 @@ const VideoCard: React.FC<{ video: { title: string; description: string; embedId
   };
 
   return (
-    <div className="bg-white rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-[0_40px_80px_rgba(30,58,138,0.18)] hover:-translate-y-2 hover:border-trust-blue/30 transition-all duration-700 flex flex-col h-full group border border-slate-100">
+    <div className="bg-white rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-[0_40px_80px_rgba(30,58,138,0.2)] hover:-translate-y-2 hover:border-trust-blue/60 hover:ring-4 hover:ring-trust-blue/5 transition-all duration-700 flex flex-col h-full group border border-slate-100 relative">
       <div className="aspect-video bg-slate-900 flex overflow-hidden group/video relative border-b border-slate-100">
         {!isPlaying ? (
           <div className="flex w-full h-full">
@@ -253,7 +253,7 @@ const VideoCard: React.FC<{ video: { title: string; description: string; embedId
                 src={`https://img.youtube.com/vi/${video.embedId}/maxresdefault.jpg`} 
                 alt={video.title}
                 onError={(e) => { e.currentTarget.src = `https://img.youtube.com/vi/${video.embedId}/hqdefault.jpg` }}
-                className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 opacity-90 group-hover:opacity-100 grayscale hover:grayscale-0"
+                className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 opacity-90 group-hover:opacity-100 grayscale group-hover:grayscale-0"
                 loading="lazy"
               />
               <div className="absolute inset-0 bg-gradient-to-r from-slate-950/40 via-transparent to-transparent"></div>

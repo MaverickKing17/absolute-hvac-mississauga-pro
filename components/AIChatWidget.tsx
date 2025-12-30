@@ -1,31 +1,96 @@
 
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect, useRef } from 'react';
+import { GoogleGenAI, GenerateContentResponse } from "@google/genai";
 
 const AIChatWidget: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [inputText, setInputText] = useState("");
+  const [isTyping, setIsTyping] = useState(false);
   const [messages, setMessages] = useState<{ text: string; isBot: boolean }[]>([
     { text: "Hi! I'm Absolute's AI Assistant. Are you looking for a quote or do you have an emergency repair?", isBot: true }
   ]);
+  
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const chatSessionRef = useRef<any>(null);
+
+  // Auto-scroll to bottom on new messages
+  useEffect(() => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [messages, isTyping]);
+
+  const initChat = () => {
+    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+    chatSessionRef.current = ai.chats.create({
+      model: 'gemini-3-flash-preview',
+      config: {
+        systemInstruction: `You are Absolute AI, a highly professional and helpful customer support assistant for Absolute Heating & Cooling Inc. in Mississauga. 
+        Your goal is to assist users with HVAC queries, rebate eligibility ($7,100), and emergency repairs.
+        If an emergency is detected (no heat in winter, gas leak, major water leak), strongly advise calling (647) 746-5959 immediately.
+        Keep responses concise, professional, and data-driven. Use a helpful and empathetic tone.`,
+      },
+    });
+  };
+
+  const handleSendMessage = async (text: string) => {
+    if (!text.trim()) return;
+
+    // Add user message to UI
+    setMessages(prev => [...prev, { text, isBot: false }]);
+    setInputText("");
+    setIsTyping(true);
+
+    if (!chatSessionRef.current) {
+      initChat();
+    }
+
+    try {
+      const responseStream = await chatSessionRef.current.sendMessageStream({ message: text });
+      
+      let fullResponse = "";
+      // Add initial bot message placeholder
+      setMessages(prev => [...prev, { text: "", isBot: true }]);
+
+      for await (const chunk of responseStream) {
+        const c = chunk as GenerateContentResponse;
+        const newText = c.text;
+        if (newText) {
+          fullResponse += newText;
+          setMessages(prev => {
+            const updated = [...prev];
+            updated[updated.length - 1] = { text: fullResponse, isBot: true };
+            return updated;
+          });
+        }
+      }
+    } catch (error) {
+      console.error("AI Communication Error:", error);
+      setMessages(prev => [...prev, { text: "I'm having trouble connecting to my neural network. Please call us directly at (647) 746-5959 for immediate assistance.", isBot: true }]);
+    } finally {
+      setIsTyping(false);
+    }
+  };
 
   const handleQuickReply = (type: string) => {
-    let response = "";
-    if (type === 'rebate') response = "Our systems show you could qualify for up to $7,100 in Ontario rebates. Would you like a free eligibility assessment?";
-    if (type === 'emergency') response = "Emergency detected. Please call our priority line at (647) 746-5959 immediately for the next available crew.";
-    if (type === 'inspection') response = "Great choice. Regular maintenance prevents 90% of mid-winter breakdowns. When would you like us to visit?";
-
-    setMessages(prev => [...prev, { text: type.replace('_', ' '), isBot: false }, { text: response, isBot: true }]);
+    let text = "";
+    if (type === 'rebate') text = "Tell me about the $7,100 heat pump rebates.";
+    if (type === 'emergency') text = "I have an HVAC emergency!";
+    if (type === 'inspection') text = "I'd like to book a maintenance inspection.";
+    handleSendMessage(text);
   };
 
   return (
     <div className="fixed bottom-6 right-6 z-[999] font-sans">
       {!isOpen ? (
         <button 
-          onClick={() => setIsOpen(true)}
+          onClick={() => {
+            setIsOpen(true);
+            if (!chatSessionRef.current) initChat();
+          }}
           className="relative group flex items-center justify-center p-2"
           aria-label="Open AI Chat Assistant"
         >
-          {/* High-intensity pulsing rings for maximum visibility */}
           <div className="absolute inset-0 bg-emergency-orange rounded-full animate-ping opacity-60"></div>
           <div className="absolute inset-0 bg-white rounded-full animate-pulse opacity-20 scale-125"></div>
           
@@ -35,7 +100,6 @@ const AIChatWidget: React.FC = () => {
             </svg>
             <span className="text-[10px] font-black uppercase tracking-tighter leading-none">Ask AI</span>
             
-            {/* High-contrast Live Badge */}
             <div className="absolute -top-2 -right-2 bg-trust-blue text-white text-[10px] font-black px-2.5 py-1 rounded-full border-2 border-white shadow-lg flex items-center gap-1">
               <span className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></span>
               LIVE
@@ -43,9 +107,9 @@ const AIChatWidget: React.FC = () => {
           </div>
         </button>
       ) : (
-        <div className="bg-white w-[350px] md:w-[400px] h-[550px] rounded-[2rem] shadow-[0_20px_60px_rgba(0,0,0,0.25)] border border-slate-200 flex flex-col overflow-hidden animate-in zoom-in-95 slide-in-from-bottom-10 fade-in duration-300">
-          {/* Premium Glassmorphism Header */}
-          <div className="trust-blue p-5 text-white relative overflow-hidden">
+        <div className="bg-white w-[350px] md:w-[400px] h-[600px] rounded-[2rem] shadow-[0_20px_60px_rgba(0,0,0,0.25)] border border-slate-200 flex flex-col overflow-hidden animate-in zoom-in-95 slide-in-from-bottom-10 fade-in duration-300">
+          {/* Header */}
+          <div className="trust-blue p-5 text-white relative overflow-hidden shrink-0">
             <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 -mr-12 -mt-12 rounded-full blur-2xl"></div>
             <div className="relative flex justify-between items-center">
               <div className="flex items-center gap-3">
@@ -59,7 +123,7 @@ const AIChatWidget: React.FC = () => {
                 </div>
                 <div>
                   <h4 className="font-bold text-lg leading-tight">Absolute AI</h4>
-                  <p className="text-[10px] text-blue-200 uppercase tracking-widest font-semibold">Online | Certified Assistant</p>
+                  <p className="text-[10px] text-blue-200 uppercase tracking-widest font-semibold">ONLINE | CERTIFIED ASSISTANT</p>
                 </div>
               </div>
               <button 
@@ -74,23 +138,34 @@ const AIChatWidget: React.FC = () => {
           </div>
           
           {/* Messages Area */}
-          <div className="flex-1 overflow-y-auto p-5 space-y-4 bg-slate-50/50">
+          <div className="flex-1 overflow-y-auto p-5 space-y-4 bg-slate-50/50 scroll-smooth">
             {messages.map((msg, i) => (
               <div key={i} className={`flex ${msg.isBot ? 'justify-start' : 'justify-end'} animate-in slide-in-from-bottom-2 duration-300`}>
-                <div className={`max-w-[85%] p-4 rounded-2xl text-sm leading-relaxed shadow-sm ${
+                <div className={`max-w-[85%] p-4 rounded-2xl text-sm leading-relaxed shadow-sm whitespace-pre-wrap ${
                   msg.isBot 
                     ? 'bg-white text-slate-700 rounded-tl-none border border-slate-100' 
                     : 'trust-blue text-white rounded-tr-none'
                 }`}>
-                  {msg.text}
+                  {msg.text || (isTyping && i === messages.length - 1 ? "..." : "")}
                 </div>
               </div>
             ))}
-            <div id="chat-end"></div>
+            {isTyping && messages[messages.length - 1]?.isBot === false && (
+              <div className="flex justify-start">
+                <div className="bg-white text-slate-400 p-4 rounded-2xl rounded-tl-none border border-slate-100 shadow-sm">
+                  <span className="flex gap-1">
+                    <span className="w-1.5 h-1.5 bg-slate-300 rounded-full animate-bounce"></span>
+                    <span className="w-1.5 h-1.5 bg-slate-300 rounded-full animate-bounce [animation-delay:0.2s]"></span>
+                    <span className="w-1.5 h-1.5 bg-slate-300 rounded-full animate-bounce [animation-delay:0.4s]"></span>
+                  </span>
+                </div>
+              </div>
+            )}
+            <div ref={messagesEndRef}></div>
           </div>
 
-          {/* Quick Replies & Input */}
-          <div className="p-5 bg-white border-t border-slate-100 space-y-4">
+          {/* Controls */}
+          <div className="p-5 bg-white border-t border-slate-100 space-y-4 shrink-0">
             <div className="flex flex-wrap gap-2">
               <button 
                 onClick={() => handleQuickReply('rebate')} 
@@ -112,22 +187,30 @@ const AIChatWidget: React.FC = () => {
               </button>
             </div>
             
-            <div className="relative group">
+            <form 
+              onSubmit={(e) => {
+                e.preventDefault();
+                handleSendMessage(inputText);
+              }}
+              className="relative group"
+            >
               <input 
-                disabled 
                 type="text" 
-                placeholder="AI is listening..." 
-                className="w-full text-sm bg-slate-100 border-none rounded-2xl py-4 pl-5 pr-12 italic text-slate-400 cursor-not-allowed group-hover:bg-slate-200 transition-colors" 
+                value={inputText}
+                onChange={(e) => setInputText(e.target.value)}
+                placeholder="Type your message..." 
+                className="w-full text-sm bg-slate-100 border-none rounded-2xl py-4 pl-5 pr-12 text-slate-700 focus:ring-2 focus:ring-trust-blue/20 outline-none transition-all" 
               />
-              <Link 
-                to="/contact" 
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-trust-blue hover:scale-110 transition-transform p-2 bg-white rounded-xl shadow-sm"
+              <button 
+                type="submit"
+                disabled={!inputText.trim() || isTyping}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-trust-blue hover:scale-110 disabled:opacity-30 disabled:scale-100 transition-all p-2 bg-white rounded-xl shadow-sm"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                   <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
                 </svg>
-              </Link>
-            </div>
+              </button>
+            </form>
             <p className="text-[10px] text-center text-slate-400 font-medium">Powered by Absolute SmartCare™</p>
           </div>
         </div>
