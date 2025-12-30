@@ -83,8 +83,8 @@ const About: React.FC = () => {
             <div className="absolute -inset-4 bg-gradient-to-tr from-trust-blue/20 to-emergency-orange/20 rounded-[3rem] blur-2xl group-hover:opacity-100 transition-opacity opacity-0"></div>
             <div className="rounded-[2.5rem] shadow-2xl relative z-10 border-[6px] border-white overflow-hidden group/img">
               <img 
-                src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&q=80&w=1000&h=1200" 
-                alt="Absolute HVAC Professional Technician performing a precision diagnostic" 
+                src="https://i.ibb.co/KccR7Vvy/gpt-image-1-5-b-Replace-the-current-1.png" 
+                alt="Absolute HVAC Professional Technician performing a precision diagnostic on a control panel" 
                 className="w-full h-full object-cover transition-all duration-700 group-hover/img:scale-110" 
               />
               <div className="absolute bottom-6 left-6 right-6 bg-slate-900/40 backdrop-blur-xl p-6 rounded-2xl border border-white/20">
