@@ -181,7 +181,7 @@ const VideoCard: React.FC<{ video: { title: string; description: string; embedId
   };
 
   return (
-    <div className="bg-white rounded-[2rem] overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 flex flex-col h-full group border border-slate-100">
+    <div className="bg-white rounded-[2rem] overflow-hidden shadow-sm hover:shadow-[0_20px_50px_rgba(30,58,138,0.15)] hover:scale-[1.03] hover:border-trust-blue/40 transition-all duration-500 flex flex-col h-full group border border-slate-100">
       <div className="aspect-video bg-slate-900 relative overflow-hidden">
         {!isPlaying ? (
           <button 
@@ -198,7 +198,7 @@ const VideoCard: React.FC<{ video: { title: string; description: string; embedId
             <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-60"></div>
             <div className="absolute inset-0 bg-trust-blue/10 group-hover:bg-transparent transition-colors"></div>
             
-            <div className="relative z-10">
+            <div className="relative z-10 transition-transform duration-300 group-hover:scale-110">
               <div className="absolute inset-0 bg-white rounded-full blur-xl scale-125 opacity-0 group-hover/btn:opacity-20 transition-opacity"></div>
               <div className="w-16 h-16 md:w-20 md:h-20 flex items-center justify-center relative">
                 <div className="absolute inset-0 bg-white/20 rounded-full animate-ping opacity-30"></div>
