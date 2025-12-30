@@ -10,7 +10,7 @@ const Home: React.FC = () => {
       <section className="relative bg-slate-900 overflow-hidden">
         <div className="absolute inset-0 opacity-40">
           <img 
-            src="https://images.unsplash.com/photo-1621905252507-b354bcadcabc?auto=format&fit=crop&q=80&w=1600&h=900" 
+            src="https://i.ibb.co/LhqfYfRQ/wan2-5-t2i-preview-b-Replace-the-current.png" 
             alt="Absolute HVAC Professional Service" 
             className="w-full h-full object-cover"
           />
