@@ -1,28 +1,20 @@
-# Absolute Heating and Cooling Inc. — Digital Authority Revamp 🚀
-**Location:** Mississauga, ON  
-**Status:** Multi-Page Production Build  
-**Stack:** HTML5, Tailwind CSS, Vercel Edge Network
+<div align="center">
+<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
+</div>
 
-## 🎯 Project Overview
-This project is a high-performance digital overhaul for **Absolute Heating and Cooling Inc.** The goal is to replace their offline web presence with a multi-page "Lead Machine" optimized for the Toronto/Mississauga HVAC market.
+# Run and deploy your AI Studio app
 
-## 🏗️ Site Architecture
-* **Home:** 5-star reputation hub featuring Google Review integration (4.9-star rating).
-* **Rebate Center:** Educational funnel for the **$7,100 Heat Pump Rebates** (Enbridge/Government).
-* **Services:** High-intent pages for Furnace Repair, AC Installation, and Water Heaters.
-* **About:** Highlighting Mississauga roots and TSSA licensing (Trust Signals).
-* **Contact:** Mobile-optimized conversion page with "One-Tap Call" functionality.
+This contains everything you need to run your app locally.
 
-## ⚡ Technical Features
-* **Zero-Belly Architecture:** Minimalist Tailwind CSS build for <1s global load times.
-* **Mobile-First UX:** Sticky navigation and emergency contact buttons for freezing GTA winters.
-* **Local SEO:** Schema markup and metadata optimized for "HVAC Mississauga" and "Heat Pump Rebates Ontario".
-* **Vercel Hosting:** Deployed on a global CDN for 99.9% uptime (fixing the client's previous downtime issues).
+View your app in AI Studio: https://ai.studio/apps/drive/1aWcP2oeHMjCXDHTkSaKB5732p6Rr4yfE
 
-## 🛠️ Deployment Instructions
-1. Clone the repository.
-2. Open `index.html` to view the primary entry point.
-3. Push to the `main` branch to trigger an automatic deployment to Vercel.
+## Run Locally
 
-## 📄 License & Ownership
-Designed and built by [Your Name] as a **Founding Client Portfolio Project**. Full code ownership transfers to the client upon final project launch.
+**Prerequisites:**  Node.js
+
+
+1. Install dependencies:
+   `npm install`
+2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
+3. Run the app:
+   `npm run dev`
