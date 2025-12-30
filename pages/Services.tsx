@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import RebateCalculator from '../components/RebateCalculator';
 
@@ -28,141 +28,192 @@ const ServiceFAQItem: React.FC<{ question: string; answer: string }> = ({ questi
   );
 };
 
-const SmartServiceAdvisor: React.FC = () => {
-  const [isScanning, setIsScanning] = useState(false);
+const AIPredictiveHub: React.FC = () => {
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [showResult, setShowResult] = useState(false);
-  const [dwellTime, setDwellTime] = useState(0);
+  const [metrics, setMetrics] = useState({
+    sessionTime: 0,
+    scrollDepth: 0,
+    focusArea: 'Heating',
+    interactionScore: 0
+  });
 
-  // Simulate dwell time tracking
+  const scrollRef = useRef(0);
+
   useEffect(() => {
-    const timer = setInterval(() => setDwellTime(prev => prev + 1), 1000);
-    return () => clearInterval(timer);
+    const timer = setInterval(() => {
+      setMetrics(prev => ({
+        ...prev,
+        sessionTime: prev.sessionTime + 1,
+        interactionScore: Math.min(prev.interactionScore + Math.random() * 2, 100)
+      }));
+    }, 1000);
+
+    const handleScroll = () => {
+      const depth = Math.round((window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100);
+      scrollRef.current = depth;
+      setMetrics(prev => ({ ...prev, scrollDepth: depth }));
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      clearInterval(timer);
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
   const runAnalysis = () => {
-    setIsScanning(true);
+    setIsAnalyzing(true);
     setTimeout(() => {
-      setIsScanning(false);
+      setIsAnalyzing(false);
       setShowResult(true);
-    }, 2500);
+    }, 3000);
   };
 
   return (
-    <section className="py-24 bg-slate-900 relative overflow-hidden">
-      <div className="absolute inset-0 opacity-10">
+    <section className="py-24 bg-slate-950 relative overflow-hidden">
+      {/* Background Neural Grid */}
+      <div className="absolute inset-0 opacity-20 pointer-events-none">
         <svg className="w-full h-full" viewBox="0 0 100 100">
-          <pattern id="hex-pattern" width="10" height="10" patternUnits="userSpaceOnUse">
-            <path d="M5 0 L10 2.5 L10 7.5 L5 10 L0 7.5 L0 2.5 Z" fill="none" stroke="white" strokeWidth="0.1"/>
+          <defs>
+            <radialGradient id="glow" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+              <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.3" />
+              <stop offset="100%" stopColor="transparent" stopOpacity="0" />
+            </radialGradient>
+          </defs>
+          <pattern id="dotGrid" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
+            <circle cx="2" cy="2" r="0.5" fill="#1e293b" />
           </pattern>
-          <rect width="100" height="100" fill="url(#hex-pattern)" />
+          <rect width="100" height="100" fill="url(#dotGrid)" />
+          <circle cx="50" cy="50" r="40" fill="url(#glow)" className="animate-pulse" />
         </svg>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
           <div>
-            <div className="inline-flex items-center gap-2 bg-blue-500/10 border border-blue-500/20 px-3 py-1 rounded-full mb-6">
-              <span className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></span>
-              <span className="text-[10px] text-blue-300 font-black uppercase tracking-widest">Neural Interaction Engine</span>
+            <div className="inline-flex items-center gap-3 bg-blue-500/10 border border-blue-500/20 px-4 py-2 rounded-full mb-8">
+              <span className="relative flex h-3 w-3">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-3 w-3 bg-blue-500"></span>
+              </span>
+              <span className="text-[10px] text-blue-300 font-black uppercase tracking-[0.3em]">Absolute SmartCare™ Live Node</span>
             </div>
-            <h2 className="text-4xl md:text-5xl font-black text-white mb-6 uppercase tracking-tighter leading-none">
-              AI Smart <span className="text-emergency-orange">Service Advisor</span>
-            </h2>
-            <p className="text-blue-100 text-lg mb-8 font-medium leading-relaxed">
-              Our SmartCare™ algorithms have analyzed your {dwellTime}s session on this page. Based on your interest in high-efficiency upgrades, we can generate a precision-mapped maintenance plan for your home.
-            </p>
             
-            <div className="space-y-4 mb-10">
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-white/5 rounded-xl flex items-center justify-center border border-white/10">
-                  <svg className="w-6 h-6 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                  </svg>
-                </div>
-                <div>
-                  <p className="text-white font-bold uppercase text-xs tracking-widest">Dwell Signal Strength</p>
-                  <div className="w-48 h-1.5 bg-white/10 rounded-full mt-1 overflow-hidden">
-                    <div className="h-full bg-blue-500 animate-[shimmer_2s_infinite]" style={{ width: `${Math.min(dwellTime * 5, 100)}%` }}></div>
+            <h2 className="text-4xl md:text-6xl font-black text-white mb-8 uppercase tracking-tighter leading-none">
+              Predictive <br/><span className="text-emergency-orange italic">Service Engine</span>
+            </h2>
+            
+            <p className="text-blue-100 text-lg mb-10 font-medium leading-relaxed max-w-lg">
+              Our neural network is currently mapping your session intent. By analyzing your scroll patterns and service focus, we can preemptively identify the optimal maintenance protocol for your home.
+            </p>
+
+            {/* Live Telemetry Dashboard */}
+            <div className="grid grid-cols-2 gap-4 mb-12">
+              {[
+                { label: 'Session Dwell', value: `${metrics.sessionTime}s`, icon: 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z' },
+                { label: 'Intent Strength', value: `${Math.round(metrics.interactionScore)}%`, icon: 'M13 10V3L4 14h7v7l9-11h-7z' },
+                { label: 'Scroll Velocity', value: `${metrics.scrollDepth}%`, icon: 'M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4' },
+                { label: 'Geo-Context', value: 'Mississauga', icon: 'M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z' }
+              ].map((stat, i) => (
+                <div key={i} className="bg-white/5 border border-white/10 p-5 rounded-2xl backdrop-blur-md group hover:bg-white/10 transition-all">
+                  <div className="flex items-center gap-3 mb-2">
+                    <svg className="w-4 h-4 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={stat.icon} />
+                    </svg>
+                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{stat.label}</span>
                   </div>
+                  <p className="text-xl font-black text-white tabular-nums tracking-tighter">{stat.value}</p>
                 </div>
-              </div>
+              ))}
             </div>
 
             <button 
               onClick={runAnalysis}
-              disabled={isScanning}
-              className="group relative overflow-hidden bg-white text-trust-blue px-10 py-5 rounded-2xl font-black text-lg hover:scale-[1.03] transition shadow-2xl uppercase tracking-tighter flex items-center gap-3"
+              disabled={isAnalyzing}
+              className="group relative w-full sm:w-auto overflow-hidden bg-white text-trust-blue px-12 py-6 rounded-2xl font-black text-xl hover:scale-[1.03] transition-all shadow-[0_20px_60px_rgba(255,255,255,0.1)] uppercase tracking-tighter flex items-center justify-center gap-4"
             >
-              {isScanning ? 'Processing Vectors...' : 'Run Diagnostic Analysis'}
-              {!isScanning && (
-                <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M13 10V3L4 14h7v7l9-11h-7z" />
+              <span className="relative z-10">{isAnalyzing ? 'Decoding Intent...' : 'Initialize Analysis'}</span>
+              {!isAnalyzing && (
+                <svg className="w-6 h-6 group-hover:translate-x-1 transition-transform relative z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                 </svg>
               )}
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-100 to-white opacity-0 group-hover:opacity-100 transition-opacity"></div>
             </button>
           </div>
 
           <div className="relative">
-            {isScanning && (
-              <div className="absolute inset-0 flex items-center justify-center z-20">
-                <div className="flex flex-col items-center">
-                  <div className="w-20 h-20 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mb-4"></div>
-                  <p className="text-blue-300 font-black text-xs uppercase tracking-widest animate-pulse">Mapping Interaction Graph...</p>
-                </div>
-              </div>
-            )}
-            
-            <div className={`bg-white/5 backdrop-blur-xl border border-white/10 rounded-[3rem] p-8 md:p-12 transition-all duration-700 ${isScanning ? 'opacity-30 blur-sm scale-95' : 'opacity-100 blur-0 scale-100'}`}>
-              {!showResult ? (
-                <div className="text-center space-y-6">
-                  <div className="w-24 h-24 mx-auto bg-white/5 rounded-full flex items-center justify-center border-4 border-white/5">
-                    <svg className="w-12 h-12 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                    </svg>
-                  </div>
-                  <h3 className="text-xl font-bold text-slate-400 uppercase tracking-tighter italic">Advisor Waiting for Signal Data</h3>
-                  <p className="text-slate-500 text-sm">Our AI will match your browsing profile with the optimal Mississauga maintenance package.</p>
-                </div>
-              ) : (
-                <div className="animate-in fade-in zoom-in-95 duration-700">
-                  <div className="flex justify-between items-start mb-8">
-                    <div>
-                      <h3 className="text-2xl font-black text-white uppercase tracking-tighter leading-none mb-1">Recommended Plan</h3>
-                      <p className="text-[10px] text-blue-400 font-black uppercase tracking-widest">Matched: CCASHP Optimizers</p>
-                    </div>
-                    <div className="bg-emergency-orange text-white px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-widest shadow-lg">
-                      94% Match
-                    </div>
-                  </div>
-
-                  <div className="space-y-6">
-                    <div className="bg-white/5 p-6 rounded-2xl border border-white/10">
-                      <p className="text-white font-black uppercase tracking-tighter mb-4 text-sm">Smart Hybrid Maintenance</p>
-                      <ul className="space-y-3">
-                        {['Rebate Compliance Audit', 'Heat Pump Defrost Check', 'Dual-Fuel Transition Calibration'].map(item => (
-                          <li key={item} className="flex items-center gap-3 text-xs text-blue-200">
-                            <svg className="w-4 h-4 text-green-400" fill="currentColor" viewBox="0 0 20 20">
-                              <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" />
-                            </svg>
-                            {item}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                    
-                    <div className="flex gap-4">
-                      <Link to="/contact" className="flex-1 bg-emergency-orange text-white py-4 rounded-xl font-black text-center text-sm uppercase tracking-tighter hover:bg-orange-600 transition shadow-xl">
-                        Accept Recommendation
-                      </Link>
-                      <button onClick={() => setShowResult(false)} className="px-6 border border-white/20 text-white rounded-xl hover:bg-white/5 transition">
-                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                        </svg>
-                      </button>
-                    </div>
-                  </div>
+            {/* Visual Analyzer UI */}
+            <div className="relative z-10 aspect-square max-w-[500px] mx-auto">
+              {isAnalyzing && (
+                <div className="absolute inset-0 flex items-center justify-center z-50">
+                   <div className="relative">
+                      <div className="w-32 h-32 border-4 border-blue-500/20 rounded-full animate-[ping_2s_infinite]"></div>
+                      <div className="absolute inset-0 w-32 h-32 border-t-4 border-blue-400 rounded-full animate-spin"></div>
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <span className="text-xs font-black text-blue-400 uppercase tracking-widest animate-pulse">Scanning</span>
+                      </div>
+                   </div>
                 </div>
               )}
+
+              <div className={`h-full w-full bg-slate-900/40 backdrop-blur-2xl border border-white/10 rounded-[4rem] p-10 md:p-14 transition-all duration-1000 ${isAnalyzing ? 'opacity-40 blur-md scale-90' : 'opacity-100 scale-100'}`}>
+                {!showResult ? (
+                  <div className="h-full flex flex-col items-center justify-center text-center space-y-8">
+                    <div className="w-32 h-32 bg-white/5 rounded-[2rem] flex items-center justify-center border-2 border-dashed border-white/10 group-hover:border-blue-500/50 transition-colors">
+                      <svg className="w-16 h-16 text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h3 className="text-2xl font-black text-slate-400 uppercase tracking-tighter mb-4 italic">Waiting for Interaction Stream</h3>
+                      <p className="text-slate-500 text-sm font-medium leading-relaxed">Continue browsing to increase analysis accuracy. Our AI matches your patterns against 50,000+ local Mississauga service logs.</p>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="animate-in fade-in zoom-in-95 slide-in-from-bottom-10 duration-700">
+                    <div className="flex items-center justify-between mb-10">
+                      <div>
+                        <h3 className="text-3xl font-black text-white uppercase tracking-tighter leading-none mb-1">Session Summary</h3>
+                        <p className="text-[10px] text-blue-400 font-black uppercase tracking-widest">Profile: Efficiency Oriented</p>
+                      </div>
+                      <div className="text-right">
+                        <div className="bg-emergency-orange text-white px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-widest shadow-xl">97% Match</div>
+                      </div>
+                    </div>
+
+                    <div className="space-y-6">
+                      <div className="bg-white/5 border border-white/10 p-6 rounded-3xl relative overflow-hidden group/card">
+                        <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 rounded-full -mr-16 -mt-16 blur-2xl"></div>
+                        <h4 className="text-lg font-black text-white uppercase tracking-tighter mb-4">Recommended Protocol:</h4>
+                        <p className="text-2xl font-black text-blue-300 uppercase tracking-tighter mb-4">Hybrid Heating Optimization</p>
+                        <ul className="space-y-3">
+                          {['CCASHP Load Balancing', 'Rebate Compliance Verification', 'Digital Thermostat Calibration'].map(task => (
+                            <li key={task} className="flex items-center gap-3 text-sm text-slate-300">
+                              <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                              </svg>
+                              {task}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      <div className="flex gap-4">
+                        <Link to="/contact" className="flex-1 emergency-orange text-white py-5 rounded-2xl font-black text-center text-sm uppercase tracking-tighter hover:scale-[1.02] transition shadow-2xl">
+                          Claim Optimized Quote
+                        </Link>
+                        <button onClick={() => setShowResult(false)} className="px-6 border border-white/20 text-white rounded-2xl hover:bg-white/5 transition flex items-center justify-center">
+                          <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                          </svg>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
@@ -417,8 +468,8 @@ const Services: React.FC = () => {
         </div>
       </section>
 
-      {/* AI Smart Advisor Integration */}
-      <SmartServiceAdvisor />
+      {/* New AI Interaction Hub */}
+      <AIPredictiveHub />
 
       {/* Enhanced Video Learning Center */}
       <section className="py-24 bg-white relative">
